@@ -1,0 +1,227 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+      <div class="col-md-8">
+
+
+
+
+<form class="align-center">
+
+<ng-template  [ngIf]="isEditMode">
+
+        <form  >
+
+
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationDefault01">First name</label>
+              <input type="text" class="form-control" name="firstName" placeholder="First name" [(ngModel)]="user.firstName" readonly>
+
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="validationDefault02">Last name</label>
+              <input type="text" class="form-control"   name="lastName"    [(ngModel)]="user.lastName" readonly>
+            </div>
+          </div>
+        <!--------------------------------------------------------------------------------------------------------------------->
+
+          <div class="form-row">
+            <div class="col-md-8 mb-3">
+              <label for="validationDefault03">email</label>
+              <input type="text" class="form-control"   name="email" placeholder="Email"  [(ngModel)]="user.email" readonly>
+            </div>
+          </div>
+        <!--------------------------------------------------------------------------------------------------------------------->
+
+
+          <div class="form-row">
+
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefaultUsername">Username</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupPrepend2" >&#64;</span>
+                    </div>
+                    <input type="text" class="form-control"  name="username" placeholder="Username"   [(ngModel)]="user.username" aria-describedby="inputGroupPrepend2" readonly>
+                  </div>
+                </div>
+
+            <div class="col-md-4 mb-3">
+                  <label for="validationDefaultUsername">Specialite</label>
+                  <div class="input-group">
+
+                    <input type="text" class="form-control"  name="specialite" placeholder="Specialite"   [(ngModel)]="user.specialite" aria-describedby="inputGroupPrepend2" readonly>
+                  </div>
+            </div>
+          </div>
+        <!--------------------------------------------------------------------------------------------------------------------->
+          <div class="form-row">
+            <div class="col-md-8 mb-3">
+              <label for="validationDefault03">Adresse</label>
+              <input type="text" class="form-control"  name="localisation" placeholder="Adresse"   [(ngModel)]="user.localisation" readonly>
+            </div>
+
+          </div>
+        <!--------------------------------------------------------------------------------------------------------------------->
+
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationDefault01">Matricule</label>
+              <input type="text" class="form-control" id="validationDefault01" name="matricule" placeholder="Matricule"  [(ngModel)]="user.matricule" readonly>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="validationDefault02">Phone</label>
+              <input type="text" class="form-control"  name="tel" placeholder="Phone"  [(ngModel)]="user.tel" readonly>
+            </div>
+          </div>
+
+        <!--------------------------------------------------------------------------------------------------------------------->
+
+
+
+          <button  *ngIf="!user.demandeMod" class="btn btn-primary"  type="submit" (click)="demandemodification()">demande de modification</button>
+          <button  *ngIf="user.demandeMod"class="btn btn-primary"  type="submit" (click)="switch()">Modifier</button>
+        </form>
+      </ng-template>
+
+
+
+
+<ng-template  [ngIf]="isSwitched">
+
+
+<form #formProfile="ngForm"  >
+
+
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault01">First name</label>
+      <input type="text" class="form-control"   name="firstName" placeholder="First name"   [(ngModel)]="user.firstName"  required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault02">Last name</label>
+      <input type="text" class="form-control"   name="lastName" placeholder="Last name"   [(ngModel)]="user.lastName" required>
+    </div>
+  </div>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+  <div class="form-row">
+    <div class="col-md-8 mb-3">
+      <label for="validationDefault03">email</label>
+      <input type="text" class="form-control"   name="email" placeholder="Email" ngModel [(ngModel)]="user.email" required>
+    </div>
+  </div>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+  <div class="form-row">
+
+        <div class="col-md-4 mb-3">
+          <label for="validationDefaultUsername">Username</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend2" >&#64;</span>
+            </div>
+            <input type="text" class="form-control"  name="username" placeholder="Username" ngModel  [(ngModel)]="user.username" aria-describedby="inputGroupPrepend2" readonly>
+          </div>
+        </div>
+
+    <div class="col-md-4 mb-3">
+          <label for="validationDefaultUsername">Specialite</label>
+          <div class="input-group">
+
+            <input type="text" class="form-control"  name="specialite" placeholder="Specialite" ngModel  [(ngModel)]="user.specialite" aria-describedby="inputGroupPrepend2" required>
+          </div>
+    </div>
+  </div>
+<!--------------------------------------------------------------------------------------------------------------------->
+  <div class="form-row">
+    <div class="col-md-8 mb-3">
+      <label for="validationDefault03">Adresse</label>
+      <input type="text" class="form-control"  name="localisation" placeholder="Adresse" ngModel  [(ngModel)]="user.localisation" required>
+    </div>
+
+  </div>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+<div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault01">Matricule</label>
+      <input type="text" class="form-control" id="validationDefault01" name="matricule" placeholder="Matricule" ngModel [(ngModel)]="user.matricule" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault02">Phone</label>
+      <input type="text" class="form-control"  name="tel" placeholder="Phone" ngModel [(ngModel)]="user.tel" required>
+    </div>
+  </div>
+  <button class="btn btn-primary"  type="submit" (click)="switch2(formProfile)">Valider modification</button>
+
+
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+
+</form></ng-template>
+
+
+  <ng-template  [ngIf]="isSwitched2">
+
+    <form [formGroup]="myForm2">
+
+      <div class="form-group">
+        <div class="col-md-4 mb-3">
+          <label>Mot de passe :</label>
+          <input type="password" name="password" formControlName="password" [(ngModel)]="password"
+              class="form-control">
+            </div>
+      </div>
+      <span *ngIf="myForm2.controls['password'].hasError('required')&&
+  myForm2.controls['password'].touched" class="text-danger">
+          mot de passe est obligatoire
+      </span>
+      <span *ngIf="myForm2.controls['password'].hasError('minlength')&&
+  myForm2.controls['password'].touched" class="text-danger">
+          mot de passe doit contenir au moins 6 caractères
+      </span>
+      <div class="form-group">
+        <div class="col-md-4 mb-3">
+          <label>Confirmer Mot de passe :</label>
+          <input type="password" name="confirmPassword" formControlName="confirmPassword"
+              class="form-control">
+        </div>
+      </div>
+  <span *ngIf="myForm2.controls['confirmPassword'].hasError('required')&& myForm2.controls['confirmPassword'].touched" class="text-danger">
+          confirmer mot de passe est obligatoire
+      </span>
+      <div>
+  <span *ngIf="myForm2.get('confirmPassword')?.touched &&
+  myForm2.get('confirmPassword')?.value != myForm2.get('password')?.value" class="text-danger">
+              Le mot de passe confrmé ne correspond pas au mot de passe tapé
+          </span>
+      </div>
+
+      <div *ngIf="loading==true" class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+          </div>
+      </div>
+
+      <button type="button" [disabled]="myForm2.invalid" class="btn btn-success"
+      (click)="verifpassword()">Valider</button>
+
+
+
+  </form>
+
+</ng-template>
+
+
+
+</form>
+</div>
+</div>
+</div>
+
+

@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+      <div class="col-md-11">
+
+      <div class="filter-container">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Filtrer par Username</span>
+          <input type="text" class="form-control" id="filterName" placeholder="Nom" aria-label="Filter by Name:" aria-describedby="basic-addon1" [(ngModel)]="filterName" (input)="filter()"/>
+        </div>
+      </div>
+
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Username</th>
+              <th scope="col">First name</th>
+              <th scope="col">Last name</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of filteredUsers">
+              <th scope="row">{{ user.id }}</th>
+              <td>{{ user.username }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <button  class="btn btn-primary" (click)="confirmValidation(user)" >Valider</button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+  </div>
+</div>
