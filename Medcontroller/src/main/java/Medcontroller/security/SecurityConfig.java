@@ -29,23 +29,9 @@ public class SecurityConfig {
 	
 	@Autowired
 	AuthenticationManager authMgr;
-	@Autowired
- 	UserDetailsService userDetailsService;
- 	
- 	@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Bean
-	public AuthenticationManager authManager(HttpSecurity http, 
-			BCryptPasswordEncoder bCryptPasswordEncoder, 
-			UserDetailsService userDetailsService) 
-	  throws Exception {
-	    return http.getSharedObject(AuthenticationManagerBuilder.class)
-	      .userDetailsService(userDetailsService)
-	      .passwordEncoder(bCryptPasswordEncoder)
-	      .and()
-	      .build();
-	}
+	
+	
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception
 	{
@@ -67,13 +53,10 @@ public class SecurityConfig {
             }
         }))
 		.authorizeHttpRequests( requests -> requests
-				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**","/delete/**").permitAll()
+				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**").permitAll()
 				.requestMatchers(HttpMethod.GET, "/recuperer/**").permitAll()
-				.requestMatchers("/all").permitAll()
-				.requestMatchers("/demande").permitAll()
-				.requestMatchers("/updateUser").permitAll()	
-				.requestMatchers("/updatePassword").permitAll()		
-				.requestMatchers("/verif").permitAll()		
+				.requestMatchers("/all").hasAuthority("USER")
+				.requestMatchers("/updateUser").permitAll()		
 				.anyRequest().authenticated() )
 		
 		.addFilterBefore(new JWTAuthenticationFilter(authMgr), 

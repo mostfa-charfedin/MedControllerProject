@@ -28,8 +28,7 @@ import Medcontroller.repository.VerificationTokenRepository;
 
 
 
-
-
+@Transactional
 @Service
 public class UserServiceImpl  implements UserService{
 
@@ -107,7 +106,7 @@ public class UserServiceImpl  implements UserService{
 		return  userRep.findById(id).get();
 	}
 
-	
+
 	@Override
 	public User registerUser(RegistrationRequest request) {
 
@@ -122,7 +121,6 @@ public class UserServiceImpl  implements UserService{
 		newUser.setUsername(request.getUsername());
 		newUser.setEmail(request.getEmail());
 		newUser.setPassword( bCryptPasswordEncoder.encode( request.getPassword() )  );
-	
 		newUser.setIsActive(false);
 		newUser.setFirstName(request.getFirstName());
 		newUser.setLastName(request.getLastName());
@@ -130,7 +128,6 @@ public class UserServiceImpl  implements UserService{
 		newUser.setMatricule(request.getMatricule());
 		newUser.setSpecialite(request.getSpecialite());
 		newUser.setFirstName(request.getFirstName());
-		
 		
 		
 	
@@ -153,6 +150,7 @@ public class UserServiceImpl  implements UserService{
 		return userRep.save(newUser);
 	}
 
+
 	public String generateCode() {
 		 Random random = new Random();
 		 Integer code = 100000 + random.nextInt(900000);
@@ -172,7 +170,6 @@ public class UserServiceImpl  implements UserService{
 
 
 	
-
 	@Override
 	@Transactional
 	public User validateToken(String code) {
@@ -210,36 +207,33 @@ public class UserServiceImpl  implements UserService{
 
 
 
-
-
-
 	
 	
 
 
-@Override
-public void deleteUserRole(Long id) {
-    Optional<User> userOptional = userRep.findById(id);
+	@Override
+	public void deleteUserRole(Long id) {
+	    Optional<User> userOptional = userRep.findById(id);
 
-    if (userOptional.isPresent()) {
-        User user = userOptional.get();
+	    if (userOptional.isPresent()) {
+	        User user = userOptional.get();
 
-        // Supprimer l'utilisateur et les relations dans la table de jointure
-        user.getRoles().clear(); // Supprime toutes les relations ManyToMany
+	        // Supprimer l'utilisateur et les relations dans la table de jointure
+	        user.getRoles().clear(); // Supprime toutes les relations ManyToMany
 
-        // Supprimer le token de vérification s'il existe
-        if (user.getVerificationTokens() != null) {
-           // verificationTokenRepo.deleteById(user.getVerificationTokens().getId());
-        	user.getVerificationTokens().clear();
-        }
+	        // Supprimer le token de vérification s'il existe
+	        if (user.getVerificationTokens() != null) {
+	           // verificationTokenRepo.deleteById(user.getVerificationTokens().getId());
+	        	user.getVerificationTokens().clear();
+	        }
 
-        // Supprimer l'utilisateur
-        userRep.deleteById(id);
+	        // Supprimer l'utilisateur
+	        userRep.deleteById(id);
 
-        System.out.println("User deleted");
-    } else {
-        System.out.println("User not found");
-    }
+	        System.out.println("User deleted");
+	    } else {
+	        System.out.println("User not found");
+	    }
 }
 
 

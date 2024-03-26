@@ -24,20 +24,6 @@ public class GlobalExceptionHandler {
 	 return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	 }
 	 
-	
-	@ExceptionHandler(PasswordDoesntMatchException.class)
-	 public ResponseEntity<ErrorDetails> handlePasswordDoesntMatchException(PasswordDoesntMatchException exception,
-	 WebRequest webRequest){
-		
-	 ErrorDetails errorDetails = new ErrorDetails(
-			 LocalDateTime.now(),
-			 exception.getMessage(),
-			 webRequest.getDescription(false),
-			 "PASSWORD_DOESNT_MATCH"
-	 );
-	 return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-	 }
-	 
 	@ExceptionHandler(UsernameAlreadyExistsException.class)
 	 public ResponseEntity<ErrorDetails> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException exception,
 	 WebRequest webRequest){
