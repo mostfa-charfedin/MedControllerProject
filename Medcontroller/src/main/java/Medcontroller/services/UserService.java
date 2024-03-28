@@ -22,7 +22,6 @@ public interface UserService {
 	public String generateCode();
 	public void sendEmailUser(User u, String code);
 	public User validateToken(String code);
-	//void deletetoken(String token);
 	
 	
 

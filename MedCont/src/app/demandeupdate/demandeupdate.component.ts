@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
-import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-demandeupdate',
   templateUrl: './demandeupdate.component.html',
@@ -42,7 +42,7 @@ export class DemandeupdateComponent implements OnInit {
       this.userService.acceptDemande(user.id).subscribe(
         (updatedUser) => {
           console.log('User validation status updated successfully on the server');
-
+          this.router.navigate(['demupdate']);
         },
         error => console.error('Error updating user validation status:', error)
       );
@@ -56,7 +56,7 @@ export class DemandeupdateComponent implements OnInit {
   filter() {
     if(this.filterName === ""){
       this.filteredUsers = this.users
-     this.applyFilter();
+
     }
     else {
 

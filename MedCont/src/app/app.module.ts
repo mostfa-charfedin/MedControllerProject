@@ -14,6 +14,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './profile/profile.component';
 import { RecupererComponent } from './recuperer/recuperer.component';
 import { DemandeupdateComponent } from './demandeupdate/demandeupdate.component';
+import { PdfComponent } from './pdf/pdf.component';
+import { PdfRCDntComponent } from './pdf-r-c-dnt/pdf-r-c-dnt.component';
+import { PdfRCOpComponent } from './pdf-r-c-op/pdf-r-c-op.component';
+import { FactOptComponent } from './fact-opt/fact-opt.component';
+
 
 
 @NgModule({
@@ -27,6 +32,11 @@ import { DemandeupdateComponent } from './demandeupdate/demandeupdate.component'
       ProfileComponent,
       RecupererComponent,
       DemandeupdateComponent,
+      PdfComponent,
+      PdfRCDntComponent,
+      PdfRCOpComponent,
+      FactOptComponent,
+
 
 
   ],
@@ -38,7 +48,7 @@ import { DemandeupdateComponent } from './demandeupdate/demandeupdate.component'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-      // ToastrModule added
+
   ],
   providers: [
     provideAnimations(),

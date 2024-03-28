@@ -94,12 +94,12 @@ export class ProfileComponent implements OnInit {
         next: (data) => {
           this.toastr.success('Pasword valide, Profile updated', 'Confirmation');
           this.isSwitched =false;
-//this.user.password=this.password;
+
 
 this.userService.updateUser(this.user).subscribe({
   next: (data) => {
+this.user=data;
 
-console.log("data",data)
 this.router.navigate(['/profile']);
 this.isEditMode =true;
 this.isSwitched=false;
