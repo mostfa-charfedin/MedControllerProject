@@ -18,7 +18,8 @@ import { PdfComponent } from './pdf/pdf.component';
 import { PdfRCDntComponent } from './pdf-r-c-dnt/pdf-r-c-dnt.component';
 import { PdfRCOpComponent } from './pdf-r-c-op/pdf-r-c-op.component';
 import { FactOptComponent } from './fact-opt/fact-opt.component';
-
+import {MatSelectModule} from '@angular/material/select';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 @NgModule({
@@ -48,10 +49,12 @@ import { FactOptComponent } from './fact-opt/fact-opt.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    MatSelectModule,
 
   ],
   providers: [
     provideAnimations(),
+    provideAnimationsAsync(),
 
   ],
   bootstrap: [AppComponent]

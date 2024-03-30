@@ -55,7 +55,7 @@ public class UserRestController {
 	
 	
 	
-	@RequestMapping(path = "all",method = RequestMethod.GET)
+	@RequestMapping(path = "/all",method = RequestMethod.GET)
 	public List<User> getAllUsers() {
 		return userRep.findAll();
 	 }

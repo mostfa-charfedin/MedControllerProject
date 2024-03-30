@@ -23,14 +23,14 @@ public class MedcontrollerApplication {
 	}
 	
 	
-
-/*	@PostConstruct
+/*
+	@PostConstruct
 	void init_users() {
 		//ajouter les rôles
 		userService.addRole(new Role(null,"ADMIN"));
 		userService.addRole(new Role(null,"USER"));}
-	*/
 	
+/*	*/
 	
 
 }

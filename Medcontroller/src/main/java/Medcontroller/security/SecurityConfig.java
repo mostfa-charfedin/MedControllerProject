@@ -56,7 +56,8 @@ public class SecurityConfig {
 				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**","/verif","/updatePassword","/acceptDm","/demande").permitAll()
 				.requestMatchers(HttpMethod.GET, "/recuperer/**").permitAll()
 				.requestMatchers("/all").hasAuthority("USER")
-				.requestMatchers("/updateUser").permitAll()		
+				.requestMatchers("/updateUser","/all").permitAll()		
+				.requestMatchers("/upload").permitAll()		
 				.anyRequest().authenticated() )
 		
 		.addFilterBefore(new JWTAuthenticationFilter(authMgr), 
