@@ -19,10 +19,14 @@ export class DemandeupdateComponent implements OnInit {
   ngOnInit(): void {
     this.loadUsers();
 
+
+  }
+
+  loadUsers(): void {
     this.userService.getAllUsers().subscribe(
       (response) => {
         this.users = response;
-        this.applyFilter(); // Apply filter after fetching users
+        this.filteredUsers = this.users.filter(user => !user.demandeMod);
       },
       (error) => {
         console.error('Error fetching users: ', error);
@@ -30,32 +34,22 @@ export class DemandeupdateComponent implements OnInit {
     );
   }
 
-  loadUsers(): void {
-    this.userService.getAllUsers().subscribe(users => {
-      this.users = users;
-    });
-  }
-
   confirmValidation(user: User): void {
     const confirmValidation = window.confirm('Voulez-vous valider ?');
     if (confirmValidation) {console.log(user.id);
       this.userService.acceptDemande(user.id).subscribe(
-        (updatedUser) => {
+        (data) => {
           console.log('User validation status updated successfully on the server');
-          this.router.navigate(['demupdate']);
+          this.loadUsers();
         },
         error => console.error('Error updating user validation status:', error)
       );
     }
   }
 
-  applyFilter() {
-    this.filteredUsers = this.users.filter(user => !user.demandeMod);
-
-  }
   filter() {
     if(this.filterName === ""){
-      this.filteredUsers = this.users
+      this.filteredUsers =  this.users.filter(user => !user.demandeMod);
 
     }
     else {
@@ -67,3 +61,4 @@ export class DemandeupdateComponent implements OnInit {
   }
 }
 }
+

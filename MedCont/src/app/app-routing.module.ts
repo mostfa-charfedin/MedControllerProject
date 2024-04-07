@@ -10,6 +10,17 @@ import { PdfComponent } from './pdf/pdf.component';
 import { PdfRCDntComponent } from './pdf-r-c-dnt/pdf-r-c-dnt.component';
 import { PdfRCOpComponent } from './pdf-r-c-op/pdf-r-c-op.component';
 import { FactOptComponent } from './fact-opt/fact-opt.component';
+import { HomeComponent } from './home/home.component';
+import { SendDocComponent } from './send-doc/send-doc.component';
+import { ListDocsAffComponent } from './list-docs-aff/list-docs-aff.component';
+
+import { DetailDocComponent } from './detail-doc/detail-doc.component';
+
+import { HistoriqueComponent } from './historique/historique.component';
+import { BodereauDentisteComponent } from './bodereau-dentiste/bodereau-dentiste.component';
+import { BodereauOpticienComponent } from './bodereau-opticien/bodereau-opticien.component';
+import { BodereauOpticienPRATICIENComponent } from './bodereau-opticien-praticien/bodereau-opticien-praticien.component';
+import { EtatDocComponent } from './etat-doc/etat-doc.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -22,6 +33,15 @@ const routes: Routes = [
   {path:'RCdent',component:PdfRCDntComponent},
   {path:'RCopt',component:PdfRCOpComponent},
   {path:'fctopt',component:FactOptComponent},
+  {path:'home',component:HomeComponent},
+  {path:'senddoc',component:SendDocComponent},
+  {path:'mesDocs',component:ListDocsAffComponent},
+  {path:'detailDoc/:id',component:DetailDocComponent},
+  {path:'historique',component:HistoriqueComponent},
+  {path:'brdDnt',component:BodereauDentisteComponent},
+  {path:'brdOpt',component:BodereauOpticienComponent},
+  {path:'brdOptPRATICIEN',component:BodereauOpticienPRATICIENComponent},
+  {path:'etatDoc',component:EtatDocComponent},
 
 
 

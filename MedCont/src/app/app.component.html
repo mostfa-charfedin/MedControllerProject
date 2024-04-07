@@ -14,63 +14,108 @@
   </head>
   <body>
     <div class="page d-flex">
-      <div class="sidebar bg-white p-20 p-relative"  *ngIf="authService.loggedUser">
-        <h3 class="p-relative txt-c mt-0" style="font-size: 20px;">I-MedController</h3>
+      <div class="sidebar  p-20 " style="background-color:rgba(35,156,235,255)"  *ngIf="authService.loggedUser">
+        <img src="assets/images/logo.png" >
+        <hr style="background-color: aliceblue;">
         <ul  >
           <li>
-            <a   class="d-flex align-center fs-14 c-black rad-6 p-10" routerLink="/">
+            <a   class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/home">
               <i class="fa-regular fa-user fa-fw"></i>
               <span>Home</span>
             </a>
           </li>
           <li>
-            <a  class=" d-flex align-center fs-14 c-black rad-6 p-10"  routerLink="/profile">
+            <a  class=" d-flex align-center fs-14 c-white rad-6 p-10"  routerLink="/profile">
               <i class="fa-regular fa-chart-bar fa-fw"></i>
               <span>Profile</span>
             </a>
           </li>
           <li>
-            <a class="d-flex align-center fs-14 c-black rad-6 p-10" routerLink="/demupdate">
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/demupdate">
               <i class="fa-solid fa-gear fa-fw"></i>
               <span>Liste des demandes</span>
             </a>
           </li>
           <li>
-            <a class="d-flex align-center fs-14 c-black rad-6 p-10" routerLink="/pdf">
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/senddoc">
+              <i class="fa-solid fa-gear fa-fw"></i>
+              <span>affecter un document</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/pdf">
               <i class="fa-solid fa-gear fa-fw"></i>
               <span>Pdf</span>
             </a>
           </li>
+
           <li>
-            <a class="d-flex align-center fs-14 c-black rad-6 p-10" routerLink="/RCdent">
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/mesDocs">
+              <i class="fa-solid fa-gear fa-fw"></i>
+              <span>Documents a traites</span>
+            </a>
+          </li>
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/RCdent">
               <i class="fa-solid fa-gear fa-fw"></i>
               <span>Rapport Contre visite dentaire</span>
             </a>
           </li>
           <li>
-            <a class="d-flex align-center fs-14 c-black rad-6 p-10" routerLink="/RCopt">
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/RCopt">
               <i class="fa-solid fa-gear fa-fw"></i>
               <span>Rapport Contre visite optique</span>
             </a>
           </li>
           <li>
-            <a class="d-flex align-center fs-14 c-black rad-6 p-10" routerLink="/fctopt">
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/fctopt">
               <i class="fa-solid fa-gear fa-fw"></i>
               <span>facture Opticien</span>
             </a>
           </li>
-
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/brdDnt">
+              <i class="fa-solid fa-gear fa-fw"></i>
+              <span>Bordereau Dentiste</span>
+            </a>
+          </li>
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/brdOpt">
+              <i class="fa-solid fa-gear fa-fw"></i>
+              <span>Bordereau Opticien</span>
+            </a>
+          </li>
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/brdOptPRATICIEN">
+              <i class="fa-solid fa-gear fa-fw"></i>
+              <span>Bordereau Opticien PRATICIEN</span>
+            </a>
+          </li>
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/etatDoc">
+              <i class="fa-solid fa-gear fa-fw"></i>
+              <span>Etat  des  documents</span>
+            </a>
+          </li>
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/historique">
+              <i class="fa-solid fa-gear fa-fw"></i>
+              <span>Historique</span>
+            </a>
+          </li>
         </ul>
       </div>
       <div class="content w-full" >
         <!-- Start Head -->
-        <div class="head bg-white p-15 between-flex"  *ngIf="authService.loggedUser">
-          <div>
+        <div class="head  p-15 between-flex"  style=" background: linear-gradient(338deg, rgba(129,186,65,1) 21%, rgba(35,156,235,1) 77%);"*ngIf="authService.loggedUser">
+          <div class="c-white">
             {{authService.loggedUser}}
           </div>
           <div class="icons d-flex align-center">
 
-            <a (click) = "onLogout()">Deconnexion</a>
+            <a class="c-white" (click)="onLogout()">Deconnexion</a>
+
           </div>
         </div>
 
@@ -80,10 +125,56 @@
 
 
         <router-outlet></router-outlet>
+
           </div>
 
       </div>
     </div>
+
+    <footer class="section footer-classic context-dark bg-image" style=" background:#c0c0c0; color:black; " >
+      <div class="container ">
+        <div>&nbsp;</div>
+        <div class="row row-30">
+          <div class="col-md-4 col-xl-5">
+            <div ><a ><img  src="assets/images/bpo.png" alt="logo" ></a><br>
+              <b>La performance au quotidien dans la gestion <br> de vos contrats d’assurance maladie</b>
+              <!-- Rights-->
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h5>Contacts</h5>
+            <dl class="contact-list">
+              <dt>Address:</dt>
+              <dd>Immeuble Rahma, Bloc A, Appt 2, 2092 El Manar 1, Tunis, Tunisie</dd>
+            </dl>
+            <dl class="contact-list">
+              <dt>Adresse de contact générale :</dt>
+              <dd><a href="mailto:#"> <p>contact&#64;-sante.tn</p></a></dd>
+            </dl>
+            <dl class="contact-list">
+              <dt> Pour déposer une réclamation :</dt>
+              <dd><a href="mailto:#"> <p> reclamation&#64;i-sante.tn </p></a></dd>
+            </dl>
+            <dl class="contact-list">
+              <dt>phones:</dt>
+              <dd>TEL : (+216) 74 400 185 / (+216) 70 861 360 <br> FAX : (+216) 70 861 334
+              </dd>
+            </dl>
+          </div>
+          <div class="col-md-4 col-xl-3">
+            <h5>Links</h5>
+            <ul class="nav-list">
+              <li><a href="https://i-sante.tn/">About</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </footer>
+
   </body>
+
 </html>
 

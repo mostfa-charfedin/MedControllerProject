@@ -5,8 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class Document {
 
@@ -33,7 +37,23 @@ public class Document {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] bulletin;
     
-    private Long medecinId;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] rapport;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] facture;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] bordereau;
+    
+    private String Etat;
     private Long agentId;
+    
+    @ManyToOne
+    @JoinColumn(name = "medecin_id")
+    private User user;
+
+	
 
 }

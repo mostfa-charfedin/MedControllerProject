@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+      <div class="col-md-11">
+
+      <div class="filter-container">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Filtrer par User</span>
+          <input type="text" class="form-control" id="filterName" placeholder="Nom" aria-label="Filter by Name:" aria-describedby="basic-addon1" [(ngModel)]="filterName" (input)="filter()" />
+        </div>
+      </div>
+
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Action</th>
+              <th scope="col">Date</th>
+              <th scope="col">User Id</th>
+              <th scope="col">Username</th>
+              <th scope="col">Document Id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let historique of filteredListehistorique">
+              <th scope="row">{{ historique.id }}</th>
+              <td>{{ historique.action }}</td>
+              <td>{{ historique.time }}</td>
+              <td>{{ historique.user?.id}}</td>
+              <td>{{ historique.user?.username}}</td>
+              <td>{{ historique.document?.id }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+  </div>
+</div>

@@ -1,59 +1,51 @@
-<div class="container mt-5">
-  <div class="justify-content-md-center">
+<div class="container mt-5 row justify-content-md-center">
+  <div class="row justify-content-md-center">
 
         <div>
           <strong>Html To PDF in Angular Application</strong>
-          </div>
-          <div>
+
           <input type="button" value="Convert" (click)="convetToPDF()"/>
           </div>
 
           <pre>
-          <div id="content">
-          <div></div>
-          </div>
-          <div>
-          <table id="contentToConvert"  class="center" >
+          <div id="contentToConvert" >
+            <div style="margin-left: 20px; margin-right: 20px;">
+          <table>
      <tbody>
 
-<table >
-<thead>
-            <tr >
-              <th  style="width:10%"><img src="assets/images/bpo.png" style="width: 100px;"></th>
-              <th class="text-center" style="width:70%">Rapport de contre visite <br> N°......</th>
-              <th   style="width:20% ">Date :</th>
-            </tr>
-</thead>
-
-            <tbody>
-
-
-
+      <table>
           <tr>
-          <td><i>Mr / Mme / Mlle :</i></td>
-
-          </tr>
-          <tr>
-          <td><i>Bénéficiaire:</i></td>
+            <th ><img src="assets/images/bpo.png" style="width: 100px;"></th>
+            <th class="text-center" style="width:70%">Rapport de contre visite</th>
+            <th   style="width:40%">Date : <i contenteditable='true'>2024/**/**</i> </th>
           </tr>
 
-          <tr>
-          <td><i>Qualité de bénéficiaire <br>(Lui-même, conjoint, Enfant) </i></td>
-          </tr>
-
-          <tr>
-          <td><i>Adhésion : </i></td>
-          </tr>
-          <tr>
-            <td><i>Numéro du dossier : </i></td>
-          </tr>
-
-          <tr>
-            <td><i>Correction Optique :  </i></td>
-            </tr>
-        </tbody>
 </table>
 
+<table >
+ <tbody>
+                  <tr>
+                  <td><i>Mr / Mme / Mlle :</i> <i contenteditable='true'>...</i></td>
+
+                  </tr>
+
+                  <tr>
+                  <td><i>Bénéficiaire :</i> <i contenteditable='true'>...</i></td>
+
+                  </tr>
+
+                  <tr>
+                  <td><i>Qualité de bénéficiaire (Lui-même, conjoint, Enfant) : </i> <i contenteditable='true'>...</i></td>
+
+                  </tr>
+
+                  <tr>
+                  <td><i>Numéro du dossier :</i> <i contenteditable='true'>...</i></td>
+
+                  </tr>
+
+                </tbody>
+        </table>
 
 <table border="2" class="container mt-5" >
 
@@ -74,14 +66,14 @@
 
     <tr>
 
-      <th class="text-center"  > </th>
-      <th class="text-center"  ></th>
-      <th class="text-center"  ></th>
-      <th class="text-center" ></th>
-      <th class="text-center"  ></th>
-      <th class="text-center"  ></th>
-      <th class="text-center"  ></th>
-      <th class="text-center"  ></th>
+      <th class="text-center" contenteditable='true' > </th>
+      <th class="text-center"  contenteditable='true'></th>
+      <th class="text-center"  contenteditable='true'></th>
+      <th class="text-center" contenteditable='true'></th>
+      <th class="text-center" contenteditable='true' ></th>
+      <th class="text-center"  contenteditable='true'></th>
+      <th class="text-center"  contenteditable='true'></th>
+      <th class="text-center" contenteditable='true' ></th>
 
 
 
@@ -91,29 +83,29 @@
   </table>
 
   <tr>
-    <td><i>Prix de la monture : </i></td>
+    <td><i>Prix de la monture : </i> <i contenteditable='true'>...</i></td>
 
     </tr>
     <tr>
-    <td><i>Nature des verres achetés : </i></td>
+    <td><i>Nature des verres achetés : </i> <i contenteditable='true'>...</i></td>
     </tr>
 
     <tr>
-    <td><i>Prix des verres achetés : </i></td>
+    <td><i>Prix des verres achetés : </i> <i contenteditable='true'>...</i></td>
     </tr>
 
     <tr>
-    <td><i>Prix des verres en blanc :  </i></td>
+    <td><i>Prix des verres en blanc :  </i> <i contenteditable='true'>...</i></td>
     </tr>
     <tr>
-      <td > <h5><i><b>OBSERVATION  </b>:</i></h5></td>
+      <td > <i style="font-size: 20px;">OBSERVATION  :</i><i contenteditable='true'>...</i></td>
     </tr>
 
     <tr>
-      <td><i>Téléphone :  </i></td>
+      <td><i>Téléphone :  </i><i contenteditable='true'>...</i></td>
       </tr>
       <tr >
-        <th  style="text-align-last: right;">Opticien : ......</th>
+        <th  style="text-align-last: right;">Opticien :<i contenteditable='true'>...</i></th>
       </tr>
 
 
@@ -128,7 +120,7 @@
 
   <tbody>
     <tr style="height: 80px; vertical-align: top;" >
-      <th>Date du passage pour Contre Visite : </th>
+      <th>Date du passage pour Contre Visite : <br> <p contenteditable='true'>...</p></th>
       <th>Signature Adhérent :  </th>
   </tr>
   </tbody>
@@ -144,8 +136,8 @@
 
     <tbody>
       <tr style="height: 80px; vertical-align: top;" >
-        <th>Date du passage pour Contre Visite : </th>
-        <th>Signature Opticien :  </th>
+        <th>Date du passage pour Contre Visite : <br> <p contenteditable='true'>...</p></th>
+        <th>Signature Adhérent : </th>
     </tr>
     </tbody>
     </table>
@@ -155,13 +147,13 @@
       </td>
     </tr>
 
-            </tbody>
-            </table>
-
-        </div>
-        </pre>
-
-
+  </tbody>
+</table>
+</div>
+</div>
+</pre>
 
 
-      </div></div>
+
+</div></div>
+

@@ -30,7 +30,7 @@ public class SecurityConfig {
 	@Autowired
 	AuthenticationManager authMgr;
 	
-	
+
 	
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception
@@ -56,8 +56,9 @@ public class SecurityConfig {
 				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**","/verif","/updatePassword","/acceptDm","/demande").permitAll()
 				.requestMatchers(HttpMethod.GET, "/recuperer/**").permitAll()
 				.requestMatchers("/all").hasAuthority("USER")
-				.requestMatchers("/updateUser","/all").permitAll()		
-				.requestMatchers("/upload").permitAll()		
+				.requestMatchers("/updateUser","/all","/allDocs","/doc/**","/findDocumentByUserId/**").permitAll()		
+				.requestMatchers("/uploadDoc","/updateDoc","/allHistorys").permitAll()		
+				.requestMatchers("/allHistorys").permitAll()	
 				.anyRequest().authenticated() )
 		
 		.addFilterBefore(new JWTAuthenticationFilter(authMgr), 

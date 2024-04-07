@@ -1,5 +1,6 @@
 package Medcontroller.restController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import Medcontroller.entities.Historique;
 import Medcontroller.entities.RegistrationRequest;
 import Medcontroller.entities.User;
 import Medcontroller.entities.VerificationToken;
+import Medcontroller.repository.HistoriqueRepository;
 import Medcontroller.repository.UserRepository;
 import Medcontroller.repository.VerificationTokenRepository;
 import Medcontroller.services.EmailSender;
+import Medcontroller.services.HistoriqueService;
 import Medcontroller.services.UserService;
 
 
@@ -49,9 +53,12 @@ public class UserRestController {
 	
 	@Autowired
 	VerificationTokenRepository verificationTokenRepo;
+	@Autowired
+	HistoriqueService historiqueService;
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	
 	
 	
@@ -95,6 +102,11 @@ public class UserRestController {
 	        existingUser.setDemandeMod(false);
 	        existingUser.setRoles(updatedUser.getRoles());
 	        User updatedUtilisateur = userService.saveUser(existingUser);
+	        Historique historique = new Historique();
+            historique.setAction("l'utilisateur"+" "+existingUser.getUsername()+" "+"a modifier son profile");
+            historique.setTime(LocalDateTime.now());
+            historique.setUser(existingUser);
+            historiqueService.saveHistorique(historique);
 	        return ResponseEntity.ok(updatedUtilisateur);
 	    } else {
 	        return ResponseEntity.notFound().build();
@@ -150,6 +162,11 @@ public class UserRestController {
 		    	existingUser.setPassword(bCryptPasswordEncoder.encode(updatedUser.getPassword()));
 		    }
 	        User updatedUtilisateur = userService.saveUser(existingUser);
+	        Historique historique = new Historique();
+            historique.setAction("l'utilisateur "+" "+existingUser.getUsername()+" "+"a modifier son mot de passe");
+            historique.setTime(LocalDateTime.now());
+            historique.setUser(existingUser);
+            historiqueService.saveHistorique(historique);
 		   
 	        return ResponseEntity.ok(updatedUtilisateur);
 	    } else {

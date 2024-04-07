@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+      <div class="col-md-8">
+
+
+        <div class="filter-container">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Filtrer par Id</span>
+            <input type="text" class="form-control" id="filterName" placeholder="Nom" aria-label="Filter by Name:" aria-describedby="basic-addon1" [(ngModel)]="filterName" (input)="filter()"/>
+          </div>
+        </div>
+
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Medecin Controlleur</th>
+                <th scope="col">Telephone Medecin</th>
+                <th scope="col">Etat</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let document of filteredDocs">
+                <th scope="row">{{ document.id }}</th>
+                <td>{{ document.user?.username }}</td>
+                <td>{{ document.user?.tel }}</td>
+                <td>{{ document.etat }}</td>
+
+
+              </tr>
+            </tbody>
+          </table>
+
+
+      </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  
+
 })
 export class AppComponent implements OnInit {
   title = 'I-MedController';
@@ -16,8 +16,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.loadToken();
     if (this.authService.getToken()==null ||
-        this.authService.isTokenExpired())
-          this.router.navigate(['/login']);
+        this.authService.isTokenExpired()){
+          this.authService.logout();
+          }
 
   }
 

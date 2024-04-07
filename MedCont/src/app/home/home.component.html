@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+      <div class="col-md-8">
+<div *ngFor="let document of documents">
+
+  <div class="card">
+    <h6 class="card-header"> 2 days ago </h6>
+    <div class="card-body">
+      <h5 class="card-title"> <b>Document N° </b>{{document.id}}</h5>
+      <p class="card-text"> <b>Agent ID : </b>{{document.agentId}} <br> <b>Bulletin : </b> {{document.nomBulletin}} <br>  <b>Ordennance : </b> {{document.nomOrdenance}}</p>
+
+    </div>
+    <div class="card-footer text-right">
+
+      <a  class="btn btn-light " style="background: #81ba41; color: white; width: 120px;" (click)="detail(document)">Traiter</a>
+    </div>
+  </div>
+  <br>
+</div>
+
+
+      </div>
+  </div>
+</div>
