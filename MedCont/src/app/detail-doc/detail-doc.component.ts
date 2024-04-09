@@ -38,7 +38,7 @@ file3: File | null = null;
     this.documentService.getDocumentById(this.id).subscribe(
       (response: any) => {
         this.document = response; console.log(response)
-        this.ordenance = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/PDF;base64,' + response.ordenance);
+        this.ordenance = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + response.ordenance);
         this.Bulletin = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/PDF;base64,' + response.bulletin);
       },
       (error) => {

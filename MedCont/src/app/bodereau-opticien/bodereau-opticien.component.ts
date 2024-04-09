@@ -9,23 +9,23 @@ import html2canvas from 'html2canvas';
 })
 export class BodereauOpticienComponent {
 
-  data: HTMLElement | null | undefined
 
+  data: HTMLElement | null | undefined;
 
-    public convetToPDF() {
-      this.data = document.getElementById('contentToConvert');
-    html2canvas(this.data!).then(canvas => {
-  // Few necessary setting options
-  var imgWidth = 209;
-  var pageHeight = 295;
-  var imgHeight = canvas.height * imgWidth / canvas.width;
-  var heightLeft = imgHeight;
+  public convetToPDF() {
+    this.data = document.getElementById('contentToConvert');
+    html2canvas(this.data!, { scale: 2, logging: true, width: this.data!.scrollWidth, height: this.data!.scrollHeight }).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/jpeg', 1); // Maximum quality
 
-  const contentDataURL = canvas.toDataURL('image/png')
-  let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
-  var position = 0;
-  pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-  pdf.save('new-file.pdf'); // Generated PDF
-  });
+      let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+      const imgWidth = 209;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let position = 0;
+
+      pdf.addImage(contentDataURL, 'JPEG', 0, position, imgWidth, imgHeight);
+
+      // Save the PDF
+      pdf.save('bordereau-opticien.pdf');
+    });
   }
-  }
+}
