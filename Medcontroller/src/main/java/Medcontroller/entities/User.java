@@ -40,6 +40,7 @@ public class User {
     private String localisation;
     private String specialite;
     private Boolean isActive;
+    private Boolean Statut;
     private Boolean demandeMod;
  
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

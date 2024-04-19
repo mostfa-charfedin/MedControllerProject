@@ -27,7 +27,7 @@ public class Historique {
 
 	     
 	    private String Action;
-	    private  LocalDateTime Time;
+	    private  String Time;
 	    
 	    @ManyToOne
 	    @JoinColumn(name = "user_id")
@@ -36,4 +36,6 @@ public class Historique {
 	    @ManyToOne
 	    @JoinColumn(name = "document_id")
 	    private Document document;
+
+		
 }

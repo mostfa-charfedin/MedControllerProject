@@ -6,7 +6,7 @@ import { VerifEmailComponent } from './verif-email/verif-email.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RecupererComponent } from './recuperer/recuperer.component';
 import { DemandeupdateComponent } from './demandeupdate/demandeupdate.component';
-import { PdfComponent } from './pdf/pdf.component';
+
 import { PdfRCDntComponent } from './pdf-r-c-dnt/pdf-r-c-dnt.component';
 import { PdfRCOpComponent } from './pdf-r-c-op/pdf-r-c-op.component';
 import { FactOptComponent } from './fact-opt/fact-opt.component';
@@ -21,15 +21,17 @@ import { BodereauDentisteComponent } from './bodereau-dentiste/bodereau-dentiste
 import { BodereauOpticienComponent } from './bodereau-opticien/bodereau-opticien.component';
 import { BodereauOpticienPRATICIENComponent } from './bodereau-opticien-praticien/bodereau-opticien-praticien.component';
 import { EtatDocComponent } from './etat-doc/etat-doc.component';
+import { ListeUsersComponent } from './liste-users/liste-users.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path:'register',component:RegisterComponent},
   {path:'verifEmail',component:VerifEmailComponent},
   {path:'profile',component:ProfileComponent},
+  {path:'',component:ProfileComponent},
   {path:'recuperer',component:RecupererComponent},
   {path:'demupdate',component:DemandeupdateComponent},
-  {path:'pdf',component:PdfComponent},
+
   {path:'RCdent',component:PdfRCDntComponent},
   {path:'RCopt',component:PdfRCOpComponent},
   {path:'fctopt',component:FactOptComponent},
@@ -42,7 +44,7 @@ const routes: Routes = [
   {path:'brdOpt',component:BodereauOpticienComponent},
   {path:'brdOptPRATICIEN',component:BodereauOpticienPRATICIENComponent},
   {path:'etatDoc',component:EtatDocComponent},
-
+  {path:'allUsers',component:ListeUsersComponent},
 
 
 ];

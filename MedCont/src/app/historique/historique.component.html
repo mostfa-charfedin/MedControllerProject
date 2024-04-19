@@ -1,6 +1,4 @@
-<div class="container mt-5">
-  <div class="row justify-content-md-center">
-      <div class="col-md-11">
+<div class="content w-full " style="padding: 30px;">
 
       <div class="filter-container">
         <div class="input-group mb-3">
@@ -22,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let historique of filteredListehistorique">
+            <tr *ngFor="let historique of paginatedList">
               <th scope="row">{{ historique.id }}</th>
               <td>{{ historique.action }}</td>
               <td>{{ historique.time }}</td>
@@ -32,7 +30,23 @@
             </tr>
           </tbody>
         </table>
-
+        <nav *ngIf="totalPages > 1">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage == 1">
+              <a class="page-link" (click)="goToPage(1)">First</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage == 1">
+              <a class="page-link"  (click)="goToPage(currentPage - 1)">Previous</a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage == page">
+              <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage == totalPages">
+              <a class="page-link"  (click)="goToPage(currentPage + 1)">Next</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage == totalPages">
+              <a class="page-link" (click)="goToPage(totalPages)">Last</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-  </div>
-</div>

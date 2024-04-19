@@ -8,6 +8,7 @@ export class Doc {
   public bulletin!: String;
   public medecinId!: any;
   public agentId!: any;
+  public date!: Date;
   public user:User | undefined;
   public etat!:String;
 }

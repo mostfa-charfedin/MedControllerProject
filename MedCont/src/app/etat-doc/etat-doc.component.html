@@ -1,6 +1,5 @@
-<div class="container mt-5">
-  <div class="row justify-content-md-center">
-      <div class="col-md-8">
+<div class="content w-full " style="padding: 20px;">
+
 
 
         <div class="filter-container">
@@ -9,7 +8,11 @@
             <input type="text" class="form-control" id="filterName" placeholder="Nom" aria-label="Filter by Name:" aria-describedby="basic-addon1" [(ngModel)]="filterName" (input)="filter()"/>
           </div>
         </div>
-
+        <div *ngIf="loading==true" class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+          </div>
+      </div>
 
           <table class="table table-striped">
             <thead>
@@ -19,10 +22,15 @@
                 <th scope="col">Telephone Medecin</th>
                 <th scope="col">Etat</th>
 
+
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let document of filteredDocs">
+
+
+
+
+              <tr *ngFor="let document of paginatedList">
                 <th scope="row">{{ document.id }}</th>
                 <td>{{ document.user?.username }}</td>
                 <td>{{ document.user?.tel }}</td>
@@ -33,7 +41,25 @@
             </tbody>
           </table>
 
-
+          <nav *ngIf="totalPages > 1">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" [class.disabled]="currentPage == 1">
+                <a class="page-link" (click)="goToPage(1)">First</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage == 1">
+                <a class="page-link"  (click)="goToPage(currentPage - 1)">Previous</a>
+              </li>
+              <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage == page">
+                <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage == totalPages">
+                <a class="page-link"  (click)="goToPage(currentPage + 1)">Next</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage == totalPages">
+                <a class="page-link" (click)="goToPage(totalPages)">Last</a>
+              </li>
+            </ul>
+          </nav>
       </div>
-  </div>
-</div>
+
+

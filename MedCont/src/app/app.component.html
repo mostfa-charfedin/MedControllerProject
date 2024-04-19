@@ -6,101 +6,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
+    <link rel="stylesheet" href="css/all.min.css" />
     <link rel="stylesheet" href="css/framework.css" />
     <link rel="stylesheet" href="css/master.css" />
+
 
 
   </head>
   <body>
     <div class="page d-flex">
-      <div class="sidebar  p-20 " style="background-color:rgba(35,156,235,255)"  *ngIf="authService.loggedUser">
+      <div class="sidebar " style="background-color:rgba(35,156,235,255)"  *ngIf="authService.loggedUser">
         <img src="assets/images/logo.png" >
         <hr style="background-color: aliceblue;">
-        <ul  >
+        <ul>
           <li>
             <a   class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/home">
-              <i class="fa-regular fa-user fa-fw"></i>
+              <i class="fa-solid fa-house"></i>
               <span>Home</span>
             </a>
           </li>
           <li>
             <a  class=" d-flex align-center fs-14 c-white rad-6 p-10"  routerLink="/profile">
-              <i class="fa-regular fa-chart-bar fa-fw"></i>
+              <i class="fa-regular fa-user"></i>
               <span>Profile</span>
             </a>
           </li>
           <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/allUsers">
+              <i class="fa-solid fa-users"></i>
+              <span>Liste des utilisateurs</span>
+            </a>
+          </li>
+          <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/demupdate">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-solid fa-list-check"></i>
               <span>Liste des demandes</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/senddoc">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-solid fa-folder-plus"></i>
               <span>affecter un document</span>
             </a>
           </li>
 
-          <li>
-            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/pdf">
-              <i class="fa-solid fa-gear fa-fw"></i>
-              <span>Pdf</span>
-            </a>
-          </li>
+
 
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/mesDocs">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-solid fa-folder-tree"></i>
               <span>Documents a traites</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/RCdent">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-regular fa-file"></i>
               <span>Rapport Contre visite dentaire</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/RCopt">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-regular fa-file"></i>
               <span>Rapport Contre visite optique</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/fctopt">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-regular fa-file"></i>
               <span>facture Opticien</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/brdDnt">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-regular fa-file"></i>
               <span>Bordereau Dentiste</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/brdOpt">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-regular fa-file"></i>
               <span>Bordereau Opticien</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/brdOptPRATICIEN">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-regular fa-file"></i>
               <span>Bordereau Opticien PRATICIEN</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/etatDoc">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-regular fa-folder-open"></i>
               <span>Etat  des  documents</span>
             </a>
           </li>
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/historique">
-              <i class="fa-solid fa-gear fa-fw"></i>
+              <i class="fa-solid fa-clock-rotate-left"></i>
               <span>Historique</span>
             </a>
           </li>

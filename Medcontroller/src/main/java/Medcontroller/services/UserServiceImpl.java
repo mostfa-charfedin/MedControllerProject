@@ -117,6 +117,8 @@ public class UserServiceImpl  implements UserService{
 		if(optionalUser2.isPresent())
 			throw new UsernameAlreadyExistsException("Username déjà existe!");
 		
+		
+		
 		User newUser = new User();
 		newUser.setUsername(request.getUsername());
 		newUser.setEmail(request.getEmail());
@@ -128,9 +130,8 @@ public class UserServiceImpl  implements UserService{
 		newUser.setMatricule(request.getMatricule());
 		newUser.setSpecialite(request.getSpecialite());
 		newUser.setFirstName(request.getFirstName());
-		
-		
-	
+		newUser.setTel(request.getTel());
+		newUser.setStatut(false);
 		
 		Role r = roleRep.findByRole("USER");
 		List<Role> roles = new ArrayList<>();
@@ -173,35 +174,25 @@ public class UserServiceImpl  implements UserService{
 	@Override
 	@Transactional
 	public User validateToken(String code) {
-	    // Find the verification token associated with the provided code
+
 	    VerificationToken token = verificationTokenRepo.findByToken(code);
-	    
-	    // Check if the token is null (i.e., not found in the repository)
+
 	    if (token == null) {
 	        throw new InvalidTokenException("Invalid Token: " + code);
 	    }
 
-	    // Get the user associated with the token
 	    User user = token.getUser();
-	    
-	    // Check if the token has expired
+
 	    Calendar calendar = Calendar.getInstance();
 	    if (token.getTokenExpirationTime().getTime() <= calendar.getTime().getTime()) {
-	        // If expired, delete the token from the repository and throw an exception
+
 	        throw new ExpiredTokenException("Expired Token: " + code);
 	    }
-	    
-	    // If the token is valid and not expired, activate the user and update the repository
-	    user.setIsActive(true);
-	    userRep.save(user);
-	   
-	    // Clear the list of verification tokens associated with the user
+
 	    user.getVerificationTokens().clear();
-	    
-	    // Delete all verification tokens associated with the user from the repository
+
 	    verificationTokenRepo.deleteAllByUser(user);
-	    
-	    // Return the activated user
+
 	    return user;
 	}
 
@@ -218,16 +209,11 @@ public class UserServiceImpl  implements UserService{
 	    if (userOptional.isPresent()) {
 	        User user = userOptional.get();
 
-	        // Supprimer l'utilisateur et les relations dans la table de jointure
-	        user.getRoles().clear(); // Supprime toutes les relations ManyToMany
-
-	        // Supprimer le token de vérification s'il existe
+	        user.getRoles().clear();
 	        if (user.getVerificationTokens() != null) {
-	           // verificationTokenRepo.deleteById(user.getVerificationTokens().getId());
 	        	user.getVerificationTokens().clear();
 	        }
 
-	        // Supprimer l'utilisateur
 	        userRep.deleteById(id);
 
 	        System.out.println("User deleted");

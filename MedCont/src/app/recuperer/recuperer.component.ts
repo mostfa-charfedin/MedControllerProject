@@ -64,9 +64,13 @@ export class RecupererComponent implements OnInit{
         this.toastr.success('Veuillez entrer le code envoyé par mail', 'Confirmation');
         console.log(this.user);
         this.loading = false;
+        this.err="";
       },
       (error) => {
-        alert('Veuillez vérifier vos données');
+        if (error.error.errorCode === 'INVALID_USER_USERNAME') {
+          this.err = 'invalid username';
+        }
+        this.loading = false;
       }
     );
   }
@@ -107,6 +111,7 @@ export class RecupererComponent implements OnInit{
         },
         (error) => {
           alert('Échec');
+
         }
       );
     } else {

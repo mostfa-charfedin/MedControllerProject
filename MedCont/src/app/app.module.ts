@@ -14,7 +14,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './profile/profile.component';
 import { RecupererComponent } from './recuperer/recuperer.component';
 import { DemandeupdateComponent } from './demandeupdate/demandeupdate.component';
-import { PdfComponent } from './pdf/pdf.component';
+
 import { PdfRCDntComponent } from './pdf-r-c-dnt/pdf-r-c-dnt.component';
 import { PdfRCOpComponent } from './pdf-r-c-op/pdf-r-c-op.component';
 import { FactOptComponent } from './fact-opt/fact-opt.component';
@@ -32,6 +32,8 @@ import { BodereauDentisteComponent } from './bodereau-dentiste/bodereau-dentiste
 import { BodereauOpticienComponent } from './bodereau-opticien/bodereau-opticien.component';
 import { BodereauOpticienPRATICIENComponent } from './bodereau-opticien-praticien/bodereau-opticien-praticien.component';
 import { EtatDocComponent } from './etat-doc/etat-doc.component';
+import { ListeUsersComponent } from './liste-users/liste-users.component';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -45,7 +47,7 @@ import { EtatDocComponent } from './etat-doc/etat-doc.component';
       ProfileComponent,
       RecupererComponent,
       DemandeupdateComponent,
-      PdfComponent,
+
       PdfRCDntComponent,
       PdfRCOpComponent,
       FactOptComponent,
@@ -60,6 +62,8 @@ import { EtatDocComponent } from './etat-doc/etat-doc.component';
       BodereauOpticienComponent,
       BodereauOpticienPRATICIENComponent,
       EtatDocComponent,
+      ListeUsersComponent,
+      TestComponent,
 
 
 

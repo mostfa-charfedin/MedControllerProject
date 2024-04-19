@@ -18,7 +18,7 @@ confirmPassword?:string;
 
 myForm!: FormGroup;
 
-err=""
+err="";
 loading : boolean = false;
 
 constructor(private formBuilder: FormBuilder,  private authService : AuthService,
@@ -48,7 +48,7 @@ constructor(private formBuilder: FormBuilder,  private authService : AuthService
     this.loading = true;
     // Populate the user object with form values
     this.user = this.myForm.value;
-  
+
     this.authService.registerUser(this.user).subscribe({
       next: (res) => {
         this.authService.setRegistredUser(this.user);

@@ -22,7 +22,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import jakarta.servlet.http.HttpServletRequest;
 
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -30,7 +29,7 @@ public class SecurityConfig {
 	@Autowired
 	AuthenticationManager authMgr;
 	
-
+	
 	
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity http) throws Exception

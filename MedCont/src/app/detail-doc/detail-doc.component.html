@@ -1,23 +1,11 @@
-<div class="container mt-5">
-  <div class=" justify-content-md-center">
+<div class="content w-full" style="padding: 20px;">
+
+
 
   <h2>Ajouter des documents</h2>
   <br>
   <form>
-  <div class="col-md-8 mb-4">
-    <label for="validationDefault01">Facture</label>
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileSelected($event, 1)">
-      <label class="custom-file-label" for="inputGroupFile01">{{ fileNames[0] }}</label>
-    </div>
-  </div>
-  <div class="col-md-8 mb-4">
-    <label for="validationDefault01">Borderau</label>
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="onFileSelected($event, 2)">
-      <label class="custom-file-label" for="inputGroupFile02">{{ fileNames[1] }}</label>
-    </div>
-  </div>
+
   <div class="col-md-8 mb-4">
     <label for="validationDefault01">Rapport</label>
     <div class="custom-file">
@@ -40,16 +28,13 @@
 
   <div class="right-div">
     <p>{{ document.nomBulletin }}</p>
-    <iframe [src]="Bulletin" width="100%" height="500px" frameborder="0"></iframe>
+    <iframe [src]="bulletin" width="100%" height="500px" frameborder="0"></iframe>
   </div>
+
 </div>
 <div>
 <br/>
 </div>
-
-
-  </div>
 </div>
-
 
 

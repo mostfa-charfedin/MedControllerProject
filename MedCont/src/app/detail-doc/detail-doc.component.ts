@@ -11,35 +11,42 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-detail-doc',
   templateUrl: './detail-doc.component.html',
-  styleUrl: './detail-doc.component.css'
+  styleUrls: ['./detail-doc.component.css'] // Corrected styleUrls
 })
 export class DetailDocComponent {
 
   ordenance: SafeResourceUrl | undefined;
-  Bulletin: SafeResourceUrl | undefined;
+  bulletin: SafeResourceUrl | undefined;
   document: Doc = new Doc();
-id:any;
-selectedUserId: string = '';
-searchText: string = '';
-doc: Doc = new Doc();
+  id: any;
+  selectedUserId: string = '';
+  searchText: string = '';
+  doc: Doc = new Doc();
 
-fileNames: string[] = ['', '', ''];
-file1: File | null = null;
-file2: File | null = null;
-file3: File | null = null;
-  constructor(private route: ActivatedRoute,private documentService: DocumentService, private sanitizer: DomSanitizer
-    ,private toastr: ToastrService,
+  fileNames: string[] = ['', '', ''];
+  file1: File | null = null;
+  file2: File | null = null;
+  file3: File | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private documentService: DocumentService,
+    private sanitizer: DomSanitizer,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-     this.id = +params['id']; });
+      this.id = +params['id'];
+    });
 
     this.documentService.getDocumentById(this.id).subscribe(
       (response: any) => {
-        this.document = response; console.log(response)
+        this.document = response;
+        console.log(response);
         this.ordenance = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + response.ordenance);
-        this.Bulletin = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/PDF;base64,' + response.bulletin);
+this.bulletin = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/PDF;base64,' + response.bulletin);
+
       },
       (error) => {
         console.error('Error fetching document:', error);
@@ -60,7 +67,6 @@ file3: File | null = null;
       console.log('Selected user ID:', this.selectedUserId);
     }
   }
-
 
   uploadFiles(): void {
     const file1Input = document.getElementById('inputGroupFile01') as HTMLInputElement;
@@ -103,9 +109,8 @@ file3: File | null = null;
   onFile2Selected(event: any) {
     this.file2 = event.target.files[0];
   }
+
   onFile3Selected(event: any) {
     this.file3 = event.target.files[0];
   }
-
-
 }

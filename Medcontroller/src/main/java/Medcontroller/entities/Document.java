@@ -1,5 +1,7 @@
 package Medcontroller.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,6 +51,7 @@ public class Document {
     
     private String Etat;
     private Long agentId;
+    private String date;
     
     @ManyToOne
     @JoinColumn(name = "medecin_id")

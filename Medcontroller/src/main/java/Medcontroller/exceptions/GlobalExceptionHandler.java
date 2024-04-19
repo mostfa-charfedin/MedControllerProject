@@ -37,6 +37,36 @@ public class GlobalExceptionHandler {
 	 return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	 }
 	
+	
+	@ExceptionHandler(InvalidUsernameException.class)
+	 public ResponseEntity<ErrorDetails> handleInvalidUsernameException(InvalidUsernameException exception,
+	 WebRequest webRequest){
+		
+	 ErrorDetails errorDetails = new ErrorDetails(
+			 LocalDateTime.now(),
+			 exception.getMessage(),
+			 webRequest.getDescription(false),
+			 "INVALID_USER_USERNAME"
+	 );
+	 return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	 }
+	
+	
+	@ExceptionHandler(NoDocumentException.class)
+	 public ResponseEntity<ErrorDetails> handleNoDocumentException(NoDocumentException exception,
+	 WebRequest webRequest){
+		
+	 ErrorDetails errorDetails = new ErrorDetails(
+			 LocalDateTime.now(),
+			 exception.getMessage(),
+			 webRequest.getDescription(false),
+			 "NO_DOCUMENT_TO_LOAD"
+	 );
+	 return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	 }
+	
+	
+	
 	@ExceptionHandler(ExpiredTokenException.class)
 	public ResponseEntity<ErrorDetails>
 	handleExpiredTokenException(ExpiredTokenException exception,
@@ -65,7 +95,18 @@ public class GlobalExceptionHandler {
 	}
 	
 	
-
+	@ExceptionHandler(InactiveUserException.class)
+	public ResponseEntity<ErrorDetails>
+	handleInactiveUserException(InactiveUserException exception,
+			WebRequest webRequest){
+		ErrorDetails errorDetails = new ErrorDetails(
+				LocalDateTime.now(),
+				exception.getMessage(),
+				webRequest.getDescription(false),
+				"INACTIVE_USER"
+				);
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
 	 
 
 

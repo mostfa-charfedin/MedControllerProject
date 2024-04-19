@@ -17,7 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -29,6 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 import Medcontroller.entities.Document;
 import Medcontroller.entities.Historique;
 import Medcontroller.entities.User;
+import Medcontroller.exceptions.NoDocumentException;
+import Medcontroller.exceptions.UsernameAlreadyExistsException;
 import Medcontroller.repository.DocumentRepository;
 import Medcontroller.repository.HistoriqueRepository;
 import Medcontroller.security.SecParams;
@@ -60,7 +64,13 @@ public class DocumentController {
                                               @RequestParam("agentId") Long agentId,  
                                               @RequestParam("medecinId") Long medecinId) {
         try {
+        	
+        	LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
+            String formattedDateTime = now.format(formatter);
+            
         	Document document =	Document.builder()
+        	.date(formattedDateTime)
         	.nomBulletin(file2.getOriginalFilename())
         	.bulletin(file2.getBytes())
         	.nomOrdenance(file1.getOriginalFilename())
@@ -80,9 +90,9 @@ public class DocumentController {
             document.setUser(medecin);
             */
             documentService.saveDocument(document);
-            Historique historique = new Historique();
+            Historique historique = new Historique();     
             historique.setAction("Ajout de document");
-            historique.setTime(LocalDateTime.now());
+            historique.setTime(formattedDateTime);
             historique.setUser(userService.getUserById(medecinId));
             historique.setDocument(document);
             historiqueRepository.save(historique);
@@ -109,7 +119,12 @@ public class DocumentController {
             documentService.saveDocument(existingdocument);
             Historique historique = new Historique();
             historique.setAction("Le medecin"+" "+existingdocument.getUser().getUsername()+" "+"a traité  le document.");
-            historique.setTime(LocalDateTime.now());
+            
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
+            String formattedDateTime = now.format(formatter);
+            
+            historique.setTime(formattedDateTime);
             historique.setUser(existingdocument.getUser());
             historique.setDocument(existingdocument);
             historiqueRepository.save(historique);
@@ -141,11 +156,9 @@ public class DocumentController {
     public List<Document> getDocumentByUserId(@PathVariable Long id) {
 	   List<Document> documents = new ArrayList();
     	documents  = documentService.findDocumentByUserId(id);
+    	if(documents.isEmpty())
+			throw new NoDocumentException("no documents to load");
     	
-        if (documents.isEmpty()) {
-            return (List<Document>) ResponseEntity.notFound().build();
-        }
-        
       
         return documents;
                 

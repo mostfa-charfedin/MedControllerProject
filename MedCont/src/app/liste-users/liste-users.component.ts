@@ -1,29 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-demandeupdate',
-  templateUrl: './demandeupdate.component.html',
-  styleUrl: './demandeupdate.component.css'
+  selector: 'app-liste-users',
+  templateUrl: './liste-users.component.html',
+  styleUrl: './liste-users.component.css'
 })
-export class DemandeupdateComponent implements OnInit {
+export class ListeUsersComponent implements OnInit {
   users: User[] = [];
   filteredUsers: User[] = [];
   filterName: string = '';
   loading : boolean = false;
 
-
-
-   // Pagination properties
-   pageSize: number = 2; // Number of documents per page
-   currentPage: number = 1; // Current page number
-   totalPages: number = 1; // Total number of pages
-   pages: number[] = []; // Array to store page numbers
+     // Pagination properties
+     pageSize: number = 2; // Number of documents per page
+     currentPage: number = 1; // Current page number
+     totalPages: number = 1; // Total number of pages
+     pages: number[] = []; // Array to store page numbers
   constructor(private userService: UserService, private toastr: ToastrService,public router: Router,) { }
-
 
   ngOnInit(): void {
     this.loadUsers();
@@ -36,7 +33,7 @@ export class DemandeupdateComponent implements OnInit {
       (response) => {
         this.loading = false;
         this.users = response;
-        this.filteredUsers = this.users.filter(user => !user.demandeMod);
+        this.filteredUsers = this.users;
         this.calculatePagination()
       },
       (error) => {
@@ -45,7 +42,6 @@ export class DemandeupdateComponent implements OnInit {
       }
     );
   }
-
   calculatePagination() {
     this.totalPages = Math.ceil(this.filteredUsers.length / this.pageSize);
 
@@ -67,26 +63,12 @@ export class DemandeupdateComponent implements OnInit {
   }
 
 
-  confirmValidation(user: User): void {
-    const confirmValidation = window.confirm('Voulez-vous valider ?');
-    if (confirmValidation) {console.log(user.id);
-      this.userService.acceptDemande(user.id).subscribe(
-        (data) => {
-          this.toastr.success('User validation status updated successfull', 'Confirmation');
-          console.log('User validation status updated successfully on the server');
-          this.loadUsers();
-        },
 
-        error =>{console.error('Error updating user validation status:', error);
-         this.toastr.error('Error updating user validation status', 'Error');}
-      );
-    }
-  }
 
   filter() {
     if(this.filterName === ""){
       this.filteredUsers =  this.users.filter(user => !user.demandeMod);
-      this.calculatePagination()
+this.calculatePagination()
     }
     else {
 
@@ -97,5 +79,5 @@ export class DemandeupdateComponent implements OnInit {
     this.calculatePagination()
   }
 }
-}
 
+}
