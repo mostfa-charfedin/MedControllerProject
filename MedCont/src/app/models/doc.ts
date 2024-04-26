@@ -8,7 +8,17 @@ export class Doc {
   public bulletin!: String;
   public medecinId!: any;
   public agentId!: any;
-  public date!: Date;
+  public dateAffectation!: Date;
+  public dateTrete!: Date;
+
+  public bordereau!: String;
+
+  public qualiteBinificiaire!: string;
+  public nomBenificiaire!: string;
+  public nomAssure!: string;
+  public matriculeAssure!: string;
+  public montant!: number;
+
   public user:User | undefined;
-  public etat!:String;
+  public etat!:boolean;
 }

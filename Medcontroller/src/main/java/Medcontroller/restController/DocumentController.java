@@ -62,7 +62,11 @@ public class DocumentController {
     public ResponseEntity<String> uploadFiles(@RequestParam("file1") MultipartFile file1,
                                               @RequestParam("file2") MultipartFile file2,  
                                               @RequestParam("agentId") Long agentId,  
-                                              @RequestParam("medecinId") Long medecinId) {
+                                              @RequestParam("medecinId") Long medecinId,  
+                                              @RequestParam("QualiteBinificiaire") String QualiteBinificiaire,
+                                              @RequestParam("nomBenificiaire") String nomBenificiaire,
+                                              @RequestParam("nomAssure") String nomAssure,
+                                              @RequestParam("matriculeAssure") String matriculeAssure) {
         try {
         	
         	LocalDateTime now = LocalDateTime.now();
@@ -70,14 +74,17 @@ public class DocumentController {
             String formattedDateTime = now.format(formatter);
             
         	Document document =	Document.builder()
-        	.date(formattedDateTime)
+        	.dateAffectation(formattedDateTime)
         	.nomBulletin(file2.getOriginalFilename())
         	.bulletin(file2.getBytes())
         	.nomOrdenance(file1.getOriginalFilename())
         	.ordenance(file1.getBytes())
-        	.agentId(agentId)
+        	.agentId(agentId).nomAssure(nomAssure)
+        	.matriculeAssure(matriculeAssure)
+        	.nomBenificiaire(nomBenificiaire)
+        	.qualiteBinificiaire(QualiteBinificiaire).montant(20)
         	.user(userService.getUserById(medecinId))
-        	.Etat("En cours")
+        	.Etat(false)
         	.build();
           /*  Document document = new Document();
             document.setNomOrdenance(file1.getOriginalFilename());
@@ -103,26 +110,28 @@ public class DocumentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading files");
         }
     }
+    
+    
     @PostMapping("/updateDoc")
-    public ResponseEntity<String> updateDocument(@RequestParam("file1") MultipartFile file1,
-                                              @RequestParam("file2") MultipartFile file2,  
-                                              @RequestParam("file3") MultipartFile file3,  
+    public ResponseEntity<String> updateDocument(
+                                              @RequestParam("file1") MultipartFile file1,  
                                               @RequestParam("documentId") Long DocId) {
         try {
         	Document existingdocument = documentService.getById(DocId);
         
- 
-        	existingdocument.setFacture(Base64.getEncoder().encode(file1.getBytes())); 
-        	existingdocument.setBordereau(Base64.getEncoder().encode(file2.getBytes())); 
-        	existingdocument.setRapport(Base64.getEncoder().encode(file3.getBytes())); 
-        	existingdocument.setEtat("Traité");
+        	LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
+            String formattedDateTime = now.format(formatter);  
+            
+            
+            existingdocument.setDateTrete(formattedDateTime);
+        	existingdocument.setRapport(Base64.getEncoder().encode(file1.getBytes())); 
+        	existingdocument.setEtat(true);
             documentService.saveDocument(existingdocument);
             Historique historique = new Historique();
-            historique.setAction("Le medecin"+" "+existingdocument.getUser().getUsername()+" "+"a traité  le document.");
+            historique.setAction("Le medecin"+" "+" ' "+existingdocument.getUser().getUsername()+" ' "+" "+"a traité  le document.");
             
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
-            String formattedDateTime = now.format(formatter);
+       
             
             historique.setTime(formattedDateTime);
             historique.setUser(existingdocument.getUser());
@@ -132,7 +141,7 @@ public class DocumentController {
             String emailBody ="Bonjour "+ "<br>"+
     		   		"Le médecin"+" " +existingdocument.getUser().getUsername()+" "+ "a traité le document."+"<br>"+"ID document :"+" "+existingdocument.getId();
     		    String subject ="Document traité";
-    		   		emailSender.sendEmail(existingdocument.getUser().getEmail(), emailBody,subject);
+    		   		emailSender.sendEmail(SecParams.Email_Agentassurance, emailBody,subject);
             
             return ResponseEntity.status(HttpStatus.CREATED).body("Files uploaded successfully");
         } catch (IOException e) {

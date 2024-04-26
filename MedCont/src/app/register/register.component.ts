@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models/user';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -35,20 +36,22 @@ constructor(private formBuilder: FormBuilder,  private authService : AuthService
       confirmPassword: ['', [Validators.required]],
       localisation: ['', [Validators.required]],
       matricule: ['', [Validators.required]],
-      tel: ['', [Validators.required, ]]
+      tel: ['', [Validators.required, ]],
+      birthday: ['', [Validators.required,]],
+      cin: ['', [Validators.required,]],
     });
 
   }
 
   onRegister() {
     if (this.myForm.invalid) {
-      return; // If form is invalid, do not proceed with registration
+      return;
     }
 
     this.loading = true;
     // Populate the user object with form values
     this.user = this.myForm.value;
-
+console.log(this.myForm.value)
     this.authService.registerUser(this.user).subscribe({
       next: (res) => {
         this.authService.setRegistredUser(this.user);

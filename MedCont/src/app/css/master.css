@@ -73,7 +73,7 @@ ul {
 }
 .sidebar ul li a:hover,
 .sidebar ul li a.active {
-  background-color: #f6f6f6;
+  background-color: rgba(7,184,200,255)
 }
 .sidebar ul li a span {
   font-size: 14px;
@@ -750,7 +750,7 @@ ul {
 }
 .profile-page .info-box .box {
   flex-wrap: wrap;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #6ca8f7;
   transition: 0.3s;
 }
 .profile-page .info-box .box:hover {

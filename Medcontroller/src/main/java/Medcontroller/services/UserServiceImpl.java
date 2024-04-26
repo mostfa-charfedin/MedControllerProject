@@ -1,7 +1,11 @@
 package Medcontroller.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -117,8 +121,6 @@ public class UserServiceImpl  implements UserService{
 		if(optionalUser2.isPresent())
 			throw new UsernameAlreadyExistsException("Username déjà existe!");
 		
-		
-		
 		User newUser = new User();
 		newUser.setUsername(request.getUsername());
 		newUser.setEmail(request.getEmail());
@@ -133,12 +135,15 @@ public class UserServiceImpl  implements UserService{
 		newUser.setTel(request.getTel());
 		newUser.setStatut(false);
 		
+        newUser.setBirthday(request.getBirthday().toString());
+		newUser.setCin(request.getCin());
+		System.out.println(request);
 		Role r = roleRep.findByRole("USER");
 		List<Role> roles = new ArrayList<>();
 		roles.add(r);
 		newUser.setRoles(roles);
 		
-		//génére le code secret
+		//génerer code secret
 		 String code = this.generateCode();
          System.out.println(code);
 		 VerificationToken token = new VerificationToken(code, newUser);

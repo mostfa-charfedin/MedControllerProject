@@ -13,7 +13,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './detail-doc.component.html',
   styleUrls: ['./detail-doc.component.css'] // Corrected styleUrls
 })
-export class DetailDocComponent {
+export class DetailDocComponent implements OnInit{
 
   ordenance: SafeResourceUrl | undefined;
   bulletin: SafeResourceUrl | undefined;
@@ -70,25 +70,23 @@ this.bulletin = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/
 
   uploadFiles(): void {
     const file1Input = document.getElementById('inputGroupFile01') as HTMLInputElement;
-    const file2Input = document.getElementById('inputGroupFile02') as HTMLInputElement;
-    const file3Input = document.getElementById('inputGroupFile03') as HTMLInputElement;
+
 
     // Check if files are selected
-    if (!file1Input || !file2Input || !file3Input || !file1Input.files || !file2Input.files || !file3Input.files) {
-      console.error('Please select all files.');
+    if (!file1Input || !file1Input.files ) {
+      console.error('Please select file.');
       return;
     }
 
     const file1 = file1Input.files[0];
-    const file2 = file2Input.files[0];
-    const file3 = file3Input.files[0];
 
-    if (!file1 || !file2 || !file3) {
-      console.error('Please select both files.');
+
+    if (!file1) {
+      console.error('Please select file.');
       return;
     }
 
-    this.documentService.updateFiles(this.document, file1, file2, file3).subscribe({
+    this.documentService.updateFiles(this.document, file1).subscribe({
       next: (res) => {
         console.log('Files uploaded successfully:', res);
         this.toastr.success('Document envoyée', 'Confirmation');
@@ -106,11 +104,5 @@ this.bulletin = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/
     this.file1 = event.target.files[0];
   }
 
-  onFile2Selected(event: any) {
-    this.file2 = event.target.files[0];
-  }
 
-  onFile3Selected(event: any) {
-    this.file3 = event.target.files[0];
-  }
 }

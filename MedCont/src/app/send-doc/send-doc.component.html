@@ -1,43 +1,58 @@
+<div class="content w-full " style="padding: 20px;">
 
-<div class="mt-5">
-  <div class="row justify-content-md-center">
-    <div class="col-md-11">
-      <h2>Envoyer un document</h2>
-      <br>
-      <form>
-      <div class="col-md-8 mb-4">
-        <label for="validationDefault01">Bulletin de soins</label>
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileSelected($event, 1)">
-          <label class="custom-file-label" for="inputGroupFile01">{{ fileNames[0] }}</label>
+
+
+<h2>Envoyer un document</h2>
+
+<div class="container cont">
+    <!-- Right side -->
+    <form #sendDoc="ngForm">
+      <div class="right">
+          <div class="col-md-12 mb-4">
+              <label for="validationDefault01">Matricule Assure</label>
+              <input type="text" class="form-control" name="matriculeAssure" ngModel  placeholder="Matricule Assure">
+          </div>
+          <div class="col-md-12 mb-4">
+              <label for="validationDefault01">Nom Assuré</label>
+              <input type="text" class="form-control" name="nomAssure" ngModel placeholder="Nom Assuré">
+          </div>
+          <div class="col-md-12 mb-4">
+              <label for="validationDefault01">Nom du Benificiaire</label>
+              <input type="text" class="form-control" name="nomBenificiaire" ngModel  placeholder="Nom du Benificiaire">
+          </div>
+          <div class="col-md-12 mb-4">
+              <label for="validationDefault01">Qualité du Benificiaire</label>
+              <input type="text" class="form-control" name="QualiteBinificiaire" ngModel  placeholder="Qualité du Benificiaire">
+          </div>
+      </div>
+      <button class="btn btn-primary" type="button" (click)="uploadFiles(sendDoc)">Upload Files</button>
+  </form>
+    <!-- Left side -->
+    <div class="left">
+        <div class="col-md-12 mb-4">
+            <label for="validationDefault01">Bulletin de soins</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileSelected($event, 1)">
+                <label class="custom-file-label" for="inputGroupFile01">{{ fileNames[0] }}</label>
+            </div>
         </div>
-      </div>
-      <div class="col-md-8 mb-4">
-        <label for="validationDefault01">Ordonnance</label>
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="onFileSelected($event, 2)">
-          <label class="custom-file-label" for="inputGroupFile02">{{ fileNames[1] }}</label>
+        <div class="col-md-12 mb-4">
+            <label for="validationDefault01">Ordonnance</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="onFileSelected($event, 2)">
+                <label class="custom-file-label" for="inputGroupFile02">{{ fileNames[1] }}</label>
+            </div>
         </div>
-      </div>
-      <div class="col-md-8 mb-4">
-        <label for="validationDefault01">Chercher un médecin</label>
-        <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" class="form-control"placeholder="Tapez le username." (input)="filterUsers()"><br>
+        <div class="col-md-12 mb-4">
+            <label for="validationDefault01">Chercher un médecin</label>
+            <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" class="form-control"placeholder="Tapez le username." (input)="filterUsers()"><br>
 
-
-        <mat-label for="validationDefault01">Veuillez sélectionner un médecin contrôleur.</mat-label>
-        <select  class="form-control form-select" aria-label="Default select example" (change)="onSelect($event)">
-          <option selected disabled>Cliquer ici</option>
-          <option  *ngFor="let user of filteredUsers" [value]="user.id">{{ user.specialite }} : {{ user.username }}</option>
-        </select>
-
-      </div>
-      <button class="btn btn-primary" type="button" (click)="uploadFiles()">Upload Files</button>
-</form>
+            <mat-label for="validationDefault01">Veuillez sélectionner un médecin contrôleur.</mat-label>
+            <select class="form-control form-select" aria-label="Default select example" (change)="onSelect($event)">
+                <option selected disabled>Cliquer ici</option>
+                <option *ngFor="let user of filteredUsers" [value]="user.id">{{ user.specialite }} : {{ user.username }}</option>
+            </select>
+        </div>
     </div>
-  </div>
+
 </div>
-
-
-
-
-

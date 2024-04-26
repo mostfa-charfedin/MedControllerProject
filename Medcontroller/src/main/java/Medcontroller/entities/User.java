@@ -42,6 +42,8 @@ public class User {
     private Boolean isActive;
     private Boolean Statut;
     private Boolean demandeMod;
+    private String birthday;
+    private int cin;
  
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore

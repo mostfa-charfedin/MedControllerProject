@@ -34,6 +34,7 @@ import Medcontroller.exceptions.UsernameAlreadyExistsException;
 import Medcontroller.repository.HistoriqueRepository;
 import Medcontroller.repository.UserRepository;
 import Medcontroller.repository.VerificationTokenRepository;
+import Medcontroller.security.SecParams;
 import Medcontroller.services.EmailSender;
 import Medcontroller.services.HistoriqueService;
 import Medcontroller.services.UserService;
@@ -103,6 +104,9 @@ public class UserRestController {
 	        existingUser.setSpecialite(updatedUser.getSpecialite());
 	        existingUser.setIsActive(updatedUser.getIsActive());
 	        existingUser.setDemandeMod(false);
+	        
+	        existingUser.setBirthday(updatedUser.getBirthday().toString());
+	        existingUser.setCin(updatedUser.getCin());
 	        existingUser.setRoles(updatedUser.getRoles());
 	        User updatedUtilisateur = userService.saveUser(existingUser);
 	        Historique historique = new Historique();
@@ -274,7 +278,7 @@ public class UserRestController {
 	        historiqueService.saveHistorique(historique);
 	        String emailBody = "Bonjour " + " L'utilisateur " + user.getUsername() + " souhaite modifier son profil.";
 	        String subject = "Demande de modification";
-	        emailSender.sendEmail(user.getEmail(), emailBody, subject);
+	        emailSender.sendEmail(SecParams.Email_Admin, emailBody, subject);
 	        
 	        // Return a JSON response with a success message
 	        return ResponseEntity.status(HttpStatus.OK).body("{\"message\": \"User demandeMod attribute updated successfully.\"}");

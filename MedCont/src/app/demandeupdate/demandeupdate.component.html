@@ -1,18 +1,19 @@
 <div class="content w-full " style="padding: 20px;">
 
-      <div class="filter-container">
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Filtrer par Username</span>
-          <input type="text" class="form-control" id="filterName" placeholder="Nom" aria-label="Filter by Name:" aria-describedby="basic-addon1" [(ngModel)]="filterName" (input)="filter()"/>
-        </div>
-      </div>
+  <div class="filter-container">
+    <div class="input-group mb-3">
+      <mat-form-field class="flexible-search">
+        <input matInput [(ngModel)]="searchText" placeholder="Filter par username..." >
+      </mat-form-field>
+    </div>
+  </div>
       <div *ngIf="loading==true" class="d-flex justify-content-center">
         <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
         </div>
     </div>
-
-        <table class="table table-striped">
+    <ng-container *ngIf="filter.length > 0; else noDocuments">
+        <table class="table table-striped text-center">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -20,10 +21,11 @@
               <th scope="col">First name</th>
               <th scope="col">Last name</th>
               <th scope="col">Email</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of paginatedList">
+            <tr *ngFor="let user of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
               <th scope="row">{{ user.id }}</th>
               <td>{{ user.username }}</td>
               <td>{{ user.firstName }}</td>
@@ -36,24 +38,17 @@
             </tr>
           </tbody>
         </table>
-        <nav *ngIf="totalPages > 1">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" [class.disabled]="currentPage == 1">
-              <a class="page-link" (click)="goToPage(1)">First</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPage == 1">
-              <a class="page-link"  (click)="goToPage(currentPage - 1)">Previous</a>
-            </li>
-            <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage == page">
-              <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPage == totalPages">
-              <a class="page-link"  (click)="goToPage(currentPage + 1)">Next</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPage == totalPages">
-              <a class="page-link" (click)="goToPage(totalPages)">Last</a>
-            </li>
-          </ul>
-        </nav>
+        <mat-paginator
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [length]="filter.length"
+          (page)="handlePageChange($event)"
+        ></mat-paginator>
+        <br>
+      </ng-container>
+
+      <ng-template #noDocuments>
+        <h3>Aucun utilisateur trouvé</h3>
+      </ng-template>
       </div>
 

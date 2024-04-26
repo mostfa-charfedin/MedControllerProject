@@ -1,17 +1,31 @@
 <div class="container mt-5">
   <div class="row justify-content-md-center">
 
-        <div>
-          <strong>Html To PDF in Angular Application</strong>
-          </div>
-          <div>
-          <input type="button" value="Convert" (click)="convetToPDF()"/>
-          </div>
+    <div class="button-container" >
+      <button class="button" mat-stroked-button color="primary"  (click)="convertToPDF()">
+        <span class="button__text">Download</span>
+        <span class="button__icon">
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
+          </svg>
 
-          <pre>
+        </span>
+      </button>
+      <button class="print-btn" mat-stroked-button color="primary" (click)="printContent()">
+        <span class="printer-wrapper">
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
+          </svg>
 
-          <div id="contentToConvert">
+        </span>
+        Print
+      </button>
+    </div>
+
+
+            <div id="contentToConvert" class="print-content" #contentToPrint >
             <div style="margin-left: 20px; margin-right: 20px;">
+              <pre>
           <table  >
      <tbody>
 
@@ -21,17 +35,17 @@
 
             <tr >
               <th rowspan="4" ><img src="assets/images/bpo.png"  >&nbsp; &nbsp;</th>
-              <th  >Opticien(ne) :  <i contenteditable='true'>...</i></th>
+              <th  >Opticien(ne) :  <i contenteditable='true'>{{user.firstName}}&nbsp;{{user.lastName}}</i></th>
               <th rowspan="4">&nbsp; &nbsp;<img src="assets/images/astree.jpg" style="width: 100px; height: 100px;" ></th>
             </tr>
             <tr>
-              <th  contenteditable='true' >Matricule fiscale : <i contenteditable='true'>...</i></th>
+              <th  contenteditable='true' >Matricule fiscale : <i contenteditable='true'>{{user.matricule}}</i></th>
             </tr>
             <tr>
-              <th  contenteditable='true' >Adresse : <i contenteditable='true'>...</i> </th>
+              <th  contenteditable='true' >Adresse : <i contenteditable='true'>{{user.localisation}}</i> </th>
             </tr>
             <tr>
-              <th  contenteditable='true' >Téléphone : <i contenteditable='true'>...</i></th>
+              <th  contenteditable='true' >Téléphone : <i contenteditable='true'>{{user.tel}}</i></th>
             </tr>
 
 
@@ -58,202 +72,34 @@
         Visite </th>
       <th>Montant </th>
     </tr>
-    <tr>
-    <td>1</td>
-    <td contenteditable='true' ></td>
-    <td contenteditable='true'></td>
-    <td contenteditable='true'></td>
-    <td contenteditable='true'></td>
-    <td contenteditable='true'></td>
-    <td contenteditable='true'></td>
+
+  <tr *ngFor="let document of listDocs; let i = index ">
+  <td>{{ i + 1 }}</td>
+  <td contenteditable='true' >{{document.matriculeAssure}}</td>
+  <td contenteditable='true'>{{document.nomAssure}}</td>
+  <td contenteditable='true'>{{document.nomBenificiaire}}</td>
+  <td contenteditable='true'>{{document.qualiteBinificiaire}}</td>
+  <td contenteditable='true'>{{document.dateTrete}} </td>
+  <td >{{document.montant}}</td>
+  </tr>
+  <tr>
+    <td colspan="6" style="text-align-last: right;">Totale :</td>
+    <td>{{ total }}</td>
     </tr>
-    <tr>
-      <td>2</td>
-      <td contenteditable='true' ></td>
-      <td contenteditable='true'></td>
-      <td contenteditable='true'></td>
-      <td contenteditable='true'></td>
-      <td contenteditable='true'></td>
-      <td contenteditable='true'></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td contenteditable='true' ></td>
-        <td contenteditable='true'></td>
-        <td contenteditable='true'></td>
-        <td contenteditable='true'></td>
-        <td contenteditable='true'></td>
-        <td contenteditable='true'></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td contenteditable='true' ></td>
-          <td contenteditable='true'></td>
-          <td contenteditable='true'></td>
-          <td contenteditable='true'></td>
-          <td contenteditable='true'></td>
-          <td contenteditable='true'></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td contenteditable='true' ></td>
-            <td contenteditable='true'></td>
-            <td contenteditable='true'></td>
-            <td contenteditable='true'></td>
-            <td contenteditable='true'></td>
-            <td contenteditable='true'></td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td contenteditable='true' ></td>
-              <td contenteditable='true'></td>
-              <td contenteditable='true'></td>
-              <td contenteditable='true'></td>
-              <td contenteditable='true'></td>
-              <td contenteditable='true'></td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td contenteditable='true' ></td>
-                <td contenteditable='true'></td>
-                <td contenteditable='true'></td>
-                <td contenteditable='true'></td>
-                <td contenteditable='true'></td>
-                <td contenteditable='true'></td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td contenteditable='true' ></td>
-                  <td contenteditable='true'></td>
-                  <td contenteditable='true'></td>
-                  <td contenteditable='true'></td>
-                  <td contenteditable='true'></td>
-                  <td contenteditable='true'></td>
-                  </tr>
-                  <tr>
-                    <td>9</td>
-                    <td contenteditable='true' ></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    </tr>
-                    <tr>
-                      <td>10</td>
-                      <td contenteditable='true' ></td>
-                      <td contenteditable='true'></td>
-                      <td contenteditable='true'></td>
-                      <td contenteditable='true'></td>
-                      <td contenteditable='true'></td>
-                      <td contenteditable='true'></td>
-                      </tr>
-                      <tr>
-                        <td>11</td>
-                        <td contenteditable='true' ></td>
-                        <td contenteditable='true'></td>
-                        <td contenteditable='true'></td>
-                        <td contenteditable='true'></td>
-                        <td contenteditable='true'></td>
-                        <td contenteditable='true'></td>
-                        </tr>
-                        <tr>
-                          <td>12</td>
-                          <td contenteditable='true' ></td>
-                          <td contenteditable='true'></td>
-                          <td contenteditable='true'></td>
-                          <td contenteditable='true'></td>
-                          <td contenteditable='true'></td>
-                          <td contenteditable='true'></td>
-                          </tr>
-                          <tr>
-                            <td>13</td>
-                            <td contenteditable='true' ></td>
-                            <td contenteditable='true'></td>
-                            <td contenteditable='true'></td>
-                            <td contenteditable='true'></td>
-                            <td contenteditable='true'></td>
-                            <td contenteditable='true'></td>
-                            </tr>
-                            <tr>
-                              <td>14</td>
-                              <td contenteditable='true' ></td>
-                              <td contenteditable='true'></td>
-                              <td contenteditable='true'></td>
-                              <td contenteditable='true'></td>
-                              <td contenteditable='true'></td>
-                              <td contenteditable='true'></td>
-                              </tr>
-                              <tr>
-                                <td>15</td>
-                                <td contenteditable='true' ></td>
-                                <td contenteditable='true'></td>
-                                <td contenteditable='true'></td>
-                                <td contenteditable='true'></td>
-                                <td contenteditable='true'></td>
-                                <td contenteditable='true'></td>
-                                </tr>
-                                <tr>
-                                  <td>16</td>
-                                  <td contenteditable='true' ></td>
-                                  <td contenteditable='true'></td>
-                                  <td contenteditable='true'></td>
-                                  <td contenteditable='true'></td>
-                                  <td contenteditable='true'></td>
-                                  <td contenteditable='true'></td>
-                                  </tr>
-                                  <tr>
-                                    <td>17</td>
-                                    <td contenteditable='true' ></td>
-                                    <td contenteditable='true'></td>
-                                    <td contenteditable='true'></td>
-                                    <td contenteditable='true'></td>
-                                    <td contenteditable='true'></td>
-                                    <td contenteditable='true'></td>
-                                    </tr>
-                                    <tr>
-                                      <td>18</td>
-                                      <td contenteditable='true' ></td>
-                                      <td contenteditable='true'></td>
-                                      <td contenteditable='true'></td>
-                                      <td contenteditable='true'></td>
-                                      <td contenteditable='true'></td>
-                                      <td contenteditable='true'></td>
-                                      </tr>
-                                      <tr>
-                                        <td>19</td>
-                                        <td contenteditable='true' ></td>
-                                        <td contenteditable='true'></td>
-                                        <td contenteditable='true'></td>
-                                        <td contenteditable='true'></td>
-                                        <td contenteditable='true'></td>
-                                        <td contenteditable='true'></td>
-                                        </tr>
-                                        <tr>
-                                          <td>20</td>
-                                          <td contenteditable='true' ></td>
-                                          <td contenteditable='true'></td>
-                                          <td contenteditable='true'></td>
-                                          <td contenteditable='true'></td>
-                                          <td contenteditable='true'></td>
-                                          <td contenteditable='true'></td>
-                                          </tr>
-                                          <tr>
-                                            <td colspan="6" style="text-align-last: right;">Totale :</td>
-                                            <td> </td>
-                                          </tr>
-  </tbody>
+
+</tbody>
 
 </table><br>
-<p> Arrêtée la présente facture à la somme de (en lettres) : <i contenteditable='true'>...</i></p>
+<p> Arrêtée la présente facture à la somme de (en lettres) : <i contenteditable='true'>{{amountLettres}}</i></p>
 <p style="text-align-last: right;">Cachet & Signature &nbsp; &nbsp; &nbsp;</p>
-     </tbody>
+  </tbody>
+
 
   </table>
-  </div>
-          </div>
-  </pre>
 
+  </pre>
+</div>
+          </div>
 
 
 </div>

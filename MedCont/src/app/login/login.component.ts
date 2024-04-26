@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         next: (data) => {
           let jwToken = data.headers.get('Authorization')!;
           this.authService.saveToken(jwToken);
-          this.router.navigate(['/']);
+
           this.getuser();
 
         },
@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       this.userService.getByUsername(this.authService.loggedUser).subscribe({
         next: (data) => {
           localStorage.setItem('id',data.id);
+          this.router.navigate(['/profile']);
         },
         error: (err: any) => {
          console.log(err);

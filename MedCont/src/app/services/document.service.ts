@@ -28,29 +28,26 @@ export class DocumentService {
     formData.append('file1', file1);
     formData.append('file2', file2);
 
-    // Append other properties of the Document object
     formData.append('agentId', doc.agentId.toString());
     formData.append('medecinId', doc.medecinId.toString());
+    formData.append('matriculeAssure', doc.matriculeAssure);
+    formData.append('nomAssure', doc.nomAssure);
+    formData.append('nomBenificiaire', doc.nomBenificiaire);
+    formData.append('QualiteBinificiaire', doc.qualiteBinificiaire);
     // Append more properties if necessary
-
+console.log(formData)
     return this.http.post<any>(`${this.apiURL}/uploadDoc`, formData, { responseType: 'text' as 'json' })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateFiles(doc:Doc, file1: File, file2: File, file3: File) {
+  updateFiles(doc:Doc, file1: File) {
     const formData = new FormData();
     formData.append('file1', file1);
-    formData.append('file2', file2);
-    formData.append('file3', file3);
-
     // Append other properties of the Document object
     formData.append('documentId', doc.id.toString());
- 
-
     // Append more properties if necessary
-
     return this.http.post<any>(`${this.apiURL}/updateDoc`, formData, { responseType: 'text' as 'json' })
       .pipe(
         catchError(this.handleError)

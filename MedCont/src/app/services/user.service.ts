@@ -31,12 +31,7 @@ export class UserService {
 
     }
 
-  addUser( user: User):Observable<User>{
-      let jwt = this.authService.getToken();
-      jwt = "Bearer "+jwt;
-      let httpHeaders = new HttpHeaders({"Authorization":jwt})
-        return this.http.post<User>(this.apiURL+"/register", user, {headers:httpHeaders});
-      }
+
 
   deleteUser(id : number) {
        const url = `${this.apiURL}/deluser/${id}`;

@@ -1,5 +1,16 @@
-.center {
-  margin-left: auto;
-  margin-right: auto;
+.container {
+  width: 100%;
+  text-align: center; /* Center align the content horizontally */
 }
 
+.centered-pre {
+  display: inline-block; /* Allow the div to shrink to the size of the pre element */
+  text-align: left; /* Restore left alignment within the pre element */
+
+  padding: 20px;
+}
+.button-container {
+  display: flex; /* Affiche les éléments dans le conteneur en ligne */
+  align-items: center; /* Centre les éléments verticalement */
+  gap: 10px; /* Espacement horizontal entre les éléments */
+}

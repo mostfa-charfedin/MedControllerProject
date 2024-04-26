@@ -12,4 +12,6 @@ export class User {
   public specialite!: string;
   public isActive!: boolean;
   public demandeMod!: boolean;
+  public cin !:number;
+  public birthday!: Date;
 }

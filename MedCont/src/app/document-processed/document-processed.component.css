@@ -1,0 +1,23 @@
+.checkbox-custom {
+  transform: scale(1.9); /* Ajustez cette valeur selon vos besoins */
+}
+
+/* Ajuster la position du checkbox */
+.checkbox-container {
+  margin-right: 10px; /* Ajustez cette valeur pour l'espacement entre le checkbox et le contenu */
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 767px) {
+  .flexible-search {
+    width: 400px; /* Adjust width as needed (e.g., %, px, rem) */
+  }
+
+  .flexible-search input {
+    width: 400px; /* Adjust input width as needed (optional) */
+  }
+
+}

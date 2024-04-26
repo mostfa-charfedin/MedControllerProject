@@ -1,0 +1,154 @@
+<div class="content w-full " style="padding: 30px;">
+
+  <div *ngIf="loading==true" class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div class="filter-container">
+  <div class="input-group mb-3">
+    <mat-form-field class="flexible-search">
+      <input matInput [(ngModel)]="searchText" placeholder="Filter par numéro de document..." >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="startDate" >
+        <input matEndDate formControlName="end" placeholder="End date" [(ngModel)]="endDate" >
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+
+      <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </mat-form-field>
+  </div>
+
+</div>
+
+<!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div  class="modal-dialog modal-xl">
+<div class="modal-content">
+
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLongTitle">Bordereau</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+
+    <div class="container mt-5">
+      <div class="row justify-content-md-center">
+
+      <app-bodereau-dentiste *ngIf="user.specialite ==='dentiste'" [listDocs]="allSelectedDocuments" [amountLettres]="totalAmount" [total]="total" ></app-bodereau-dentiste>
+<app-bodereau-opticien *ngIf="user.specialite ==='opticien'" [listDocs]="allSelectedDocuments" [amountLettres]="totalAmount" [total]="total"></app-bodereau-opticien>
+    </div>
+    </div>
+
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  <button  mat-stroked-button color="primary" data-bs-dismiss="modal" data-toggle="modal" data-target=".bd-example-modal-lg2" (click)="SommeTTC()" >Valider</button>
+
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<!-- End modal -->
+
+
+
+<!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div  class="modal-dialog modal-xl">
+  <div class="modal-content">
+
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Facture</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+
+      <div class="container mt-5">
+        <div class="row justify-content-md-center">
+
+
+        <app-fact-opt  [listDocs]="allSelectedDocuments" [amountLettres]="prixttc" [total]="total" ></app-fact-opt>
+      </div>
+      </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button class="btn btn-primary" type="button" data-dismiss="modal" >Valider</button>
+
+  </div>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div>
+  <!-- End modal -->
+
+  <div class="content w-full" style="padding: 30px;">
+
+    <div *ngIf="filter.length > 0;">
+      <mat-card-actions>
+      <button mat-stroked-button color="primary" data-toggle="modal" data-target=".bd-example-modal-lg" (click)=" calculeSomme()">Generer Bordereau</button>
+
+      </mat-card-actions>
+
+      </div>
+      <br>
+<ng-container *ngIf="filter.length > 0; else noDocuments">
+
+  <div *ngFor="let document of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span><h5>{{document.dateAffectation}}</h5></span>
+        <input type="checkbox" class="checkbox-custom" [value]="document"
+        [checked]="allSelectedDocuments.includes(document)" (change)="toggleSelection($event, document)">
+
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> <b>Document N° </b>{{document.id}}</h5>
+        <p class="card-text"> <b>Agent ID : </b>{{document.agentId}} <br> <b>Bulletin : </b> {{document.nomBulletin}} <br>  <b>Ordennance : </b> {{document.nomOrdenance}}</p>
+
+      </div>
+      <div class="card-footer text-right">
+        <a  class="btn btn-light " style="background: #81ba41; color: white; width: 120px;" (click)="detail(document.id)">Voir Plus</a>
+
+      </div>
+    </div>
+    <br>
+    </div>
+
+  <br>
+
+  <mat-paginator
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [length]="filter.length"
+    (page)="handlePageChange($event)"
+  ></mat-paginator>
+  <br>
+</ng-container>
+
+<ng-template #noDocuments>
+  <h3>Aucun document trouvé</h3>
+</ng-template>
+</div>
+
+</div>

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Doc } from '../models/doc';
 import { DocumentService } from '../services/document.service';
-
+import {FormGroup, FormControl} from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-home',
@@ -14,31 +16,81 @@ import { DocumentService } from '../services/document.service';
 export class HomeComponent implements OnInit{
 
   constructor( private documentService :DocumentService,
-    private router:Router, private toastr: ToastrService) { }
+    private router:Router, private toastr: ToastrService,) { }
 
-    documents: Doc[] = [];
+    range = new FormGroup({
+      start: new FormControl(),
+      end: new FormControl(),
+    });
+
+    searchText: string = '';
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+  items: Doc[] = [];
+  filteredItems: Doc[] = [];
     loading : boolean = false;
-    Docs: Doc[] = [];
-    filteredDocs: Doc[] = [];
     filterName:String ='';
-      // Pagination properties
-      pageSize: number = 3; // Number of documents per page
-      currentPage: number = 1; // Current page number
-      totalPages: number = 1; // Total number of pages
-      pages: number[] = []; // Array to store page numbers
+
+
+  dataSource = new MatTableDataSource<Doc>();
+  pageSize = 3; // Adjust the default page size as needed
+  pageSizeOptions = [3, 5, 10, 25];
+  pageIndex = 0;
+  @ViewChild(MatPaginator) paginator!: MatPaginator; // Use `!` for non-null assertion
+
   ngOnInit(): void {
     this.getdocuments();
-        this.loading = true;
+    this.dataSource.paginator = this.paginator; // Connect data source to paginator
+    if (this.paginator) { // Check if paginator exists
+      this.paginator.pageSize = this.pageSize; // Set page size only if paginator is available
+    }// Set initial page size (optional)
   }
 
-  getdocuments(){
+  handlePageChange(event: any) {
+    this.pageIndex = event.pageIndex; // Update current page
+    if (event.pageSize !== this.pageSize) {
+      this.pageSize = event.pageSize; // Update internal page size
+      this.pageIndex = 0; // Reset to first page when size changes
+    }
+  }
 
+
+
+  get filter() {
+    if (!this.items) return [];
+
+    let filteredItems = this.items;
+
+    if (this.searchText === '') {
+      filteredItems = this.items;
+
+    } else {
+      filteredItems = filteredItems.filter(item =>
+        String(item.id) === this.searchText
+      );
+  }
+  if (this.startDate && this.endDate) {
+  const start = new Date(this.startDate);
+  const end = new Date(this.endDate);
+  filteredItems = filteredItems.filter(item => {
+    const itemDate = new Date(item.dateAffectation);
+    const itemDateWithoutTime = new Date(itemDate.getFullYear(), itemDate.getMonth(), itemDate.getDate());
+    const startDateWithoutTime = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+    const endDateWithoutTime = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+    return itemDateWithoutTime >= startDateWithoutTime && itemDateWithoutTime <= endDateWithoutTime;
+  });
+  }
+
+  return filteredItems;
+  }
+
+
+  getdocuments(){
   this.documentService.getAllDocuments() .pipe(take(1)).subscribe({
-    next: (response) => {
-      this.Docs = response;
-      this.filteredDocs = this.Docs;
-      this.calculatePagination()
-this.loading = false;
+    next: (response : Doc[] = []) => {
+    this.items= this.filteredItems=response.filter(document => document.etat == false);
+
+      this.loading = false;
       this.toastr.success('documents loaded successfully', 'Confirmation');
 
     },
@@ -50,25 +102,10 @@ this.loading = false;
   });
 }
 
-calculatePagination() {
-  this.totalPages = Math.ceil(this.filteredDocs.length / this.pageSize);
 
-  this.pages = [];
-  for (let i = 1; i <= this.totalPages; i++) {
-    this.pages.push(i);
-  }
-}
 
-goToPage(page: number) {
-  if (page >= 1 && page <= this.totalPages) {
-    this.currentPage = page;
-  }
-}
 
-get paginatedList() {
-  const startIndex = (this.currentPage - 1) * this.pageSize;
-  return this.filteredDocs.slice(startIndex, startIndex + this.pageSize);
-}
+
 detail(document: Doc): void {
 
   console.log(document.id);
@@ -81,17 +118,7 @@ detail(document: Doc): void {
     );
   }
 
-  filter() {
-    if (this.filterName === '') {
-      this.filteredDocs = this.Docs;
-      this.calculatePagination()
-    } else {
-      this.filteredDocs = this.Docs.filter((Doc) =>
-        String(Doc.id) === this.filterName
-      );
-      this.calculatePagination()
-    }
-  }
+
 
 
 }

@@ -55,7 +55,14 @@
           <li>
             <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/mesDocs">
               <i class="fa-solid fa-folder-tree"></i>
-              <span>Documents a traites</span>
+              <span>Documents à traiter</span>
+            </a>
+          </li>
+
+          <li>
+            <a class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/processedDocs">
+              <i class="fa-solid fa-clipboard-check"></i>
+              <span>Documents traités</span>
             </a>
           </li>
           <li>
@@ -116,19 +123,21 @@
           </div>
           <div class="icons d-flex align-center">
 
-            <a class="c-white" (click)="onLogout()">Deconnexion</a>
+            <a class="c-white" (click)="onLogout()"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Deconnexion </a>
 
           </div>
         </div>
 
 
 
-          <div class="content w-full">
-
-
-        <router-outlet></router-outlet>
+        <div class="container">
+          <div class="content w-full" style="padding: 30px;">
+            <div style="display: contents; justify-content: center;">
+              <router-outlet></router-outlet>
+            </div>
 
           </div>
+        </div>
 
       </div>
     </div>

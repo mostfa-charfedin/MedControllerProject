@@ -4,20 +4,43 @@
 
   <h2>Ajouter des documents</h2>
   <br>
-  <form>
 
-  <div class="col-md-8 mb-4">
-    <label for="validationDefault01">Rapport</label>
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="inputGroupFile03" (change)="onFileSelected($event, 3)">
-      <label class="custom-file-label" for="inputGroupFile03">{{ fileNames[2] }}</label>
-    </div>
+<!-- Large modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Envoyer un Rapport</button>
+<br>
 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Envoyer un Rapport</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <div class="col-md-8 mb-4">
+            <label for="validationDefault01">Rapport</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileSelected($event, 1)">
+              <label class="custom-file-label" for="inputGroupFile01">{{ fileNames[0] }}</label>
+            </div>
+
+          </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" data-dismiss="modal" type="button" (click)="uploadFiles()">Upload Files</button>
+      </div>
+    </form>
   </div>
-
-  <button class="btn btn-primary" type="button" (click)="uploadFiles()">Upload Files</button>
-</form>
-
+    </div>
+  </div>
+</div>
+<!-- End modal -->
 <br>
 <div class="containerr">
 

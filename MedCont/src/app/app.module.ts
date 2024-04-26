@@ -34,6 +34,18 @@ import { BodereauOpticienPRATICIENComponent } from './bodereau-opticien-praticie
 import { EtatDocComponent } from './etat-doc/etat-doc.component';
 import { ListeUsersComponent } from './liste-users/liste-users.component';
 import { TestComponent } from './test/test.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatIconModule} from '@angular/material/icon';
+import { DocumentProcessedComponent } from './document-processed/document-processed.component';
+import { DetailDocProcessedComponent } from './detail-doc-processed/detail-doc-processed.component';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -64,6 +76,8 @@ import { TestComponent } from './test/test.component';
       EtatDocComponent,
       ListeUsersComponent,
       TestComponent,
+      DocumentProcessedComponent,
+      DetailDocProcessedComponent,
 
 
 
@@ -79,7 +93,15 @@ import { TestComponent } from './test/test.component';
     ToastrModule.forRoot(),
     MatSelectModule,
     NgxPrintModule,
-
+    MatStepperModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [
     provideAnimations(),

@@ -54,7 +54,7 @@ public class SecurityConfig {
 		.authorizeHttpRequests( requests -> requests
 				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**","/verif","/updatePassword","/acceptDm","/demande").permitAll()
 				.requestMatchers(HttpMethod.GET, "/recuperer/**").permitAll()
-				.requestMatchers("/all").hasAuthority("USER")
+				.requestMatchers("/all","/delete/**").permitAll()
 				.requestMatchers("/updateUser","/all","/allDocs","/doc/**","/findDocumentByUserId/**").permitAll()		
 				.requestMatchers("/uploadDoc","/updateDoc","/allHistorys").permitAll()		
 				.requestMatchers("/allHistorys").permitAll()	

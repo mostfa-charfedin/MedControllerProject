@@ -1,128 +1,164 @@
-<div class="container mt-5">
-  <div class="row justify-content-md-center">
-      <div class="col-md-11">
-        <div class="col-md-8 mb-3">
-        <div class="alert alert-danger" *ngIf="err!=''">
-          <strong>{{err}}</strong>
-      </div>
-      </div>
-         <form [formGroup]="myForm">
+<div class="alert alert-danger" *ngIf="err!=''">
+  <strong>{{err}}</strong>
+</div>
+<form [formGroup]="myForm" >
+<mat-stepper orientation="vertical">
+  <mat-step>
+    <ng-template matStepLabel>Step 1</ng-template>
+    <ng-template matStepContent>
 
-
-
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationDefault01">First name</label>
-                    <input type="text" class="form-control" name="firstName" placeholder="First name" formControlName="firstName" >
-
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationDefault02">Last name</label>
-                    <input type="text" class="form-control"   name="lastName"    formControlName="lastName" >
-                  </div>
-                </div>
-              <!--------------------------------------------------------------------------------------------------------------------->
-
-              <div class="form-row">
-                <div class="col-md-8 mb-3">
-                <label>email :</label>
-                <input type="text" name="email" class="form-control" formControlName="email"
-                   >
-
-            <span *ngIf="myForm.controls['email'].hasError('required')&&  myForm.controls['email'].touched" class="text-danger">
-                email est obligatoire
-            </span>
-            <span *ngIf="myForm.controls['email'].hasError('email')&&  myForm.controls['email'].touched" class="text-danger">
-                email non valide
-            </span>
-          </div>
+      <div class="form-row mt-5">
+        <div class="col-md-4 mb-3">
+          <label for="validationDefault01">Nom</label>
+          <input type="text" class="form-control" name="firstName" placeholder="nom" formControlName="firstName" >
         </div>
 
+        <div class="col-md-4 mb-3">
+          <label for="validationDefault02">Prenom</label>
+          <input type="text" class="form-control"   name="lastName" placeholder="Prenom"   formControlName="lastName" >
+        </div>
+      </div>
+    <!--------------------------------------------------------------------------------------------------------------------->
 
-        <div class="form-row">
-              <div class="col-md-8 mb-3">
-                <label>Mot de passe :</label>
-                <input type="password" name="password" formControlName="password"
-                    class="form-control">
+<div class="form-row">
+    <div class="col-md-8 mb-3">
+      <label>Mot de passe :</label>
+      <input type="password" name="password" formControlName="password" placeholder="Mot de passe"
+          class="form-control">
 
-            <span *ngIf="myForm.controls['password'].hasError('required')&&
+  <span *ngIf="myForm.controls['password'].hasError('required')&&
 myForm.controls['password'].touched" class="text-danger">
-                mot de passe est obligatoire
-            </span>
-            <span *ngIf="myForm.controls['password'].hasError('minlength')&&
+      mot de passe est obligatoire
+  </span>
+  <span *ngIf="myForm.controls['password'].hasError('minlength')&&
 myForm.controls['password'].touched" class="text-danger">
-                mot de passe doit contenir au moins 6 caractères
-            </span>
-             </div></div>
-             <div class="form-row">
-              <div class="col-md-8 mb-3">
-                <label>Confirmer Mot de passe :</label>
-                <input type="password" name="confirmPassword" formControlName="confirmPassword"
-                    class="form-control">
+      mot de passe doit contenir au moins 6 caractères
+  </span>
+   </div>
+  </div>
+   <div class="form-row">
+    <div class="col-md-8 mb-3">
+      <label>Confirmer Mot de passe :</label>
+      <input type="password" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirmer mot de passe"
+          class="form-control">
 
-    <span *ngIf="myForm.controls['confirmPassword'].hasError('required')&& myForm.controls['confirmPassword'].touched" class="text-danger">
-                confirmer mot de passe est obligatoire
-            </span>
-            <div>
-        <span *ngIf="myForm.get('confirmPassword')?.touched &&
+<span *ngIf="myForm.controls['confirmPassword'].hasError('required')&& myForm.controls['confirmPassword'].touched" class="text-danger">
+      confirmer mot de passe est obligatoire
+  </span>
+  <div>
+<span *ngIf="myForm.get('confirmPassword')?.touched &&
 myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="text-danger">
-                    Le mot de passe confrmé ne correspond pas au mot de passe tapé
-                </span>
+          Le mot de passe confrmé ne correspond pas au mot de passe tapé
+      </span>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+    <label>e-mail :</label>
+    <input type="text" name="email" placeholder="exemple@gmail.com" class="form-control" formControlName="email">
+
+<span *ngIf="myForm.controls['email'].hasError('required')&&  myForm.controls['email'].touched" class="text-danger">
+    email est obligatoire
+</span>
+<span *ngIf="myForm.controls['email'].hasError('email')&&  myForm.controls['email'].touched" class="text-danger">
+    email non valide
+</span>
+</div>
+</div>
+</div>
+</div>
+    <!--------------------------------------------------------------------------------------------------------------------->
+
+      <button class="btn btn-primary" matStepperNext>Next</button>
+    </ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 2</ng-template>
+    <ng-template matStepContent>
+      <div class="form-row mt-5">
+
+        <div class="col-md-4 mb-3">
+          <label for="validationDefaultUsername">Username</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend2" >&#64;</span>
             </div>
+            <input type="text" class="form-control"  name="username" placeholder="Username"  formControlName="username"  >
+
+
           </div>
+          <span *ngIf="myForm.controls['username'].hasError('required')&&  myForm.controls['username'].touched" class="text-danger">
+            Username est obligatoire
+        </span>
         </div>
 
-              <!--------------------------------------------------------------------------------------------------------------------->
+    <div class="col-md-4 mb-3">
+          <label for="validationDefaultUsername">Specialite</label>
+          <div class="input-group">
+
+            <input type="text" class="form-control"  name="specialite" placeholder="Specialite"   formControlName="specialite" >
+          </div>
+    </div>
+  </div>
+<!--------------------------------------------------------------------------------------------------------------------->
+  <div class="form-row">
+    <div class="col-md-8 mb-3">
+      <label for="validationDefault03">Adresse</label>
+      <input type="text" class="form-control"  name="localisation" placeholder="Adresse"  formControlName="localisation" >
+    </div>
+
+  </div>
+<!--------------------------------------------------------------------------------------------------------------------->
 
 
-                <div class="form-row">
+<div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault01">Matricule</label>
+      <input type="text" class="form-control" name="matricule" placeholder="Matricule"  formControlName="matricule" >
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault02">Phone</label>
+      <input type="number" class="form-control"  name="tel" placeholder="Phone"  formControlName="tel" >
+    </div>
+  </div>
 
-                      <div class="col-md-4 mb-3">
-                        <label for="validationDefaultUsername">Username</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupPrepend2" >&#64;</span>
-                          </div>
-                          <input type="text" class="form-control"  name="username" placeholder="Username"  formControlName="username"  >
-
-
-                        </div>
-                        <span *ngIf="myForm.controls['username'].hasError('required')&&  myForm.controls['username'].touched" class="text-danger">
-                          Username est obligatoire
-                      </span>
-                      </div>
-
-                  <div class="col-md-4 mb-3">
-                        <label for="validationDefaultUsername">Specialite</label>
-                        <div class="input-group">
-
-                          <input type="text" class="form-control"  name="specialite" placeholder="Specialite"   formControlName="specialite" >
-                        </div>
-                  </div>
-                </div>
-              <!--------------------------------------------------------------------------------------------------------------------->
-                <div class="form-row">
-                  <div class="col-md-8 mb-3">
-                    <label for="validationDefault03">Adresse</label>
-                    <input type="text" class="form-control"  name="localisation" placeholder="Adresse"  formControlName="localisation" >
-                  </div>
-
-                </div>
-              <!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
+<button class="btn btn-secondary" matStepperPrevious>Back</button>&nbsp;
+      <button class="btn btn-primary" matStepperNext>Next</button>
+    </ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 3</ng-template>
+ <!--------------------------------------------------------------------------------------------------------------------->
 
 
-              <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationDefault01">Matricule</label>
-                    <input type="text" class="form-control" name="matricule" placeholder="Matricule"  formControlName="matricule" >
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationDefault02">Phone</label>
-                    <input type="text" class="form-control"  name="tel" placeholder="Phone"  formControlName="tel" >
-                  </div>
-                </div>
+ <div class="form-row mt-5">
+  <div class="col-md-4 mb-3">
+    <label for="validationDefault01">Cin</label>
+    <input type="number" class="form-control" name="cin" placeholder="Cin"  formControlName="cin" >
+    <span *ngIf="myForm.controls['cin'].hasError('required')&&
+    myForm.controls['cin'].touched" class="text-danger">
+          Cin est obligatoire
+      </span>
+      <span *ngIf="myForm.controls['cin'].hasError('minlength')&&
+    myForm.controls['cin'].touched" class="text-danger">
+          Cin doit contenir au moins 8 caractères
+      </span>
+  </div>
 
-              <!--------------------------------------------------------------------------------------------------------------------->
+  <div class="col-md-4 mb-3">
+    <label for="validationDefault02">Date de naissance</label>
+    <input type="date" class="form-control"  name="birthday" placeholder="birthday"  formControlName="birthday" >
+  </div>
+
+</div>
+<div class="form-row">
+<button class="btn btn-secondary" matStepperPrevious>Back</button>&nbsp;
+
+<button type="button" [disabled]="myForm.invalid" class="btn btn-success"
+(click)="onRegister()">S'insrire</button>
+</div>
+<!--------------------------------------------------------------------------------------------------------------------->
 
 
 
@@ -131,10 +167,9 @@ myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="te
                   <span class="sr-only">Loading...</span>
                   </div>
               </div>
-              <button type="button" [disabled]="myForm.invalid" class="btn btn-success"
-                  (click)="onRegister()">S'insrire</button>
-              <p>vous avez un compte? <a routerLink="/login">se connecter </a></p>
-          </form>
 
-
-
+    <i matStepperPrevious class="fa-solid fa-arrow-left-long"></i>
+  </mat-step>
+</mat-stepper>
+<p>vous avez un compte? <a routerLink="/login">se connecter </a></p>
+</form>

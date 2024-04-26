@@ -3,6 +3,7 @@ import { DocumentService } from '../services/document.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
 import { Doc } from '../models/doc';
+import { FormGroup, NgForm, Validators } from '@angular/forms';
 @Component({
   selector: 'app-send-doc',
   templateUrl: './send-doc.component.html',
@@ -20,6 +21,8 @@ export class SendDocComponent {
  file2: File | null = null;
  agentId: number = 1; // Sample agent ID
  medecinId: number = 1; // Sample medecin ID
+ myForm!: FormGroup;
+  formBuilder: any;
   constructor(
     private fileUploadService: DocumentService,
     private toastr: ToastrService,
@@ -28,6 +31,9 @@ export class SendDocComponent {
 
   ngOnInit() {
     this.fetchUsers();
+
+
+
   }
 
   fetchUsers() {
@@ -57,7 +63,10 @@ export class SendDocComponent {
   }
 
 
-  uploadFiles(): void {
+
+
+
+  uploadFiles(sendDoc: NgForm): void {
     const file1Input = document.getElementById('inputGroupFile01') as HTMLInputElement;
     const file2Input = document.getElementById('inputGroupFile02') as HTMLInputElement;
 
@@ -76,6 +85,12 @@ export class SendDocComponent {
     }
 this.doc.agentId =  localStorage.getItem('id');
 this.doc.medecinId =  this.selectedUserId;
+
+this.doc.matriculeAssure = sendDoc.value['matriculeAssure'];
+this.doc.nomAssure = sendDoc.value['nomAssure'];
+this.doc.nomBenificiaire = sendDoc.value['nomBenificiaire'];
+this.doc.qualiteBinificiaire = sendDoc.value['QualiteBinificiaire'];
+console.log(this.doc)
     this.fileUploadService.uploadFiles(this.doc, file1, file2).subscribe({
       next: (res) => {
         console.log('Files uploaded successfully:', res);

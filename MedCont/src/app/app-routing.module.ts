@@ -22,6 +22,9 @@ import { BodereauOpticienComponent } from './bodereau-opticien/bodereau-opticien
 import { BodereauOpticienPRATICIENComponent } from './bodereau-opticien-praticien/bodereau-opticien-praticien.component';
 import { EtatDocComponent } from './etat-doc/etat-doc.component';
 import { ListeUsersComponent } from './liste-users/liste-users.component';
+import { TestComponent } from './test/test.component';
+import { DocumentProcessedComponent } from './document-processed/document-processed.component';
+import { DetailDocProcessedComponent } from './detail-doc-processed/detail-doc-processed.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -31,7 +34,7 @@ const routes: Routes = [
   {path:'',component:ProfileComponent},
   {path:'recuperer',component:RecupererComponent},
   {path:'demupdate',component:DemandeupdateComponent},
-
+  {path:'test',component:TestComponent},
   {path:'RCdent',component:PdfRCDntComponent},
   {path:'RCopt',component:PdfRCOpComponent},
   {path:'fctopt',component:FactOptComponent},
@@ -39,13 +42,14 @@ const routes: Routes = [
   {path:'senddoc',component:SendDocComponent},
   {path:'mesDocs',component:ListDocsAffComponent},
   {path:'detailDoc/:id',component:DetailDocComponent},
+  {path:'detailDocProc/:id',component:DetailDocProcessedComponent},
   {path:'historique',component:HistoriqueComponent},
   {path:'brdDnt',component:BodereauDentisteComponent},
   {path:'brdOpt',component:BodereauOpticienComponent},
   {path:'brdOptPRATICIEN',component:BodereauOpticienPRATICIENComponent},
   {path:'etatDoc',component:EtatDocComponent},
   {path:'allUsers',component:ListeUsersComponent},
-
+  {path:'processedDocs',component:DocumentProcessedComponent},
 
 ];
 

@@ -42,21 +42,26 @@ public class Document {
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] rapport;
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] facture;
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] bordereau;
+  
     
-    private String Etat;
+    private boolean Etat;
     private Long agentId;
-    private String date;
+    private String dateAffectation;
+    private String dateTrete;
     
+      private String matriculeAssure;
+	  private String nomAssure;
+	  private String nomBenificiaire;
+	  private String qualiteBinificiaire;
+	  private int montant ;
+ 
+	    
     @ManyToOne
     @JoinColumn(name = "medecin_id")
     private User user;
 
-	
+    @ManyToOne
+    @JoinColumn(name = "bordereau_id")
+    private Bordereau bordereau;
 
 }

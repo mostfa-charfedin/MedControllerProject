@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent implements OnInit {
 
-
   user: Partial<User> = {};
   request :Partial<User> = {};
   isEditMode: boolean =true;
@@ -46,7 +45,8 @@ export class ProfileComponent implements OnInit {
  // Initialize myForm2 with FormBuilder
  this.myForm2 = this.formBuilder.group({
   password: ['', [Validators.required, Validators.minLength(6)]],
-  confirmPassword: ['', [Validators.required]]
+  confirmPassword: ['', [Validators.required]],
+
 });
 
 
@@ -64,11 +64,12 @@ export class ProfileComponent implements OnInit {
     this.user.firstName = formProfile.value['firstName'];
     this.user.lastName = formProfile.value['lastName'];
     this.user.email = formProfile.value['email'];
-    this.user.username = formProfile.value['username'];
     this.user.specialite = formProfile.value['specialite'];
     this.user.localisation = formProfile.value['localisation'];
     this.user.tel = formProfile.value['tel'];
     this.user.matricule = formProfile.value['matricule'];
+    this.user.birthday = formProfile.value['birthday'];
+    this.user.cin = formProfile.value['cin'];
     console.log("switch2",this.user)
   }
   demandemodification(){
@@ -89,7 +90,7 @@ export class ProfileComponent implements OnInit {
 
     this.request.username =this.user.username;
     this.request.password =this.password;
-
+console.log(this.user)
     this.userService.validatepassword(this.request).subscribe({
         next: (data) => {
           this.toastr.success('Pasword valide, Profile updated', 'Confirmation');

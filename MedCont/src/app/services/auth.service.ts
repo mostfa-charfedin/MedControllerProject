@@ -104,7 +104,7 @@ return this.regitredUser;
     }
 
 
-    validateEmail(code : string){
+  validateEmail(code : string){
       return this.http.get<User>(this.apiURL+'/verifyEmail/'+code);
       }
 

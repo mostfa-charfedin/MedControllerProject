@@ -1,5 +1,7 @@
 package Medcontroller.entities;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +18,6 @@ public class RegistrationRequest {
     private String specialite;
     private Boolean isActive;
 	private String email;
-
+	private String birthday;
+	private int cin;
 }
