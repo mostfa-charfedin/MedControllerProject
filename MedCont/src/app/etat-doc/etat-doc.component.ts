@@ -33,7 +33,7 @@ export class EtatDocComponent {
   pageSizeOptions = [ 5, 10, 25, 50, 100];
   pageIndex = 0;
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Use `!` for non-null assertion
-  constructor(private documentService: DocumentService,private route: ActivatedRoute,public router: Router,) { }
+  constructor(private documentService: DocumentService,private userService: UserService,private route: ActivatedRoute,public router: Router,) { }
 
 
   ngOnInit(): void {
@@ -99,4 +99,6 @@ export class EtatDocComponent {
 details(id:Number){
   this.router.navigate([`/detailDocProc/${id}`]);
 }
+
+
 }

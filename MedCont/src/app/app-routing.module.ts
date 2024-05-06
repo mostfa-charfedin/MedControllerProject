@@ -25,6 +25,10 @@ import { ListeUsersComponent } from './liste-users/liste-users.component';
 import { TestComponent } from './test/test.component';
 import { DocumentProcessedComponent } from './document-processed/document-processed.component';
 import { DetailDocProcessedComponent } from './detail-doc-processed/detail-doc-processed.component';
+import { ListDocsFactComponent } from './list-docs-fact/list-docs-fact.component';
+import { ListFactureComponent } from './list-facture/list-facture.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { AddReclamationComponent } from './add-reclamation/add-reclamation.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -35,8 +39,8 @@ const routes: Routes = [
   {path:'recuperer',component:RecupererComponent},
   {path:'demupdate',component:DemandeupdateComponent},
   {path:'test',component:TestComponent},
-  {path:'RCdent',component:PdfRCDntComponent},
-  {path:'RCopt',component:PdfRCOpComponent},
+  {path:'RCdent/:id',component:PdfRCDntComponent},
+  {path:'RCopt/:id',component:PdfRCOpComponent},
   {path:'fctopt',component:FactOptComponent},
   {path:'home',component:HomeComponent},
   {path:'senddoc',component:SendDocComponent},
@@ -50,7 +54,10 @@ const routes: Routes = [
   {path:'etatDoc',component:EtatDocComponent},
   {path:'allUsers',component:ListeUsersComponent},
   {path:'processedDocs',component:DocumentProcessedComponent},
-
+  {path:'docsFact',component:ListDocsFactComponent},
+  {path:'listFact',component:ListFactureComponent},
+  {path:'listReclamations',component:ReclamationComponent},
+  {path:'Reclamation',component:AddReclamationComponent},
 ];
 
 @NgModule({

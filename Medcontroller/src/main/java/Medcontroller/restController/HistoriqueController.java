@@ -23,7 +23,7 @@ public class HistoriqueController {
 	
 	@RequestMapping(path = "/allHistorys",method = RequestMethod.GET)
 	public List<Historique> getAllHistorys() {
-		return historiqueRepository.findAll();
+		return historiqueService.findAllHistorys();
 	 }
 	
 }

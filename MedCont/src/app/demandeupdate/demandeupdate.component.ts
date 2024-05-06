@@ -65,12 +65,16 @@ export class DemandeupdateComponent implements OnInit {
 
   confirmValidation(user: User): void {
     const confirmValidation = window.confirm('Voulez-vous valider ?');
-    if (confirmValidation) {console.log(user.id);
-      this.userService.acceptDemande(user.id).subscribe(
+    if (confirmValidation) {
+      let adminId = localStorage.getItem("id");
+      this.userService.acceptDemande(user.id,Number(adminId)).subscribe(
         (data) => {
           this.toastr.success('User validation status updated successfull', 'Confirmation');
           console.log('User validation status updated successfully on the server');
           this.loadUsers();
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         },
 
         error =>{console.error('Error updating user validation status:', error);
@@ -90,7 +94,7 @@ get filter() {
 
   } else {
     filteredItems = this.items.filter((user) =>
-      user.username.toLowerCase().includes(this.searchText.toLowerCase())
+      user.username?.toLowerCase().includes(this.searchText.toLowerCase())
     );
 
 }

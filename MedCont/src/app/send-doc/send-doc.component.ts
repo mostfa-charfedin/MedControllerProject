@@ -83,7 +83,7 @@ export class SendDocComponent {
       console.error('Please select both files.');
       return;
     }
-this.doc.agentId =  localStorage.getItem('id');
+this.doc.agentId=  localStorage.getItem('id');
 this.doc.medecinId =  this.selectedUserId;
 
 this.doc.matriculeAssure = sendDoc.value['matriculeAssure'];

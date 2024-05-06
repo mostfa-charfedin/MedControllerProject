@@ -57,7 +57,7 @@ pageIndex = 0;
       (response) => {
         this.loading = false;
         this.users = response;
-        this.items= this.filteredItems= this.users.filter(user => !user.demandeMod);
+        this.items= this.filteredItems= this.users;
 
       },
       (error) => {
@@ -66,6 +66,58 @@ pageIndex = 0;
       }
     );
   }
+  deleteUser(user:User){
+    const confirmValidation = window.confirm('Voulez-vous supprimler le compte ?');
+    if (confirmValidation){
+    this.userService.deleteUser(user.id).subscribe(
+      (response) => {
+        this.toastr.success('Utilisateur supprimé.', 'Confirmation');
+     
+
+
+      },
+      (error) => {
+        this.toastr.error('erreur.', 'Erreur');
+
+      }
+    );
+  }
+}
+
+
+  bloquerUser(user:User){
+    const confirmValidation = window.confirm("Voulez-vous bloquer l'utilisateur ?");
+    if (confirmValidation){
+    this.userService.bloquerUser(user.id).subscribe(
+      (response) => {
+        this.toastr.success('Utilisateur bloqué.', 'Confirmation');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      },
+      (error) => {
+        this.toastr.error('erreur.', 'Erreur');
+      }
+    );
+  }
+}
+
+  validerUser(user:User){
+    const confirmValidation = window.confirm('Voulez-vous activer le compte ?');
+    if (confirmValidation){
+    this.userService.validerUser(user.id).subscribe(
+      (response) => {
+        this.toastr.success('Compte activé.', 'Confirmation');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      },
+      (error) => {
+        this.toastr.error('erreur.', 'Erreur');
+      }
+    );
+  }
+}
 
   get filter() {
     if (!this.items) return [];
@@ -77,7 +129,7 @@ pageIndex = 0;
 
     } else {
       filteredItems = this.items.filter((user) =>
-        user.username.toLowerCase().includes(this.searchText.toLowerCase())
+        user.username?.toLowerCase().includes(this.searchText.toLowerCase())
       );
 
   }

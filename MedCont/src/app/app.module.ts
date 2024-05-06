@@ -46,7 +46,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { ListDocsFactComponent } from './list-docs-fact/list-docs-fact.component';
+import { ListFactureComponent } from './list-facture/list-facture.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { AddReclamationComponent } from './add-reclamation/add-reclamation.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,10 @@ import {MatButtonModule} from '@angular/material/button';
       TestComponent,
       DocumentProcessedComponent,
       DetailDocProcessedComponent,
+      ListDocsFactComponent,
+      ListFactureComponent,
+      ReclamationComponent,
+      AddReclamationComponent,
 
 
 
@@ -102,6 +110,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatPaginatorModule,
     MatCardModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   providers: [
     provideAnimations(),

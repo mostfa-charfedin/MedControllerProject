@@ -1,63 +1,67 @@
-<div class="container mt-5">
-  <div class="row justify-content-md-center">
-
+<div class="container">
+  <div class="centered-pre">
     <div class="button-container" >
       <button class="button" mat-stroked-button color="primary"  (click)="convertToPDF()">
         <span class="button__text">Download</span>
         <span class="button__icon">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
           </svg>
-
         </span>
       </button>
       <button class="print-btn" mat-stroked-button color="primary" (click)="printContent()">
         <span class="printer-wrapper">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
+            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
           </svg>
-
         </span>
         Print
       </button>
+      <button class="print-btn" mat-stroked-button color="primary" (click)="saveDoc()">
+
+        <span><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+        </svg>
+        </span>
+
+      Envoyer le rapport
+    </button>
     </div>
+
+
 
 
           <div id="contentToConvert" class="print-content" #contentToPrint >
             <div style="margin-left: 20px; margin-right: 20px;">
-               <pre>
-          <table   >
-     <tbody>
+<pre>
 
-<table  >
-<tbody>
+          <table>
+          <tbody>
+          <table>
+            <tbody>
             <tr>
               <th ><img src="assets/images/bpo.png" style="width: 100px;"></th>
               <th class="text-center" style="width:70%">Rapport de contre visite</th>
-              <th   style="width:40%">Date : <i contenteditable='true'>2024/**/**</i> </th>
+              <th   style="width:40%">Date : <i>{{dateString}}</i> </th>
             </tr>
-
-
-
-
 
           <tr>
           <td><i>Mr / Mme / Mlle :</i> </td>
-          <td colspan="2"><i contenteditable='true'></i></td>
+          <td colspan="2"><i contenteditable='true'>....</i></td>
           </tr>
           <tr>
           <td><i>Prestataire(e) :</i></td>
-          <td colspan="2"><i contenteditable='true'></i></td>
+          <td colspan="2"><i contenteditable='true'>....</i></td>
           </tr>
 
           <tr>
           <td><i>Adhésion :</i></td>
-          <td colspan="2"><i contenteditable='true'></i></td>
+          <td colspan="2"><i contenteditable='true'>....</i></td>
           </tr>
 
           <tr>
           <td><i>Numéro du dossier :</i></td>
-          <td colspan="2"><i contenteditable='true'></i></td>
+          <td colspan="2"><i contenteditable='true'> {{document?.id}}</i></td>
           </tr>
         </tbody>
 </table>
@@ -75,7 +79,7 @@
     </tr>
 <tr>
 
-      <th class="text-center" style="width:15%">DATE</th>
+      <th class="text-center" style="width:0%;">DATE</th>
       <th class="text-center" style="width:10%">DENT</th>
       <th class="text-center" style="width:10%">CODE ACTE</th>
       <th class="text-center"style="width:10%">COTATION</th>
@@ -89,15 +93,7 @@
 <tbody>
   <tr>
 
-    <td contenteditable='true'></td>
-    <td contenteditable='true'></td>
-    <td contenteditable='true'> </td>
-    <td contenteditable='true'></td>
-    <td contenteditable='true'> </td>
-
-</tr>
-<tr>
-  <td contenteditable='true'></td>
+    <td ><input type="date"></td>
     <td contenteditable='true'></td>
     <td contenteditable='true'> </td>
     <td contenteditable='true'></td>
@@ -105,7 +101,7 @@
 
 </tr>
 <tr>
-  <td contenteditable='true'></td>
+  <td contenteditable='true'><input type="date"></td>
     <td contenteditable='true'></td>
     <td contenteditable='true'> </td>
     <td contenteditable='true'></td>
@@ -113,7 +109,15 @@
 
 </tr>
 <tr>
-  <td contenteditable='true'></td>
+  <td ><input type="date"></td>
+    <td contenteditable='true'></td>
+    <td contenteditable='true'> </td>
+    <td contenteditable='true'></td>
+    <td contenteditable='true'> </td>
+
+</tr>
+<tr>
+  <td ><input type="date"></td>
     <td contenteditable='true'></td>
     <td contenteditable='true'> </td>
     <td contenteditable='true'></td>
@@ -138,7 +142,7 @@
 
 <tr>
 
-      <th class="text-center" style="width:15%">DATE</th>
+      <th class="text-center" style="width:0%">DATE</th>
       <th class="text-center" style="width:10%">DENT</th>
       <th class="text-center" style="width:10%">CODE ACTE</th>
       <th class="text-center"style="width:10%">COTATION</th>
@@ -152,7 +156,7 @@
 <tbody>
   <tr>
 
-    <td contenteditable='true'></td>
+    <td ><input type="date"></td>
     <td contenteditable='true'></td>
     <td contenteditable='true'> </td>
     <td contenteditable='true'></td>
@@ -161,7 +165,7 @@
 </tr>
 <tr>
 
-  <td contenteditable='true'></td>
+  <td><input type="date"></td>
   <td contenteditable='true'></td>
   <td contenteditable='true'> </td>
   <td contenteditable='true'></td>
@@ -175,11 +179,11 @@
 </table>
 
 <tr >
-  <th class="container mt-5"><i>OBSERVATION : </i> <i contenteditable='true'>...........................</i> </th>
+  <th class="container mt-5"><i>OBSERVATION : </i> <i contenteditable='true'>..........</i> </th>
 </tr>
 
 <tr >
-  <th  style="text-align-last: right;">Le médecin Dentiste <i contenteditable='true'>...........................</i></th>
+  <th  style="text-align-last: right;">Le médecin Dentiste <i>{{this.document?.user?.firstName}} {{this.document?.user?.lastName}}</i></th>
 </tr>
 
           </tbody>

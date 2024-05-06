@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Medcontroller.entities.Historique;
-import Medcontroller.entities.User;
+
 import Medcontroller.repository.HistoriqueRepository;
 
 @Service

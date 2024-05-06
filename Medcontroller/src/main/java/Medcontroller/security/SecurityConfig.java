@@ -54,10 +54,10 @@ public class SecurityConfig {
 		.authorizeHttpRequests( requests -> requests
 				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**","/verif","/updatePassword","/acceptDm","/demande").permitAll()
 				.requestMatchers(HttpMethod.GET, "/recuperer/**").permitAll()
-				.requestMatchers("/all","/delete/**").permitAll()
+				.requestMatchers("/all","/delete/**","/factDoc","/bloquer/**","/validerCompte/**").permitAll()
 				.requestMatchers("/updateUser","/all","/allDocs","/doc/**","/findDocumentByUserId/**").permitAll()		
-				.requestMatchers("/uploadDoc","/updateDoc","/allHistorys").permitAll()		
-				.requestMatchers("/allHistorys").permitAll()	
+				.requestMatchers("/uploadDoc","/updateDoc","/allHistorys","/saveBoredereau","/allFactures","/allBordereaux").permitAll()		
+				.requestMatchers("/allHistorys","/payerFacture","/findBordereauxByUserId/**","/allReclamations","/sendReclamation","/validerReclamation/**").permitAll()	
 				.anyRequest().authenticated() )
 		
 		.addFilterBefore(new JWTAuthenticationFilter(authMgr), 

@@ -1,41 +1,38 @@
-
-
-
-<div class="container mt-5">
-  <div class="row justify-content-md-center">
-
-
-
+<div class="container">
+  <div class="centered-pre">
     <div class="button-container" >
       <button class="button" mat-stroked-button color="primary"  (click)="convertToPDF()">
         <span class="button__text">Download</span>
         <span class="button__icon">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
           </svg>
-
         </span>
       </button>
       <button class="print-btn" mat-stroked-button color="primary" (click)="printContent()">
         <span class="printer-wrapper">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
+            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
           </svg>
-
         </span>
         Print
       </button>
+      <button class="print-btn" mat-stroked-button color="primary" (click)="saveDoc()">
+
+        <span><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+        </svg>
+        </span>
+      Envoyer le bordereau
+    </button>
     </div>
 
 
 
 
-
-
-
-            <div id="contentToConvert" class="print-content" #contentToPrint >
+          <div id="contentToConvert" class="print-content" #contentToPrint >
             <div style="margin-left: 20px; margin-right: 20px;">
-              <pre  >
+<pre>
           <table  >
      <tbody>
 
@@ -45,17 +42,17 @@
 
             <tr >
               <th rowspan="4" ><img src="assets/images/bpo.png"  >&nbsp; &nbsp;</th>
-              <th  >Dentiste : <i contenteditable='true'>{{user.firstName}}&nbsp;{{user.lastName}}</i></th>
-              <th rowspan="4">&nbsp; &nbsp;<img src="assets/images/astree.jpg" style="width: 100px; height: 100px;" ></th>
+              <th  >Dentiste : <i >{{user?.firstName}}&nbsp;{{user?.lastName}}</i></th>
+              <th rowspan="4">&nbsp; &nbsp;<img src="assets/images/iway.png" style="width: 100px; height: 100px;" ></th>
             </tr>
             <tr>
-              <th  contenteditable='true' >Matricule fiscale : <i contenteditable='true'>{{user.matricule}}</i></th>
+              <th  contenteditable='true' >Matricule fiscale : <i >{{user?.matricule}}</i></th>
             </tr>
             <tr>
-              <th  contenteditable='true' >Adresse : <i contenteditable='true'>{{user.localisation}}</i> </th>
+              <th  contenteditable='true' >Adresse : <i >{{user?.localisation}}</i> </th>
             </tr>
             <tr>
-              <th  contenteditable='true' >Téléphone : <i contenteditable='true'>{{user.tel}}</i></th>
+              <th  contenteditable='true' >Téléphone : <i >{{user?.tel}}</i></th>
             </tr>
 
 
@@ -65,7 +62,7 @@
 <table class="center">
   <thead>
 
-      <th> Facture N° : <i contenteditable='true'>...</i></th> <th>&nbsp;</th> <th > Date : <i contenteditable='true'>202*/**/**</i></th>
+      <th> Facture N° : <input type="number" ></th> <th>&nbsp;</th> <th type="date"> Date : <input type="date"></th>
 
   </thead>
 </table>
@@ -73,7 +70,8 @@
 <table border>
   <tbody>
     <tr>
-      <th>ID </th>
+
+      <th>N° dossier</th>
       <th>Matricule de l’assuré</th>
       <th>Nom de l’assuré</th>
       <th>Nom du Bénéficiaire </th>
@@ -83,12 +81,13 @@
       <th>Montant </th>
     </tr>
     <tr *ngFor="let document of listDocs; let i = index ">
-    <td>{{ i + 1 }}</td>
-    <td contenteditable='true' >{{document.matriculeAssure}}</td>
+
+    <td >{{document.id}}</td>
+    <td >{{document.matriculeAssure}}</td>
     <td contenteditable='true'>{{document.nomAssure}}</td>
     <td contenteditable='true'>{{document.nomBenificiaire}}</td>
     <td contenteditable='true'>{{document.qualiteBinificiaire}}</td>
-    <td contenteditable='true'>{{document.dateTrete}} </td>
+    <td contenteditable='true'>{{document.dateTraitement}} </td>
     <td >{{document.montant}}</td>
     </tr>
 
@@ -100,7 +99,7 @@
   </tbody>
 
 </table><br>
-<p> Arrêtée la présente facture à la somme de (en lettres) : <i contenteditable='true'>{{amountLettres}}</i></p>
+<p> Arrêtée la présente facture à la somme de (en lettres) : <i >{{totalLettres}}</i></p>
 <p style="text-align-last: right;">Cachet & Signature &nbsp; &nbsp; &nbsp;</p>
      </tbody>
 

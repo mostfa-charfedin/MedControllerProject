@@ -5171,6 +5171,8 @@ export {
   AriaDescriber,
   ActiveDescendantKeyManager,
   FocusKeyManager,
+  InteractivityChecker,
+  FocusTrapFactory,
   CdkTrapFocus,
   LiveAnnouncer,
   FocusMonitor,
@@ -5224,4 +5226,4 @@ export {
   MatRippleLoader,
   _MatInternalFormField
 };
-//# sourceMappingURL=chunk-G2YUJIEO.js.map
+//# sourceMappingURL=chunk-ER2IANZC.js.map

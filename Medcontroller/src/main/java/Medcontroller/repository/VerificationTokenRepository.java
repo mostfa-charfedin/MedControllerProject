@@ -12,7 +12,7 @@ import jakarta.transaction.Transactional;
 public interface VerificationTokenRepository extends JpaRepository<VerificationToken, Long> {
  VerificationToken findByToken(String token);
  VerificationToken findByUserId(Long userId);
- 
+
 void deleteAllByUser(User user);
 
 

@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.Time;
 import java.time.LocalDateTime;
@@ -28,7 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
+import Medcontroller.entities.Bordereau;
 import Medcontroller.entities.Document;
+import Medcontroller.entities.Facture;
 import Medcontroller.entities.Historique;
 import Medcontroller.entities.User;
 import Medcontroller.exceptions.NoDocumentException;
@@ -57,9 +60,11 @@ public class DocumentController {
 	public List<Document> getAllUsers() {
 		return documentService.findAllDocuments();
 	 }
+    
+
 
     @PostMapping("/uploadDoc")
-    public ResponseEntity<String> uploadFiles(@RequestParam("file1") MultipartFile file1,
+    public ResponseEntity<String> affecterDocument(@RequestParam("file1") MultipartFile file1,
                                               @RequestParam("file2") MultipartFile file2,  
                                               @RequestParam("agentId") Long agentId,  
                                               @RequestParam("medecinId") Long medecinId,  
@@ -73,34 +78,28 @@ public class DocumentController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
             String formattedDateTime = now.format(formatter);
             
+            User agent = userService.getUserById(agentId);
+            
         	Document document =	Document.builder()
         	.dateAffectation(formattedDateTime)
         	.nomBulletin(file2.getOriginalFilename())
         	.bulletin(file2.getBytes())
         	.nomOrdenance(file1.getOriginalFilename())
         	.ordenance(file1.getBytes())
-        	.agentId(agentId).nomAssure(nomAssure)
+        	.agent(agent).nomAssure(nomAssure)
         	.matriculeAssure(matriculeAssure)
         	.nomBenificiaire(nomBenificiaire)
-        	.qualiteBinificiaire(QualiteBinificiaire).montant(20)
+        	.qualiteBinificiaire(QualiteBinificiaire)
         	.user(userService.getUserById(medecinId))
-        	.Etat(false)
+        	.etat(false).facturer(false).paye(false)
         	.build();
-          /*  Document document = new Document();
-            document.setNomOrdenance(file1.getOriginalFilename());
-            document.setOrdenance(Base64.getEncoder().encode(file1.getBytes())); // Encode file1 content to Base64
-            document.setNomBulletin(file2.getOriginalFilename());
-            document.setBulletin(Base64.getEncoder().encode(file2.getBytes())); // Encode file2 content to Base64
-            document.setAgentId(agentId);
-            
-            User medecin =  userService.getUserById(medecinId);
-            document.setUser(medecin);
-            */
+         
             documentService.saveDocument(document);
             Historique historique = new Historique();     
             historique.setAction("Ajout de document");
             historique.setTime(formattedDateTime);
-            historique.setUser(userService.getUserById(medecinId));
+            historique.setMedecin(userService.getUserById(medecinId));
+            historique.setAgent(agent);
             historique.setDocument(document);
             historiqueRepository.save(historique);
             
@@ -113,7 +112,7 @@ public class DocumentController {
     
     
     @PostMapping("/updateDoc")
-    public ResponseEntity<String> updateDocument(
+    public ResponseEntity<String> ajouterRapport(
                                               @RequestParam("file1") MultipartFile file1,  
                                               @RequestParam("documentId") Long DocId) {
         try {
@@ -124,17 +123,18 @@ public class DocumentController {
             String formattedDateTime = now.format(formatter);  
             
             
-            existingdocument.setDateTrete(formattedDateTime);
-        	existingdocument.setRapport(Base64.getEncoder().encode(file1.getBytes())); 
+            existingdocument.setDateTraitement(formattedDateTime);
+        	existingdocument.setRapport(file1.getBytes()); 
+        	existingdocument.setFacturer(false);
         	existingdocument.setEtat(true);
             documentService.saveDocument(existingdocument);
             Historique historique = new Historique();
-            historique.setAction("Le medecin"+" "+" ' "+existingdocument.getUser().getUsername()+" ' "+" "+"a traité  le document.");
+            historique.setAction("Document traité.");
             
        
             
             historique.setTime(formattedDateTime);
-            historique.setUser(existingdocument.getUser());
+            historique.setMedecin(existingdocument.getUser());
             historique.setDocument(existingdocument);
             historiqueRepository.save(historique);
             
@@ -150,9 +150,14 @@ public class DocumentController {
         }
     }
 
+    
+
+
+    
+  
 
     @GetMapping("/doc/{id}")
-    public ResponseEntity<Document> getDocument(@PathVariable Long id) {
+    public ResponseEntity<Document> getDocumentById(@PathVariable Long id) {
         Document document = documentService.getById(id);
         if (document == null) {
             return ResponseEntity.notFound().build();

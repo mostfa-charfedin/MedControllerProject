@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Doc} from '../models/doc';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,    private authService : AuthService) { }
 
   apiURL: string = 'http://localhost:8080/user';
 
@@ -42,13 +43,18 @@ console.log(formData)
       );
   }
 
-  updateFiles(doc:Doc, file1: File) {
+
+
+  updateFile(idDoc:number, file1: File) {
     const formData = new FormData();
     formData.append('file1', file1);
     // Append other properties of the Document object
-    formData.append('documentId', doc.id.toString());
+    formData.append('documentId', idDoc.toString());
     // Append more properties if necessary
-    return this.http.post<any>(`${this.apiURL}/updateDoc`, formData, { responseType: 'text' as 'json' })
+    let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    const httpHeaders = new HttpHeaders({"Authorization": jwt});
+    return this.http.post<any>(`${this.apiURL}/updateDoc`, formData, { headers: httpHeaders, responseType: 'text' as 'json'})
       .pipe(
         catchError(this.handleError)
       );

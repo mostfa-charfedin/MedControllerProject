@@ -5,6 +5,8 @@ export class Historique {
   public id!:any;
   public action!: String;
   public time!: Date;
-  public document:Doc | undefined;
-  public user:User | undefined;
+  public document!:Doc;
+  public medecin!:User;
+  public agent!:User;
+  public admin!:User;
 }

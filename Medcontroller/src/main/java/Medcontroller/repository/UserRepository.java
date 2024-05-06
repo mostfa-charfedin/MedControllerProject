@@ -10,7 +10,7 @@ import Medcontroller.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-//	@Query(value = "SELECT * FROM user WHERE BINARY username = :username", nativeQuery = true)
+	@Query(value = "SELECT * FROM user WHERE BINARY username = :username", nativeQuery = true)
 	User findByUsername(String username);
 	Optional<User> findByEmail(String email);
 	Optional<User> findUserByUsername(String username);

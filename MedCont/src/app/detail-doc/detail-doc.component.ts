@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DocumentService } from '../services/document.service';
 import { Doc } from '../models/doc';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
+import { User } from '../models/user';
+import { DataSenderService } from '../services/data-sender.service';
 
 
 @Component({
@@ -23,19 +25,37 @@ export class DetailDocComponent implements OnInit{
   searchText: string = '';
   doc: Doc = new Doc();
 
-  fileNames: string[] = ['', '', ''];
+  fileNames: string[] = [''];
   file1: File | null = null;
-  file2: File | null = null;
-  file3: File | null = null;
+  user!: User;
+  data: any;
+
 
   constructor(
     private route: ActivatedRoute,
     private documentService: DocumentService,
+    private userService: UserService,
     private sanitizer: DomSanitizer,
-    private toastr: ToastrService,
+    private router: Router,
+    private dataSender: DataSenderService,
   ) { }
 
   ngOnInit(): void {
+
+console.log(this.data)
+    let id =Number(localStorage.getItem('id'));
+    this.userService.getUserById(id).subscribe({
+    next:  (data: User) => {
+        this.user = data;
+
+      },
+      error: (error :any )=> {
+        console.error(error);
+        alert('User Not Found');
+      }
+  });
+
+
     this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
@@ -43,7 +63,6 @@ export class DetailDocComponent implements OnInit{
     this.documentService.getDocumentById(this.id).subscribe(
       (response: any) => {
         this.document = response;
-        console.log(response);
         this.ordenance = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + response.ordenance);
 this.bulletin = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/PDF;base64,' + response.bulletin);
 
@@ -54,55 +73,11 @@ this.bulletin = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/
     );
   }
 
-  onFileSelected(event: any, index: any): void {
-    const file = event.target.files[0];
-    this.fileNames[index - 1] = file ? file.name : '';
-  }
-
-  onSelect(event: any) {
-    const target = event.target as HTMLSelectElement;
-    const selectedValue = target.value;
-    if (selectedValue) {
-      this.selectedUserId = selectedValue;
-      console.log('Selected user ID:', this.selectedUserId);
-    }
-  }
-
-  uploadFiles(): void {
-    const file1Input = document.getElementById('inputGroupFile01') as HTMLInputElement;
-
-
-    // Check if files are selected
-    if (!file1Input || !file1Input.files ) {
-      console.error('Please select file.');
-      return;
-    }
-
-    const file1 = file1Input.files[0];
-
-
-    if (!file1) {
-      console.error('Please select file.');
-      return;
-    }
-
-    this.documentService.updateFiles(this.document, file1).subscribe({
-      next: (res) => {
-        console.log('Files uploaded successfully:', res);
-        this.toastr.success('Document envoyée', 'Confirmation');
-        // Handle success response
-      },
-      error: (err) => {
-        console.error('Error uploading files:', err);
-        alert("erreur");
-        // Handle error
-      }
-    });
-  }
-
-  onFile1Selected(event: any) {
-    this.file1 = event.target.files[0];
-  }
-
+goto(){
+  if(this.user.specialite==='dentiste'){
+  this.router.navigate([`/RCdent/${this.document.id}`]);}
+  if(this.user.specialite==='opticien'){
+    this.router.navigate([`/RCopt/${this.document.id}`]);}
+}
 
 }

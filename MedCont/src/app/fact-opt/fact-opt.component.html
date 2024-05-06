@@ -5,20 +5,27 @@
         <span class="button__text">Download</span>
         <span class="button__icon">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
           </svg>
-
         </span>
       </button>
       <button class="print-btn" mat-stroked-button color="primary" (click)="printContent()">
         <span class="printer-wrapper">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"/>
+            <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M16.444 18H19a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.556M17 11V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v6h10ZM7 15h10v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"/>
           </svg>
-
         </span>
         Print
       </button>
+      <button class="print-btn" mat-stroked-button color="primary" (click)="saveDoc()">
+
+        <span><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 1 0-18c1.052 0 2.062.18 3 .512M7 9.577l3.923 3.923 8.5-8.5M17 14v6m-3-3h6"/>
+        </svg>
+        </span>
+      Envoyer la facture
+    </button>
+
     </div>
 
 
@@ -36,15 +43,15 @@
 
 
           <tr>
-          <td><strong>Nom :</strong> <i contenteditable='true'>{{user.firstName}}&nbsp;{{user.lastName}}</i></td>
+          <td><strong>Nom :</strong> <i contenteditable='true'>{{user?.firstName}}&nbsp;{{user?.lastName}}</i></td>
 
           </tr>
           <tr>
-          <td><strong>Adresse :</strong> <i contenteditable='true'>{{user.localisation}}</i></td>
+          <td><strong>Adresse :</strong> <i contenteditable='true'>{{user?.localisation}}</i></td>
           </tr>
 
           <tr>
-          <td><strong>MF :</strong> <i contenteditable='true'>{{user.matricule}}</i></td>
+          <td><strong>MF :</strong> <i contenteditable='true'>{{user?.matricule}}</i></td>
           </tr>
 
 
@@ -74,9 +81,9 @@
 
     <tr *ngFor="let document of listDocs; let i = index ">
       <td>{{ i + 1 }}</td>
-    <th  contenteditable='true'>Document N°{{document.id}}</th>
-    <th  contenteditable='true'>{{document.montant * 0.8}}</th>
-    <th  contenteditable='true'> {{document.montant}}</th>
+    <th  >Document N°{{document.id}}</th>
+    <th  >{{document.montant * 0.81 | number:'1.3-3'}}</th>
+    <th  > {{document.montant}}</th>
 
 
 </tr>
@@ -98,32 +105,32 @@ Agence : <i contenteditable='true'>...</i>
 RIB : <i contenteditable='true'>...</i>
     </th>
     <th class="text-center"  >TOTAL HT</th>
-    <th class="text-center"  > <i contenteditable='true'>{{ total * 0.8 }}</i> </th>
+    <th class="text-center"  > <i >{{ total * 0.81 | number: '1.3-3' }}</i> </th>
 
 </tr>
 
 
 <tr>
   <th class="text-center"  >TVA </th>
-  <th class="text-center"  ><i contenteditable='true'>20%</i></th>
+  <th class="text-center"  ><i >19%</i></th>
 </tr>
 <tr>
   <th class="text-center"  >TOTAL TTC  </th>
-  <th class="text-center"  ><i contenteditable='true'>{{total}}</i></th>
+  <th class="text-center"  ><i >{{total}}</i></th>
 </tr>
 <tr>
   <th class="text-center"  >Droit de Timbre  </th>
-  <th class="text-center"  ><i contenteditable='true'>1</i></th>
+  <th class="text-center"  ><i >1</i></th>
 </tr>
 <tr>
   <th class="text-center"  >Net à payer  </th>
-  <th class="text-center"  ><i contenteditable='true'>{{total + 1}}</i></th>
+  <th class="text-center"  ><i >{{total + 1}}</i></th>
 </tr>
 </tbody>
 </table>
 
 <tr >
-  <th class="container mt-5"><i>Arrêtée la présente facture à la somme de <i contenteditable='true'>{{amountLettres}}</i></i> </th>
+  <th class="container mt-5"><i>Arrêtée la présente facture à la somme de <i >{{totalLettres}}</i></i> </th>
 </tr>
 <tr>
   <td> </td>

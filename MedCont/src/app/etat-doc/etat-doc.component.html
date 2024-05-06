@@ -22,17 +22,18 @@
     </div>
   </div>
       <ng-container *ngIf="filter.length > 0; else noDocuments">
-          <table class="table table-striped">
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
             <thead>
               <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Medecin Controlleur</th>
-                <th scope="col">Telephone Medecin</th>
-                <th scope="col">Etat</th>
+                <th scope="col">Numero dossier</th>
+                <th scope="col">Agent assurance</th>
+                <th scope="col">Medecin controlleur</th>
+                <th scope="col">Telephone medecin</th>
+                <th scope="col">Etat dossier</th>
                 <th scope="col">Date d'affectation</th>
-                <th scope="col">Date Traité </th>
+                <th scope="col">Date de traitement</th>
                 <th scope="col">Action</th>
-
               </tr>
             </thead>
             <tbody>
@@ -41,17 +42,18 @@
 
 
               <tr *ngFor="let document of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
-                <th scope="row">{{ document.id }}</th>
+                <th>{{ document.id }}</th>
+                <td>{{ document.agent.username }}</td>
                 <td>{{ document.user?.username }}</td>
                 <td>{{ document.user?.tel }}</td>
                 <td><p *ngIf="document.etat ===true">Traité</p><p *ngIf="document.etat ===false">En cours</p></td>
                 <td>{{ document.dateAffectation }}</td>
-                <td><p *ngIf="document.etat ===false">En cours</p> <p *ngIf="document.etat ===true">{{ document.dateTrete }}</p></td>
-                <td > <button *ngIf="document.etat===true" (click)="details(document.id)">Consulter</button></td>
+                <td><p *ngIf="document.etat ===true">{{ document.dateTraitement }}</p></td>
+                <td > <button *ngIf="document.etat===true" mat-stroked-button color="primary" (click)="details(document.id)">Consulter</button></td>
               </tr>
             </tbody>
           </table>
-
+        </div>
           <mat-paginator
           [pageSize]="pageSize"
           [pageSizeOptions]="pageSizeOptions"

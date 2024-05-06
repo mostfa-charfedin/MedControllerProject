@@ -18,12 +18,11 @@ export class AppComponent implements OnInit {
     if (this.authService.getToken()==null ||
         this.authService.isTokenExpired()){
           this.authService.logout();
+        
           }
-
   }
 
   onLogout(){
     this.authService.logout();
-
   }
 }

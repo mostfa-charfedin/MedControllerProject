@@ -3,7 +3,7 @@
   <div class="filter-container">
     <div class="input-group mb-3">
       <mat-form-field class="flexible-search">
-        <input matInput [(ngModel)]="searchText" placeholder="Filter par username..." >
+        <input matInput [(ngModel)]="searchText" placeholder="Filter par action..." >
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -21,13 +21,14 @@
     </div>
   </div>
       <ng-container *ngIf="filter.length > 0; else noDocuments">
+        <div class="table-responsive">
         <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Action</th>
               <th scope="col">Date</th>
-              <th scope="col">Agent assurance Id</th>
+              <th scope="col">Agent assurance</th>
               <th scope="col">Medecin controleur</th>
               <th scope="col">Document Id</th>
             </tr>
@@ -37,12 +38,13 @@
               <th scope="row">{{ historique.id }}</th>
               <td>{{ historique.action }}</td>
               <td>{{ historique.time }}</td>
-              <td>{{ historique.user?.id}}</td>
-              <td>{{ historique.user?.username}}</td>
-              <td>{{ historique.document?.id }}</td>
+              <td>{{ historique.agent.username}}</td>
+              <td>{{ historique.medecin.username}}</td>
+              <td>{{ historique.document.id }}</td>
             </tr>
           </tbody>
         </table>
+      </div>
         <mat-paginator
         [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions"

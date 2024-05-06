@@ -28,85 +28,14 @@
 
 </div>
 
-<!-- Large modal -->
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-<div  class="modal-dialog modal-xl">
-<div class="modal-content">
-
-<div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLongTitle">Bordereau</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <form>
-
-    <div class="container mt-5">
-      <div class="row justify-content-md-center">
-
-      <app-bodereau-dentiste *ngIf="user.specialite ==='dentiste'" [listDocs]="allSelectedDocuments" [amountLettres]="totalAmount" [total]="total" ></app-bodereau-dentiste>
-<app-bodereau-opticien *ngIf="user.specialite ==='opticien'" [listDocs]="allSelectedDocuments" [amountLettres]="totalAmount" [total]="total"></app-bodereau-opticien>
-    </div>
-    </div>
 
 
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-  <button  mat-stroked-button color="primary" data-bs-dismiss="modal" data-toggle="modal" data-target=".bd-example-modal-lg2" (click)="SommeTTC()" >Valider</button>
-
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-<!-- End modal -->
-
-
-
-<!-- Large modal -->
-
-<div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div  class="modal-dialog modal-xl">
-  <div class="modal-content">
-
-  <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLongTitle">Facture</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-
-      <div class="container mt-5">
-        <div class="row justify-content-md-center">
-
-
-        <app-fact-opt  [listDocs]="allSelectedDocuments" [amountLettres]="prixttc" [total]="total" ></app-fact-opt>
-      </div>
-      </div>
-
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button class="btn btn-primary" type="button" data-dismiss="modal" >Valider</button>
-
-  </div>
-  </form>
-  </div>
-  </div>
-  </div>
-  </div>
-  <!-- End modal -->
 
   <div class="content w-full" style="padding: 30px;">
 
     <div *ngIf="filter.length > 0;">
       <mat-card-actions>
-      <button mat-stroked-button color="primary" data-toggle="modal" data-target=".bd-example-modal-lg" (click)=" calculeSomme()">Generer Bordereau</button>
+      <button mat-stroked-button color="primary"  (click)="goToBordereau()">Generer Bordereau</button>
 
       </mat-card-actions>
 
@@ -124,7 +53,9 @@
       </div>
       <div class="card-body">
         <h5 class="card-title"> <b>Document N° </b>{{document.id}}</h5>
-        <p class="card-text"> <b>Agent ID : </b>{{document.agentId}} <br> <b>Bulletin : </b> {{document.nomBulletin}} <br>  <b>Ordennance : </b> {{document.nomOrdenance}}</p>
+        <p class="card-text"> <b>Agent : </b>{{document.agent.firstName}} {{document.agent.lastName}}<br> <b>Nom Assuré: </b> {{document.nomAssure}}
+          <br> <b>Nom du Benificiaire : </b> {{document.nomBenificiaire}}
+         <br> <b>Qualité du Benificiaire : </b> {{document.nomBenificiaire}} </p>
 
       </div>
       <div class="card-footer text-right">
@@ -151,4 +82,3 @@
 </ng-template>
 </div>
 
-</div>

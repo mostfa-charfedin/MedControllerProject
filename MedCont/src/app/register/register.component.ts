@@ -51,7 +51,7 @@ constructor(private formBuilder: FormBuilder,  private authService : AuthService
     this.loading = true;
     // Populate the user object with form values
     this.user = this.myForm.value;
-console.log(this.myForm.value)
+
     this.authService.registerUser(this.user).subscribe({
       next: (res) => {
         this.authService.setRegistredUser(this.user);
@@ -59,6 +59,7 @@ console.log(this.myForm.value)
         this.toastr.success('Veillez confirmer votre email', 'Confirmation');
         this.router.navigate(['/verifEmail']);
       },
+      
       error: (err: any) => {
         if (err.error.errorCode === 'USER_EMAIL_ALREADY_EXISTS') {
           this.err = 'Email already used';
@@ -66,6 +67,7 @@ console.log(this.myForm.value)
           this.err = 'Username already used';
         } else {
           this.err = 'An error occurred during registration';
+          alert('erreur')
         }
         this.loading = false;
       },

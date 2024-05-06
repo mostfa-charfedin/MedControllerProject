@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,14 +29,25 @@ public class Historique {
 	     
 	    private String Action;
 	    private  String Time;
+	    private boolean IsDeleted;
 	    
-	    @ManyToOne
-	    @JoinColumn(name = "user_id")
-	    private User user;
+	    @ManyToOne(cascade = CascadeType.ALL)
+	    @JoinColumn(name = "medecin_id")
+	    private User medecin;
 	    
-	    @ManyToOne
+	    @ManyToOne(cascade = CascadeType.ALL)
+	    @JoinColumn(name = "agent_id")
+	    private User agent;
+	    
+	    @ManyToOne(cascade = CascadeType.ALL)
+	    @JoinColumn(name = "admin_id")
+	    private User admin;
+	    
+	    @ManyToOne(cascade = CascadeType.ALL)
 	    @JoinColumn(name = "document_id")
 	    private Document document;
 
-		
+	    @ManyToOne
+	    @JoinColumn(name = "facture_id")
+	    private Facture facture;
 }

@@ -55,9 +55,6 @@ export class HistoriqueComponent {
     this.historiqueService.getAllHistorys().subscribe(
       (response) => {
         this.items= this.filteredItems= response;
-
-
-
       },
       (error) => {
         console.error('Error fetching users: ', error);
@@ -76,7 +73,7 @@ export class HistoriqueComponent {
 
     } else {
       filteredItems = this.items.filter((historique) =>
-        historique.user?.username.toLowerCase().includes(this.searchText.toLowerCase())
+        historique.action.toLowerCase().includes(this.searchText.toLowerCase())
         );
 
   }

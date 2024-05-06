@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DocumentService } from '../services/document.service';
 import { ToastrService } from 'ngx-toastr';
 import { Doc } from '../models/doc';
@@ -11,6 +11,10 @@ import { BehaviorSubject } from 'rxjs'; // Import BehaviorSubject
 import { ToWords } from 'to-words';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
+import { DataSenderService } from '../services/data-sender.service';
 @Component({
   selector: 'app-document-processed',
   templateUrl: './document-processed.component.html',
@@ -19,53 +23,37 @@ import { UserService } from '../services/user.service';
 export class DocumentProcessedComponent implements OnInit{
 
 
-  constructor( private userService: UserService,private documentService :DocumentService,
-    private router:Router, private toastr: ToastrService) { }
-    toWords = new ToWords({
-      localeCode: 'fr-FR',
-      converterOptions: {
-        currency: true,
-        ignoreDecimal: false,
-        ignoreZeroCurrency: false,
-        doNotAddOnly: false,
-        currencyOptions: {
+  constructor( private userService: UserService,private documentService :DocumentService, private dataSender: DataSenderService,
+    private router:Router, private toastr: ToastrService,) { }
 
-          name: 'Dinar',
-          plural: 'Dinars',
-          symbol: 'TND',
-          fractionalUnit: {
-            name: 'Millime',
-            plural: 'Millimes',
-            symbol: '',
-          },
-        },
-      },
-    });
 
     range = new FormGroup({
       start: new FormControl(),
       end: new FormControl(),
     });
 
-    total!: number;
-    totalAmount!: string;
-    prixttc!: string;
+    total!: number ;
     searchText: string = '';
   startDate: Date | null = null;
   endDate: Date | null = null;
   items: Doc[] = [];
   filteredItems: Doc[] = [];
     loading : boolean = false;
-    filterName:String ='';
+
     allSelectedDocuments: Doc[] = []; // New array to store all selections
     private selectedDocuments$ = new BehaviorSubject<Doc[]>([]); // BehaviorSubject for displayed selections
 
-    dataSource = new MatTableDataSource<Doc>();
+  dataSource = new MatTableDataSource<Doc>();
   pageSize = 3; // Adjust the default page size as needed
   pageSizeOptions = [3, 5, 10, 25];
   pageIndex = 0;
   user!: User;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Use `!` for non-null assertion
+  @ViewChild('modal1') modal1!: ElementRef;
+  @ViewChild('modal1') modal2!: ElementRef;
+  @ViewChild('modal1') modal3!: ElementRef;
+
 
   ngOnInit(): void {
     this.getDocuments();
@@ -89,6 +77,7 @@ export class DocumentProcessedComponent implements OnInit{
   }
 
 
+
   handlePageChange(event: any) {
     this.pageIndex = event.pageIndex; // Update current page
     if (event.pageSize !== this.pageSize) {
@@ -104,8 +93,6 @@ export class DocumentProcessedComponent implements OnInit{
 
     this.selectedDocuments$.next(this.allSelectedDocuments.filter(doc => displayedData.includes(doc))); // Update displayed selections
   }
-
-
 
 
   get filter() {
@@ -137,6 +124,7 @@ export class DocumentProcessedComponent implements OnInit{
   }
 
 
+
   getDocuments() {
     let id = Number(localStorage.getItem('id'));
     this.documentService
@@ -145,7 +133,7 @@ export class DocumentProcessedComponent implements OnInit{
       .subscribe({
         next: (res :  Doc[] = []) => {
 
-          this.items= this.filteredItems= res.filter(document => document.etat == true);
+          this.items= this.filteredItems= res.filter(document => document.etat == true && document.facturer ==false);
           this.dataSource.data = this.items;
           this.loading = false;
           this.toastr.success('Documents loaded successfully', 'Confirmation');
@@ -160,16 +148,30 @@ export class DocumentProcessedComponent implements OnInit{
   }
 
 detail(id: number): void {
-
-
-
-        this.router.navigate([`/detailDocProc/${id}`]);
-
+this.router.navigate([`/detailDocProc/${id}`]);
   }
 
 
+  goToBordereau(): void {console.log(this.allSelectedDocuments)
 
+      if (this.allSelectedDocuments.length != 0) {
 
+          this.total = this.allSelectedDocuments.reduce((total, document) => total + document.montant, 0);
+
+          this.dataSender.setSum(this.total);
+
+          this.dataSender.setList(this.allSelectedDocuments);
+
+          if (this.user.specialite === 'dentiste') {
+              this.router.navigate([`/brdDnt`]);
+          } else if (this.user.specialite === 'opticien') {
+              this.router.navigate([`/brdOpt`]);
+          }
+      } else {
+
+          alert('Sélectionner au moins un dossier');
+      }
+    }
 
   toggleSelection(event: Event, document: any) {
     const target = event.target as HTMLInputElement;
@@ -190,14 +192,17 @@ detail(id: number): void {
   }
 
 
-  calculeSomme(){
-    this.total = this.allSelectedDocuments.reduce((total, document) => total + document.montant, 0);
 
-    this.totalAmount=this.toWords.convert(this.total);
-  }
-  SommeTTC(){
-    this.prixttc = this.toWords.convert(this.total + 1);
-  }
+
+
+
+
+
+
+
+
+
+
 
 
 

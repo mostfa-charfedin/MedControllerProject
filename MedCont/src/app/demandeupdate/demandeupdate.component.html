@@ -13,6 +13,7 @@
         </div>
     </div>
     <ng-container *ngIf="filter.length > 0; else noDocuments">
+      <div class="table-responsive">
         <table class="table table-striped text-center">
           <thead>
             <tr>
@@ -38,6 +39,8 @@
             </tr>
           </tbody>
         </table>
+          </div>
+
         <mat-paginator
           [pageSize]="pageSize"
           [pageSizeOptions]="pageSizeOptions"

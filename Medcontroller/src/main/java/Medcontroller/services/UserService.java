@@ -22,6 +22,8 @@ public interface UserService {
 	public String generateCode();
 	public void sendEmailUser(User u, String code);
 	public User validateToken(String code);
+	void bloquerUtilisateur(Long id);
+	void validerUtilisateur(Long id);
 	
 	
 

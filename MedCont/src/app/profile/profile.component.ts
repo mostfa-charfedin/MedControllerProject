@@ -46,12 +46,7 @@ export class ProfileComponent implements OnInit {
  this.myForm2 = this.formBuilder.group({
   password: ['', [Validators.required, Validators.minLength(6)]],
   confirmPassword: ['', [Validators.required]],
-
 });
-
-
-
-
   }
 
   switch(){
@@ -70,7 +65,7 @@ export class ProfileComponent implements OnInit {
     this.user.matricule = formProfile.value['matricule'];
     this.user.birthday = formProfile.value['birthday'];
     this.user.cin = formProfile.value['cin'];
-    console.log("switch2",this.user)
+
   }
   demandemodification(){
     this.userService.demandeModificartion(this.user.id).subscribe({
@@ -87,7 +82,6 @@ export class ProfileComponent implements OnInit {
 
 
    verifpassword() {
-
     this.request.username =this.user.username;
     this.request.password =this.password;
 console.log(this.user)
@@ -101,7 +95,9 @@ this.userService.updateUser(this.user).subscribe({
   next: (data) => {
 this.user=data;
 
-this.router.navigate(['/profile']);
+setTimeout(() => {
+  window.location.reload();
+}, 1000);
 this.isEditMode =true;
 this.isSwitched=false;
 this.isSwitched2 =false;
@@ -109,7 +105,6 @@ this.confirmPassword="";
 this.password="";
   },
   error: (err: any) => {
-
     console.log("err", err);
   }
   });

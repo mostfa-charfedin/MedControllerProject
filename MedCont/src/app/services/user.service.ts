@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
+import { Historique } from '../models/historique';
 
 @Injectable({
   providedIn: 'root'
@@ -34,13 +35,26 @@ export class UserService {
 
 
   deleteUser(id : number) {
-       const url = `${this.apiURL}/deluser/${id}`;
+       const url = `${this.apiURL}/delete/${id}`;
         let jwt = this.authService.getToken();
         jwt = "Bearer "+jwt;
         let httpHeaders = new HttpHeaders({"Authorization":jwt})
           return this.http.delete(url,  {headers:httpHeaders});
         }
-
+  bloquerUser(id : number) {
+          const url = `${this.apiURL}/bloquer/${id}`;
+           let jwt = this.authService.getToken();
+           jwt = "Bearer "+jwt;
+           let httpHeaders = new HttpHeaders({"Authorization":jwt})
+             return this.http.delete(url,  {headers:httpHeaders});
+           }
+  validerUser(id : number) {
+            const url = `${this.apiURL}/validerCompte/${id}`;
+             let jwt = this.authService.getToken();
+             jwt = "Bearer "+jwt;
+             let httpHeaders = new HttpHeaders({"Authorization":jwt})
+               return this.http.delete(url,  {headers:httpHeaders});
+             }
    getUserById(id: number): Observable<User> {
           const url = `${this.apiURL}/getbyid/${id}`;
 
@@ -64,13 +78,20 @@ export class UserService {
               const url = `${this.apiURL}/recuperer/${username}`;
                 return this.http.get<User>(url);
               }
-acceptDemande(id: number) {
-                const data = { id: id }; // Create a JSON object with the id field
+
+
+acceptDemande(id: number,adminId: number) {
+  const formData = new FormData();
+  formData.append('userId', id.toString());
+  formData.append('adminId', adminId.toString());
+
                 let jwt = this.authService.getToken();
                 jwt = "Bearer " + jwt;
                 const httpHeaders = new HttpHeaders({"Authorization": jwt});
-                return this.http.put<String>(this.apiURL + "/acceptDm", data, { headers: httpHeaders });
+                return this.http.put<String>(this.apiURL + "/acceptDm", formData, { headers: httpHeaders });
               }
+
+
 demandeModificartion(id: number) {
                 const data = { id: id }; // Create a JSON object with the id field
                 let jwt = this.authService.getToken();

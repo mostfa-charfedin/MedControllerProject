@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -110,14 +111,14 @@ public class UserRestController {
 	        existingUser.setRoles(updatedUser.getRoles());
 	        User updatedUtilisateur = userService.saveUser(existingUser);
 	        Historique historique = new Historique();
-            historique.setAction("l'utilisateur"+" "+existingUser.getUsername()+" "+"a modifier son profile");
+            historique.setAction("l'utilisateur a modifier son profile");
             
             
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
             String formattedDateTime = now.format(formatter);
             historique.setTime(formattedDateTime);
-            historique.setUser(existingUser);
+            historique.setMedecin(updatedUser);
             historiqueService.saveHistorique(historique);
 	        return ResponseEntity.ok(updatedUtilisateur);
 	    } else {
@@ -174,14 +175,7 @@ public class UserRestController {
 		    	existingUser.setPassword(bCryptPasswordEncoder.encode(updatedUser.getPassword()));
 		    }
 	        User updatedUtilisateur = userService.saveUser(existingUser);
-	        Historique historique = new Historique();
-            historique.setAction("l'utilisateur "+" "+existingUser.getUsername()+" "+"a modifier son mot de passe");
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
-            String formattedDateTime = now.format(formatter);
-            historique.setTime(formattedDateTime);
-            historique.setUser(existingUser);
-            historiqueService.saveHistorique(historique);
+	       
 		   
 	        return ResponseEntity.ok(updatedUtilisateur);
 	    } else {
@@ -210,7 +204,16 @@ public class UserRestController {
 	    userService.deleteUserRole(user_id);
 	
 	}
+	@RequestMapping(path = "/bloquer/{user_id}", method = RequestMethod.DELETE)
+	public void bloquerUtilisateur(@PathVariable Long user_id) {
+	    userService.bloquerUtilisateur(user_id);
 	
+	}
+	@RequestMapping(path = "/validerCompte/{user_id}", method = RequestMethod.DELETE)
+	public void validerUtilisateur(@PathVariable Long user_id) {
+	    userService.validerUtilisateur(user_id);
+	
+	}
 
 	
 	@GetMapping("/recuperer/{username}")
@@ -235,19 +238,24 @@ public class UserRestController {
 	}
 	
 	@PutMapping("/acceptDm")
-	public ResponseEntity<Object> accepterDemandeModification(@RequestBody User request) {
-	    Long id = request.getId();
-	    User user = userService.getUserById(id);
+	public ResponseEntity<Object> accepterDemandeModification(@RequestParam("adminId") Long adminId,
+                                                              @RequestParam("userId") Long userId) {
+		
+	    User admin = userService.getUserById(adminId);
+	    User user = userService.getUserById(userId);
 	    if (user != null) {
 	    user.setDemandeMod(true);
 	    userService.saveUser(user);
 	    Historique historique = new Historique();
-        historique.setAction("Un administrateur a accepter la demande de modification de"+" "+ user.getUsername());
+        historique.setAction("Un administrateur a accepter une demande de modification");
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
         String formattedDateTime = now.format(formatter);
         historique.setTime(formattedDateTime);
-        historique.setUser(user);
+        historique.setAdmin(admin);
+        
+        if(user.getSpecialite()=="agent") {historique.setAgent(user);}
+        else{historique.setMedecin(user);}
         historiqueService.saveHistorique(historique);
 	    
 	    String emailBody ="Bonjour "+  user.getUsername()+"."+ "<br>"+
@@ -273,8 +281,9 @@ public class UserRestController {
 	        LocalDateTime now = LocalDateTime.now();
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
 	        String formattedDateTime = now.format(formatter);
-	        historique.setTime(formattedDateTime);
-	        historique.setUser(user);
+	        historique.setTime(formattedDateTime);  
+	        if(user.getSpecialite()=="agent") {historique.setAgent(user);}
+	        else{historique.setMedecin(user);}
 	        historiqueService.saveHistorique(historique);
 	        String emailBody = "Bonjour " + " L'utilisateur " + user.getUsername() + " souhaite modifier son profil.";
 	        String subject = "Demande de modification";

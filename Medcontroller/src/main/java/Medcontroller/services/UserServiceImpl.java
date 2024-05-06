@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import Medcontroller.entities.Historique;
 import Medcontroller.entities.RegistrationRequest;
 import Medcontroller.entities.Role;
 import Medcontroller.entities.User;
@@ -137,7 +137,7 @@ public class UserServiceImpl  implements UserService{
 		
         newUser.setBirthday(request.getBirthday().toString());
 		newUser.setCin(request.getCin());
-		System.out.println(request);
+		
 		Role r = roleRep.findByRole("USER");
 		List<Role> roles = new ArrayList<>();
 		roles.add(r);
@@ -195,8 +195,9 @@ public class UserServiceImpl  implements UserService{
 	    }
 
 	    user.getVerificationTokens().clear();
-
 	    verificationTokenRepo.deleteAllByUser(user);
+	    
+
 
 	    return user;
 	}
@@ -213,22 +214,45 @@ public class UserServiceImpl  implements UserService{
 
 	    if (userOptional.isPresent()) {
 	        User user = userOptional.get();
+	        user.getVerificationTokens().clear(); // Clear verification tokens
+	        user.getRoles().clear(); // Clear roles
+	        // Delete dependent verification tokens
+	        // (You need to implement this method in your repository)
+	        verificationTokenRepo.deleteAllByUser(user);
 
-	        user.getRoles().clear();
-	        if (user.getVerificationTokens() != null) {
-	        	user.getVerificationTokens().clear();
-	        }
-
-	        userRep.deleteById(id);
-
+	        userRep.deleteById(id); // Now delete the user
 	        System.out.println("User deleted");
 	    } else {
 	        System.out.println("User not found");
 	    }
-}
+	}
 
+	
+	@Override
+	public void bloquerUtilisateur(Long id) {
+	    Optional<User> userOptional = userRep.findById(id);
 
+	    if (userOptional.isPresent()) {
+	    	User user = userOptional.get();
+	    	user.setIsActive(false);
+	        System.out.println("User blocked");
+	    } else {
+	        System.out.println("User not found");
+	    }
+	}
 
+	@Override
+	public void validerUtilisateur(Long id) {
+	    Optional<User> userOptional = userRep.findById(id);
+
+	    if (userOptional.isPresent()) {
+	    	User user = userOptional.get();
+	    	user.setIsActive(true);
+	        System.out.println("User activated");
+	    } else {
+	        System.out.println("User not found");
+	    }
+	}
 
 
 
