@@ -177,7 +177,6 @@ public class UserServiceImpl  implements UserService{
 
 	
 	@Override
-	@Transactional
 	public User validateToken(String code) {
 
 	    VerificationToken token = verificationTokenRepo.findByToken(code);
@@ -190,15 +189,11 @@ public class UserServiceImpl  implements UserService{
 
 	    Calendar calendar = Calendar.getInstance();
 	    if (token.getTokenExpirationTime().getTime() <= calendar.getTime().getTime()) {
-
 	        throw new ExpiredTokenException("Expired Token: " + code);
 	    }
 
 	    user.getVerificationTokens().clear();
-	    verificationTokenRepo.deleteAllByUser(user);
-	    
-
-
+	    verificationTokenRepo.deleteAllTokensByUserId(user.getId());
 	    return user;
 	}
 

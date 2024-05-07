@@ -69,12 +69,13 @@ export class DemandeupdateComponent implements OnInit {
       let adminId = localStorage.getItem("id");
       this.userService.acceptDemande(user.id,Number(adminId)).subscribe(
         (data) => {
-          this.toastr.success('User validation status updated successfull', 'Confirmation');
+
           console.log('User validation status updated successfully on the server');
           this.loadUsers();
           setTimeout(() => {
             window.location.reload();
-          }, 1000);
+          },700);
+          this.toastr.success('User validation status updated successfull', 'Confirmation');
         },
 
         error =>{console.error('Error updating user validation status:', error);

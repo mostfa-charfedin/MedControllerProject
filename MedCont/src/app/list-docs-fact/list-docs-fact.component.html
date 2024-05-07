@@ -32,7 +32,7 @@
                 <th scope="col">Telephone medecin</th>
 
                 <th scope="col">date de réception</th>
-                <th scope="col" colspan="2">Action</th>
+                <th scope="col" colspan="3">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +47,8 @@
                 <td>{{ bordereau.dateTraitement }}</td>
 
                 <td > <button *ngIf="bordereau.paye===false"  mat-stroked-button color="primary" (click)="payerFacture(bordereau)">payer</button></td>
-                <td > <button  mat-stroked-button color="primary" (click)="openFacture(bordereau.facture)">Consulter</button></td>
+                <td > <button  mat-stroked-button color="primary" (click)="openFacture(bordereau.facture)">Facture</button></td>
+                <td > <button  mat-stroked-button color="primary" (click)="openBordereau(bordereau)">Bordereau</button></td>
               </tr>
             </tbody>
           </table>

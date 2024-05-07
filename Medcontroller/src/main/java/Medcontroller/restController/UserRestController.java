@@ -6,16 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 
-import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,14 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import Medcontroller.entities.Historique;
 import Medcontroller.entities.RegistrationRequest;
 import Medcontroller.entities.User;
 import Medcontroller.entities.VerificationToken;
 import Medcontroller.exceptions.InvalidUsernameException;
-import Medcontroller.exceptions.UsernameAlreadyExistsException;
-import Medcontroller.repository.HistoriqueRepository;
 import Medcontroller.repository.UserRepository;
 import Medcontroller.repository.VerificationTokenRepository;
 import Medcontroller.security.SecParams;
@@ -90,11 +82,16 @@ public class UserRestController {
 	
 	@PutMapping(path="/updateUser")
 	public ResponseEntity<User> updateUserById(@RequestBody User updatedUser) {
-		
+	    // Validate updatedUser
+	    if (updatedUser.getId() == null) {
+	        return ResponseEntity.badRequest().build();
+	    }
+
 	    Optional<User> optionalUser = userRep.findById(updatedUser.getId());
 
 	    if (optionalUser.isPresent()) {
 	        User existingUser = optionalUser.get();
+	        // Update user information
 	        existingUser.setUsername(updatedUser.getUsername());
 	        existingUser.setFirstName(updatedUser.getFirstName());
 	        existingUser.setLastName(updatedUser.getLastName());
@@ -105,59 +102,65 @@ public class UserRestController {
 	        existingUser.setSpecialite(updatedUser.getSpecialite());
 	        existingUser.setIsActive(updatedUser.getIsActive());
 	        existingUser.setDemandeMod(false);
-	        
-	        existingUser.setBirthday(updatedUser.getBirthday().toString());
+	        existingUser.setBirthday(updatedUser.getBirthday());
 	        existingUser.setCin(updatedUser.getCin());
 	        existingUser.setRoles(updatedUser.getRoles());
-	        User updatedUtilisateur = userService.saveUser(existingUser);
-	        Historique historique = new Historique();
-            historique.setAction("l'utilisateur a modifier son profile");
-            
-            
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
-            String formattedDateTime = now.format(formatter);
-            historique.setTime(formattedDateTime);
-            historique.setMedecin(updatedUser);
-            historiqueService.saveHistorique(historique);
-	        return ResponseEntity.ok(updatedUtilisateur);
+
+	        try {
+	            // Save updated user
+	            userService.saveUser(existingUser);
+
+	            LocalDateTime now = LocalDateTime.now();
+	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
+	            String formattedDateTime = now.format(formatter);
+	            
+	            
+	            Historique historique = new Historique();
+	            historique.setAction("l'utilisateur a modifié son profil");
+	            historique.setTime(formattedDateTime);
+	            historique.setMedecin(existingUser);
+	            historiqueService.saveHistorique(historique);
+
+	            return ResponseEntity.ok(existingUser);
+	        } catch (Exception e) {
+	            // Handle database or other errors
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
 	    } else {
 	        return ResponseEntity.notFound().build();
 	    }
 	}
+
 	
 	
 	
 	@PutMapping(path="/verif")
-	public  ResponseEntity<User>  verifyPassword(@RequestBody User user) {
-		
-	    Optional<User> optionalUser = userRep.findUserByUsername(user.getUsername());
+	public ResponseEntity<User> verifyPassword(@RequestBody User user) {
+	    User existingUser = userRep.findByUsername(user.getUsername());
 
-	    if (!optionalUser.isPresent()) {
-	    	
-	    	return ResponseEntity.notFound().build();
-	    	}
-	    
-	        User existingUser = optionalUser.get();
-	     // Assuming you have the hashed password retrieved from the database stored in a variable named hashedPassword
-	        String hashedPassword = existingUser.getPassword();
+	    if (existingUser == null) {
+	        return ResponseEntity.notFound().build();
+	    }
 
-	        // Check if the user's input password matches the hashed password retrieved from the database
-	        boolean passwordMatches = bCryptPasswordEncoder.matches(user.getPassword(), hashedPassword);
+	  
 
-	        if (passwordMatches) {
-	        	
-	        	
-	        	return ResponseEntity.ok(existingUser);
-	        	
-	        } else {
-	        	
-	        	return ResponseEntity.notFound().build();
-	        }
-	    
+	    // Assuming you have the hashed password retrieved from the database stored in a variable named hashedPassword
+	    String hashedPassword = existingUser.getPassword();
+
+	    // Check if the user's input password matches the hashed password retrieved from the database
+	    boolean passwordMatches = bCryptPasswordEncoder.matches(user.getPassword(), hashedPassword);
+
+	    if (passwordMatches) {
+	        // If you need to persist any changes to the user, make sure the entity is managed within the current session
+	        // Example: entityManager.merge(existingUser);
+	        return ResponseEntity.ok(existingUser);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
+
 	        
 	      
-	}
 	
 
 	

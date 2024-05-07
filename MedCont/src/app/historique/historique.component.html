@@ -2,15 +2,16 @@
 
   <div class="filter-container">
     <div class="input-group mb-3">
+      <!-- First input -->
       <mat-form-field class="flexible-search">
-        <input matInput [(ngModel)]="searchText" placeholder="Filter par action..." >
+        <input matInput [(ngModel)]="searchText" placeholder="Filter par numéro de reclamation..." >
       </mat-form-field>
-
-      <mat-form-field appearance="fill">
+      <!-- Second input -->
+      <mat-form-field appearance="fill" class="date-input">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-          <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="startDate" >
-          <input matEndDate formControlName="end" placeholder="End date" [(ngModel)]="endDate" >
+          <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="startDate" class="date-input">
+          <input matEndDate formControlName="end" placeholder="End date" [(ngModel)]="endDate" class="date-input">
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker touchUi #picker></mat-date-range-picker>
@@ -18,6 +19,11 @@
         <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
         <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
       </mat-form-field>
+
+      <!-- Image -->
+      <div class="col-md-2">
+        <img src="assets/images/historique.jpg" class="img-fluid" alt="Image" style="max-height: 100px;">
+      </div>
     </div>
   </div>
       <ng-container *ngIf="filter.length > 0; else noDocuments">
@@ -38,9 +44,9 @@
               <th scope="row">{{ historique.id }}</th>
               <td>{{ historique.action }}</td>
               <td>{{ historique.time }}</td>
-              <td>{{ historique.agent.username}}</td>
-              <td>{{ historique.medecin.username}}</td>
-              <td>{{ historique.document.id }}</td>
+              <td>{{ historique.agent?.username}}</td>
+              <td>{{ historique.medecin?.username}}</td>
+              <td>{{ historique.document?.id }}</td>
             </tr>
           </tbody>
         </table>
@@ -55,6 +61,6 @@
     </ng-container>
 
     <ng-template #noDocuments>
-      <h3>Aucun utilisateur trouvé</h3>
+      <h3>Aucun action trouvé</h3>
     </ng-template>
       </div>

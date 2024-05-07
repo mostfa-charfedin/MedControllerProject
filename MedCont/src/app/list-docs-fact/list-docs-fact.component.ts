@@ -118,7 +118,12 @@ openFacture(facture: Facture) {
   const newWindow = window.open();
   newWindow!.document.body.innerHTML = '<iframe src="' + url + '" width="100%" height="100%"></iframe>';
 }
-
+openBordereau(bordereau: Bordereau) {
+  const base64Data = bordereau.bordereau;
+  const url = "data:application/pdf;base64," + base64Data;
+  const newWindow = window.open();
+  newWindow!.document.body.innerHTML = '<iframe src="' + url + '" width="100%" height="100%"></iframe>';
+}
 
 
 payerFacture(bordereau: Bordereau) {

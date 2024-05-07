@@ -53,7 +53,7 @@ export class HistoriqueComponent {
   }
   loadHistory(): void {
     this.historiqueService.getAllHistorys().subscribe(
-      (response) => {
+      (response : Historique [] = []) => {
         this.items= this.filteredItems= response;
       },
       (error) => {
@@ -73,7 +73,7 @@ export class HistoriqueComponent {
 
     } else {
       filteredItems = this.items.filter((historique) =>
-        historique.action.toLowerCase().includes(this.searchText.toLowerCase())
+        historique.action?.toLowerCase().includes(this.searchText.toLowerCase())
         );
 
   }

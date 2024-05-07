@@ -27,10 +27,15 @@ getAllReclamations(): Observable<Reclamation[]>{
     return this.http.post<any>(`${this.apiURL}/validerReclamation/${id}`,{headers:httpHeaders});
    }
 
-   addReclamation(reclamation :Reclamation){
+   addReclamation(reclamation :Reclamation,id:number){
+    const formData = new FormData();
+    formData.append('text', reclamation.text.toString());
+    formData.append('object', reclamation.objet.toString());
+    formData.append('userId', id.toString());
+
     let jwt = this.authService.getToken();
     jwt = "Bearer "+jwt;
     let httpHeaders = new HttpHeaders({"Authorization":jwt})
-        return this.http.put<Reclamation[]>(this.apiURL+"/validerReclamation",{headers:httpHeaders});
+        return this.http.post<Reclamation[]>(this.apiURL+"/sendReclamation",formData,{headers:httpHeaders, responseType: 'text' as 'json'});
        }
 }

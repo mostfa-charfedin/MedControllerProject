@@ -30,7 +30,7 @@
               <th scope="col">Etat facture</th>
               <th scope="col">date d'envoi</th>
               <th scope="col">date de facturation</th>
-              <th scope="col" colspan="1">Action</th>
+              <th scope="col" colspan="2">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -41,7 +41,8 @@
               <td>{{ bordereau.dateTraitement }}</td>
               <td>{{ bordereau.dateFacturation }}</td>
 
-              <td > <button  mat-stroked-button color="primary" (click)="openFacture(bordereau.facture)">Consulter</button></td>
+              <td > <button  mat-stroked-button color="primary" (click)="openFacture(bordereau.facture)">Facture</button></td>
+              <td > <button  mat-stroked-button color="primary" (click)="openBordereau(bordereau)">Bordereau</button></td>
             </tr>
           </tbody>
         </table>

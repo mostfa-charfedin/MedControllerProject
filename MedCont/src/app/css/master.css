@@ -36,7 +36,7 @@ ul {
   background-color: var(--blue-alt-color);
 }
 .page {
-  background-color: #f1f5f9;
+
   min-height: 100vh;
 }
 /* Start Sidebar */
@@ -754,7 +754,7 @@ ul {
   transition: 0.3s;
 }
 .profile-page .info-box .box:hover {
-  background-color: #f9f9f9;
+  background-color: #e0d9d9;
 }
 .profile-page .info-box .box > div {
   min-width: 250px;

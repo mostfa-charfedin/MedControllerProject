@@ -148,7 +148,8 @@ public class BordereauController {
        
          
          historique.setTime(formattedDateTime);
-         historique.setAdmin(userService.getUserById(adminId));
+         historique.setAgent(userService.getUserById(adminId));
+         historique.setMedecin(bordereau.getUser());
          historique.setFacture( bordereau.getFacture());
          historiqueRepository.save(historique);
          

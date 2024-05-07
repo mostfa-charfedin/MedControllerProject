@@ -87,17 +87,15 @@ export class ProfileComponent implements OnInit {
 console.log(this.user)
     this.userService.validatepassword(this.request).subscribe({
         next: (data) => {
-          this.toastr.success('Pasword valide, Profile updated', 'Confirmation');
+
           this.isSwitched =false;
-
-
 this.userService.updateUser(this.user).subscribe({
   next: (data) => {
 this.user=data;
-
+this.toastr.success('Pasword valide, Profile updated', 'Confirmation');
 setTimeout(() => {
   window.location.reload();
-}, 1000);
+}, 800);
 this.isEditMode =true;
 this.isSwitched=false;
 this.isSwitched2 =false;
@@ -106,6 +104,7 @@ this.password="";
   },
   error: (err: any) => {
     console.log("err", err);
+    alert("errrrrrrr")
   }
   });
 
