@@ -1,5 +1,6 @@
 export class User {
   public id!:any;
+  public photo: string | undefined;
   public username: string | undefined;
   public password: string | undefined;
   public roles:string[] | undefined;

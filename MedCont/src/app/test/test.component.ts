@@ -1,6 +1,10 @@
 import { Component } from "@angular/core";
-import {FormGroup, FormControl} from '@angular/forms';
+import {FormGroup, FormControl, FormBuilder} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
+import { User } from "../models/user";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { UserService } from "../services/user.service";
 
 
 export class DialogContentExample {
@@ -20,8 +24,5 @@ export class DialogContentExample {
   styleUrls: ['./test.component.css']
 })
 export class TestComponent {
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
+  
 }

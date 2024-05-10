@@ -1,119 +1,109 @@
 
 <div class="container mt-5">
   <div class="row justify-content-md-center">
-      <div class="col-md-4">
+    <div class="col-md-8">
+      <div class="alert alert-danger mb-3" *ngIf="err">
+        <strong>{{ err }}</strong>
+      </div>
 
-
-        <div class="col-md-8 mb-3">
-          <div class="alert alert-danger" *ngIf="err!=''">
-            <strong>{{err}}</strong>
-        </div>
-        </div>
-
-
-
-  <h3> Update password </h3>
-
-
-
-  <ng-template [ngIf]="!usr">
-              <form>
-            <div class="form-row">
-
-                  <label for="validationDefaultUsername">Username</label>
-                <div class="input-group">
-                    <input type="text" name="username" [(ngModel)]="username" class="formcontrol"  placeholder=" User name" required>
-                </div>
-
-            </div>
-
-               <div *ngIf="loading==true" class="d-flex justify-content-center">
-                <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-               </div>
-
-                  <button type="button" class="btn btn-success mt-3" (click)="verifier()">Valier username</button>
-              </form>
-</ng-template>
-
-
-
-<ng-template [ngIf]="!isEditMode">
-  <div >
-
-    <ng-template [ngIf]="usr">
-
-                    <div class="alert alert-danger" *ngIf="err!=''">
-                        <strong>{{err}}</strong>
-                    </div><label class="alert alert-info">Veuillez entrer le code envoyé par mail</label>
-
-                    <div class="col-md-4">
-                      <form>
-                          <div class="col-md-4 mb-3">
-                          <label for="validationDefault01">Validation&nbsp;Token</label>
-                            <input type="text" name="code" [(ngModel)]="code" class="formcontrol"
-                                placeholder=" code de confirmation">
-                        </div>
-                        <div *ngIf="loading==true" class="d-flex justify-content-center">
-                          <div class="spinner-border" role="status">
-                          <span class="sr-only">Loading...</span>
-                          </div>
-                         </div>
-                        <button type="button" class="btn btn-success mt-3" (click)="verifyCode()">valider&nbsp;Code</button>
-                    </form>
+      <ng-template [ngIf]="!usr">
+        <div class="row">
+          <!-- Form on the left -->
+          <div class="col-12 col-md-6 d-flex align-items-stretch">
+            <div class="card shadow-none">
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <label for="validationDefaultUsername">Username:</label>
+                    <input type="text" name="username" id="validationDefaultUsername" [(ngModel)]="username" class="form-control form-control-lg" placeholder="Enter your username" required>
+                  </div>
+                  <div class="form-group row d-flex justify-content-center">
+                    <div *ngIf="loading" class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
                     </div>
-
-
-
-</ng-template>
-</div>
-</ng-template>
-
-
-
-<ng-template [ngIf]="ok">
-
-<form [formGroup]="myForm2">
-          <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-8 mb-3">
-            <label>Mot de passe :</label>
-            <input type="password" name="password" formControlName="password" [(ngModel)]="password"
-                class="form-control">
-        </div>
-        <span *ngIf="myForm2.controls['password'].hasError('required')&& myForm2.controls['password'].touched" class="text-danger">mot de passe est obligatoire</span>
-        <span *ngIf="myForm2.controls['password'].hasError('minlength')&& myForm2.controls['password'].touched" class="text-danger"> mot de passe doit contenir au moins 6 caractères</span>
-
-            </div></div>
-        <div class="form-group">
-
-          <div class="form-row">
-            <div class="col-md-8 mb-3">
-            <label>Confirmer Mot de passe :</label>
-            <input type="password" name="confirmPassword" formControlName="confirmPassword"
-                class="form-control">
-        </div>
-<span *ngIf="myForm2.controls['confirmPassword'].hasError('required')&& myForm2.controls['confirmPassword'].touched" class="text-danger">
-            confirmer mot de passe est obligatoire
-        </span>
-        <div>
-    <span *ngIf="myForm2.get('confirmPassword')?.touched &&
-myForm2.get('confirmPassword')?.value != myForm2.get('password')?.value" class="text-danger">
-                Le mot de passe confrmé ne correspond pas au mot de passe tapé
-            </span>
-        </div>
+                  </div>
+                  <div class="form-group">
+                    <button type="button" class="btn btn-success btn-lg w-100" (click)="verifier()">Valider Username</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- Image on the right -->
+          <div class="col-12 col-md-6 d-flex align-items-stretch">
+            <div class="card shadow-none">
+              <img src="assets/images/recuperer.jpg" alt="Your Image" class="card-img-top w-100">
+            </div>
           </div>
         </div>
-          <div *ngIf="loading==true" class="d-flex justify-content-center">
+      </ng-template>
+
+
+      <ng-template [ngIf]="!isEditMode && usr">
+        <div class="container-fluid mt-5">
+          <div class="row justify-content-center align-items-center" >
+            <div class="col-md-12">
+              <div class="card shadow-sm">
+                <div class="card-header">
+                  <h3 class="card-title text-center">Verification par email</h3>
+                </div>
+                <div class="card-body">
+        <form>
+          <div class="form-group">
+            <label>Validation Token</label>
+            <input type="text" name="code" [(ngModel)]="code" class="form-control" placeholder="Code de confirmation">
+          </div>
+          <div *ngIf="loading" class="d-flex justify-content-center mb-3">
             <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
+              <span class="sr-only">Loading...</span>
             </div>
+          </div>
+          <button type="button" class="btn btn-success mb-3" (click)="verifyCode()">Valider Code</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
-        </div>
-        <button type="button" [disabled]="myForm2.invalid" class="btn btn-success"
-            (click)="modifier()">Valider modification</button> </form>
-</ng-template>
+      </ng-template>
 
+      <ng-template [ngIf]="ok">
+        <div class="container-fluid mt-5">
+          <div class="row justify-content-center align-items-center" >
+            <div class="col-md-12">
+              <div class="card shadow-sm">
+                <div class="card-header">
+                  <h3 class="card-title text-center">Modifier le mot de passe</h3>
+                </div>
+                <div class="card-body">
 
-      </div></div></div>
+        <form [formGroup]="myForm2">
+          <div class="form-group">
+            <label>Mot de passe :</label>
+            <input type="password" name="password" formControlName="password" [(ngModel)]="password" class="form-control">
+            <span *ngIf="myForm2.controls['password'].hasError('required') && myForm2.controls['password'].touched" class="text-danger">Le mot de passe est obligatoire</span>
+            <span *ngIf="myForm2.controls['password'].hasError('minlength') && myForm2.controls['password'].touched" class="text-danger">Le mot de passe doit contenir au moins 6 caractères</span>
+          </div>
+          <div class="form-group">
+            <label>Confirmer Mot de passe :</label>
+            <input type="password" name="confirmPassword" formControlName="confirmPassword" class="form-control">
+            <span *ngIf="myForm2.controls['confirmPassword'].hasError('required') && myForm2.controls['confirmPassword'].touched" class="text-danger">Confirmer mot de passe est obligatoire</span>
+            <div *ngIf="myForm2.get('confirmPassword')?.touched && myForm2.get('confirmPassword')?.value != myForm2.get('password')?.value" class="text-danger">Le mot de passe confirmé ne correspond pas au mot de passe tapé</div>
+          </div>
+          <div *ngIf="loading" class="d-flex justify-content-center mb-3">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <button type="button" [disabled]="myForm2.invalid" class="btn btn-success" (click)="modifier()">Valider modification</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

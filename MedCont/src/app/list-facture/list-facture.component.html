@@ -1,10 +1,9 @@
-<div class="content w-full " style="padding: 20px;">
-
+<div class="content w-full " style="padding: 30px;">
 
   <div class="filter-container">
     <div class="input-group mb-3">
       <mat-form-field class="flexible-search">
-        <input matInput [(ngModel)]="searchText" placeholder="Filter par numéro de facture..." >
+        <input matInput [(ngModel)]="searchText" placeholder="Filter par numéro de document..." >
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -30,6 +29,7 @@
               <th scope="col">Etat facture</th>
               <th scope="col">date d'envoi</th>
               <th scope="col">date de facturation</th>
+              <th scope="col">Total</th>
               <th scope="col" colspan="2">Action</th>
             </tr>
           </thead>
@@ -40,7 +40,7 @@
               <td><p *ngIf="bordereau.paye ===false">Non payée</p> <p *ngIf="bordereau.paye ===true">payée</p></td>
               <td>{{ bordereau.dateTraitement }}</td>
               <td>{{ bordereau.dateFacturation }}</td>
-
+              <td>{{ bordereau.facture.total }}</td>
               <td > <button  mat-stroked-button color="primary" (click)="openFacture(bordereau.facture)">Facture</button></td>
               <td > <button  mat-stroked-button color="primary" (click)="openBordereau(bordereau)">Bordereau</button></td>
             </tr>

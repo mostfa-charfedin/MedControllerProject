@@ -1,8 +1,18 @@
-<div class="alert alert-danger" *ngIf="err!=''">
-  <strong>{{err}}</strong>
-</div>
-<form [formGroup]="myForm" >
-<mat-stepper orientation="vertical">
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-md-7 d-flex flex-column justify-content-center">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="card-title text-center">Inscription</h3>
+        </div>
+        <div class="card-body">
+
+          <div *ngIf="err" class="alert alert-danger">
+            <strong>{{ err }}</strong>
+          </div>
+
+          <form [formGroup]="myForm" novalidate (ngSubmit)="onRegister()">
+            <mat-stepper orientation="vertical">
   <mat-step>
     <ng-template matStepLabel>Step 1</ng-template>
     <ng-template matStepContent>
@@ -171,5 +181,14 @@ myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="te
     <i matStepperPrevious class="fa-solid fa-arrow-left-long"></i>
   </mat-step>
 </mat-stepper>
-<p>vous avez un compte? <a routerLink="/login">se connecter </a></p>
+<p class="text-center mt-3">Vous avez déjà un compte ? <a routerLink="/login">Se connecter</a></p>
 </form>
+</div>
+</div>
+</div>
+
+<div class="col-md-5 d-flex justify-content-center align-items-center">
+<img src="assets/images/register.jpg"  alt="" class="img-fluid">
+</div>
+</div>
+</div>

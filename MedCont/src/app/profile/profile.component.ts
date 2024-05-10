@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 import { User } from '../models/user';
-import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { FormBuilder, Validators, NgForm } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { BordereauService } from '../services/bordereau.service';
+import { Bordereau } from '../models/bordereau';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -22,10 +24,11 @@ export class ProfileComponent implements OnInit {
   password:string="";
   err="";
   loading : boolean = false;
-
+  profileImage: string = 'assets/images/logo.png'; // Chemin de l'image par défaut
+  file1: File | null = null;
+  fileNames: string[] = ['', ''];
   constructor(
 
-    public router: Router,
     private userService: UserService
     ,private formBuilder: FormBuilder,
      private toastr: ToastrService) {}
@@ -35,6 +38,9 @@ export class ProfileComponent implements OnInit {
       this.userService.getUserById(id).subscribe({
       next:  (data: User) => {
           this.user = data;
+          if (this.user.photo) {
+            this.profileImage = 'data:image/JPG;base64,'+this.user.photo; console.log(this.user.photo)
+          }
 
         },
         error: (error :any )=> {
@@ -115,6 +121,23 @@ this.password="";
         }
         });
    }
+
+   onImageChange(event: any) {
+    const file = event.target.files[0]; // Récupérer le fichier sélectionné
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        // Lorsque la lecture du fichier est terminée, e.target.result contient les données au format base64
+        this.profileImage = e.target.result;
+      };
+
+      // Lire le contenu du fichier en tant que URL de données (base64)
+      reader.readAsDataURL(file);
+    }
+  }
+
  }
 
 

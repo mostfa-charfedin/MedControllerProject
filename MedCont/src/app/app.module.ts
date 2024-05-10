@@ -51,6 +51,11 @@ import { ListDocsFactComponent } from './list-docs-fact/list-docs-fact.component
 import { ListFactureComponent } from './list-facture/list-facture.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { AddReclamationComponent } from './add-reclamation/add-reclamation.component';
+import { StatsticComponent } from './statstic/statstic.component';
+import { ChartModule } from 'primeng/chart';
+
+
+
 
 @NgModule({
   declarations: [
@@ -86,6 +91,7 @@ import { AddReclamationComponent } from './add-reclamation/add-reclamation.compo
       ListFactureComponent,
       ReclamationComponent,
       AddReclamationComponent,
+      StatsticComponent,
 
 
 
@@ -111,6 +117,7 @@ import { AddReclamationComponent } from './add-reclamation/add-reclamation.compo
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    ChartModule,
   ],
   providers: [
     provideAnimations(),
