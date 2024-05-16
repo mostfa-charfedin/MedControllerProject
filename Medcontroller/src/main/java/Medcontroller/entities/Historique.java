@@ -29,7 +29,7 @@ public class Historique {
 	     
 	    private String Action;
 	    private  String Time;
-	    private boolean IsDeleted;
+	    
 	    
 	    @ManyToOne(cascade = CascadeType.ALL)
 	    @JoinColumn(name = "medecin_id")

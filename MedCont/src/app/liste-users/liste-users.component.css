@@ -8,3 +8,6 @@
   }
 
 }
+.larger-checkbox {
+  transform: scale(1.5); /* Increase the size of the checkboxes */
+}

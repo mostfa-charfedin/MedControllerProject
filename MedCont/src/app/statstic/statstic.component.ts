@@ -62,8 +62,8 @@ export class StatsticComponent implements OnInit{
         this.filterDocs()
           },
           (error) => {
-            console.error('Error fetching Reclamations: ', error);
-            this.toastr.error('erreur', 'error');
+            console.log('Pas de statstiques', error);
+            this.toastr.warning('Pas de statstiques','error');
           }
         );
   }
@@ -75,8 +75,8 @@ export class StatsticComponent implements OnInit{
 this.filter()
           },
           (error) => {
-            console.error('Error fetching Reclamations: ', error);
-            this.toastr.error('erreur', 'error');
+            console.error('Pas de statstiques', error);
+            this.toastr.warning('Pas de statstiques','error');
           }
         );
   }
@@ -141,7 +141,7 @@ initCharts() {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
             datasets: [
                 {
-                    label: 'Factures payés',
+                    label: 'Total factures payés',
                     backgroundColor: primaryColor,
                     borderColor: primaryColor,
                     data: this.totalAmountPerMonth,

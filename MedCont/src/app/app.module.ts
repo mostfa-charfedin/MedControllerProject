@@ -53,7 +53,7 @@ import { ReclamationComponent } from './reclamation/reclamation.component';
 import { AddReclamationComponent } from './add-reclamation/add-reclamation.component';
 import { StatsticComponent } from './statstic/statstic.component';
 import { ChartModule } from 'primeng/chart';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -118,6 +118,7 @@ import { ChartModule } from 'primeng/chart';
     MatButtonModule,
     MatDialogModule,
     ChartModule,
+    MatCheckboxModule,
   ],
   providers: [
     provideAnimations(),

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { AuthService } from './auth.service';
 import { Historique } from '../models/historique';
@@ -100,15 +100,36 @@ demandeModificartion(id: number) {
                 return this.http.put<String>(this.apiURL + "/demande", data, { headers: httpHeaders });
               }
 
-  updateUser(user :Partial<User>) : Observable<User>    {
-
-
+  updateUser(user: User){
           let jwt = this.authService.getToken();
           jwt = "Bearer "+jwt;
           let httpHeaders = new HttpHeaders({"Authorization":jwt})
             return this.http.put<User>(this.apiURL+"/updateUser", user, {headers:httpHeaders});
           }
 
+
+          updateRole(userid: number, list: string[]): Observable<User> {
+            const requestBody = {
+              userid: userid,
+              list: list
+            };
+
+            let jwt = this.authService.getToken();
+            jwt = "Bearer "+jwt;
+            const httpHeaders = new HttpHeaders({
+              'Content-Type': 'application/json',
+              'Authorization': jwt
+            });
+
+            return this.http.put<User>(`${this.apiURL}/updateRole`, requestBody, { headers: httpHeaders })
+              .pipe(
+                catchError(this.handleError)
+              );
+          }
+          private handleError(error: any): Observable<any> {
+            console.error('An error occurred:', error);
+            return throwError(error);
+          }
 validatepassword(request:Partial<User>)    {
             let jwt = this.authService.getToken();
             jwt = "Bearer "+jwt;

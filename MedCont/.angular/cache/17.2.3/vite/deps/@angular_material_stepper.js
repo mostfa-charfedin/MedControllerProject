@@ -1,4 +1,10 @@
 import {
+  MatIcon,
+  MatIconModule
+} from "./chunk-LN2FX4UP.js";
+import "./chunk-Z7NYVVNN.js";
+import "./chunk-3AWD6ON5.js";
+import {
   CdkPortalOutlet,
   PortalModule,
   TemplatePortal
@@ -13,12 +19,6 @@ import {
   transition,
   trigger
 } from "./chunk-EED6CPZF.js";
-import {
-  MatIcon,
-  MatIconModule
-} from "./chunk-LN2FX4UP.js";
-import "./chunk-Z7NYVVNN.js";
-import "./chunk-3AWD6ON5.js";
 import {
   BidiModule,
   Directionality,

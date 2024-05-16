@@ -13,7 +13,7 @@ import { Bordereau } from '../models/bordereau';
 })
 export class ProfileComponent implements OnInit {
 
-  user: Partial<User> = {};
+  user: User = new User();
   request :Partial<User> = {};
   isEditMode: boolean =true;
   isSwitched: boolean =false;
@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   loading : boolean = false;
   profileImage: string = 'assets/images/logo.png'; // Chemin de l'image par défaut
   file1: File | null = null;
+  photo!: File;
   fileNames: string[] = ['', ''];
   constructor(
 
@@ -39,7 +40,7 @@ export class ProfileComponent implements OnInit {
       next:  (data: User) => {
           this.user = data;
           if (this.user.photo) {
-            this.profileImage = 'data:image/JPG;base64,'+this.user.photo; console.log(this.user.photo)
+            this.profileImage ='data:image/jpeg;base64,'+this.user.photo;
           }
 
         },
@@ -90,10 +91,9 @@ export class ProfileComponent implements OnInit {
    verifpassword() {
     this.request.username =this.user.username;
     this.request.password =this.password;
-console.log(this.user)
+this.user.photo = this.removeBase64Prefix(this.profileImage);
     this.userService.validatepassword(this.request).subscribe({
         next: (data) => {
-
           this.isSwitched =false;
 this.userService.updateUser(this.user).subscribe({
   next: (data) => {
@@ -123,20 +123,26 @@ this.password="";
    }
 
    onImageChange(event: any) {
-    const file = event.target.files[0]; // Récupérer le fichier sélectionné
-
-    if (file) {
+     this.photo = event.target.files[0]; // Récupérer le fichier sélectionné
+    if (this.photo) {
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
-        // Lorsque la lecture du fichier est terminée, e.target.result contient les données au format base64
-        this.profileImage = e.target.result;
+        this.profileImage = e.target.result;console.log(this.profileImage)
       };
-
-      // Lire le contenu du fichier en tant que URL de données (base64)
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.photo);
     }
   }
+
+removeBase64Prefix(encodedString: string): string {
+    const prefix = "data:image/jpeg;base64,";
+    if (encodedString.startsWith(prefix)) {
+        return encodedString.substring(prefix.length);
+    } else {
+
+        return encodedString;
+    }
+}
 
  }
 

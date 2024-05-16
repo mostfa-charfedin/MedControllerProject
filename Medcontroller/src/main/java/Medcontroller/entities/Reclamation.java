@@ -24,8 +24,7 @@ public class Reclamation {
 	    private String objet;
 	    
 	    @Column(columnDefinition = "TEXT")
-	    private String text;
-
+	    private String message;
 	    private  String dateEnvoi;
 	    private  String dateTraitement;
 	    private  boolean statut;

@@ -36,7 +36,9 @@
             <h6 class="card-header"> {{document.dateAffectation}}</h6>
             <div class="card-body">
               <h5 class="card-title"> <b>Document N° </b>{{document.id}}</h5>
-              <p class="card-text"> <b>Agent : </b>{{document.agent.username}} <br> <b>Bulletin : </b> {{document.nomBulletin}} <br>  <b>Ordennance : </b> {{document.nomOrdenance}}</p>
+              <p class="card-text"> <b>Agent : </b>{{document.agent.firstName}} {{document.agent.lastName}}<br> <b>Nom Assuré: </b> {{document.nomAssure}}
+                <br> <b>Nom du Benificiaire : </b> {{document.nomBenificiaire}}
+               <br> <b>Qualité du Benificiaire : </b> {{document.qualiteBinificiaire}} </p>
 
             </div>
             <div class="card-footer text-right">

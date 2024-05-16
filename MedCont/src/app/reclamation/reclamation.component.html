@@ -49,7 +49,7 @@
             <tr *ngFor="let reclamation of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
               <th>{{ reclamation.id }}</th>
               <th>{{ reclamation.objet }}</th>
-              <th> <textarea rows="5" cols="28" readonly>{{ reclamation.text }} </textarea>  </th>
+              <th> <textarea rows="5" cols="28" readonly>{{ reclamation.message }} </textarea>  </th>
               <th>{{ reclamation.user.firstName }} {{ reclamation.user.lastName }}</th>
               <th>{{ reclamation.user.tel }}</th>
               <td>{{ reclamation.dateEnvoi }}</td>

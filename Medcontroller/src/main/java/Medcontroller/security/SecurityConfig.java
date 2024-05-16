@@ -55,7 +55,7 @@ public class SecurityConfig {
 				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**","/verif","/updatePassword","/acceptDm","/demande").permitAll()
 				.requestMatchers(HttpMethod.GET, "/recuperer/**").permitAll()
 				.requestMatchers("/all","/delete/**","/factDoc","/bloquer/**","/validerCompte/**").permitAll()
-				.requestMatchers("/updateUser","/all","/allDocs","/doc/**","/findDocumentByUserId/**").permitAll()		
+				.requestMatchers("/updateUser","/all","/allDocs","/doc/**","/findDocumentByUserId/**","/updateRole").permitAll()		
 				.requestMatchers("/uploadDoc","/updateDoc","/allHistorys","/saveBoredereau","/allFactures","/allBordereaux").permitAll()		
 				.requestMatchers("/allHistorys","/payerFacture","/findBordereauxByUserId/**","/allReclamations","/sendReclamation","/validerReclamation/**").permitAll()	
 				.anyRequest().authenticated() )

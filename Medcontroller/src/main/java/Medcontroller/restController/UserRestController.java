@@ -1,8 +1,15 @@
 package Medcontroller.restController;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -20,11 +27,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import Medcontroller.entities.Document;
 import Medcontroller.entities.Historique;
 import Medcontroller.entities.RegistrationRequest;
+import Medcontroller.entities.Role;
 import Medcontroller.entities.User;
 import Medcontroller.entities.VerificationToken;
 import Medcontroller.exceptions.InvalidUsernameException;
+import Medcontroller.repository.RoleRepository;
 import Medcontroller.repository.UserRepository;
 import Medcontroller.repository.VerificationTokenRepository;
 import Medcontroller.security.SecParams;
@@ -55,8 +66,9 @@ public class UserRestController {
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	
+
+	@Autowired
+	RoleRepository roleRep;
 	
 	
 	@RequestMapping(path = "/all",method = RequestMethod.GET)
@@ -78,7 +90,16 @@ public class UserRestController {
 			return userService.validateToken(token);
 			
 	 }
-	
+	private String convertImageToBase64(InputStream inputStream) throws IOException {
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    byte[] buffer = new byte[4096];
+	    int bytesRead;
+	    while ((bytesRead = inputStream.read(buffer)) != -1) {
+	        outputStream.write(buffer, 0, bytesRead);
+	    }
+	    byte[] imageBytes = outputStream.toByteArray();
+	    return Base64.getEncoder().encodeToString(imageBytes);
+	}
 	
 	@PutMapping(path="/updateUser")
 	public ResponseEntity<User> updateUserById(@RequestBody User updatedUser) {
@@ -104,7 +125,10 @@ public class UserRestController {
 	        existingUser.setDemandeMod(false);
 	        existingUser.setBirthday(updatedUser.getBirthday());
 	        existingUser.setCin(updatedUser.getCin());
-	        existingUser.setRoles(updatedUser.getRoles());
+	        existingUser.setRoles(updatedUser.getRoles());  
+
+	        // Set photo directly
+	        existingUser.setPhoto(updatedUser.getPhoto());
 
 	        try {
 	            // Save updated user
@@ -113,7 +137,6 @@ public class UserRestController {
 	            LocalDateTime now = LocalDateTime.now();
 	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd   HH:mm");
 	            String formattedDateTime = now.format(formatter);
-	            
 	            
 	            Historique historique = new Historique();
 	            historique.setAction("l'utilisateur a modifié son profil");
@@ -131,7 +154,36 @@ public class UserRestController {
 	    }
 	}
 
+
+	@PutMapping(path="/updateRole")
+	public ResponseEntity<User> updateUserRole(@RequestBody Map<String, Object> requestBody) {
+	  Long userId = ((Number) requestBody.get("userid")).longValue();
+	  List<String> list = (List<String>) requestBody.get("list");
 	
+	    User user = userService.getUserById(userId);
+	    if (user.getId() == null) {
+	        return ResponseEntity.badRequest().build();
+	    }
+	    if (user != null) {	    	
+	    	user.getRoles().clear();   	
+        	for (String roleName : list) {
+        	    String cleanedroleName = roleName.replace("[", "").replace("]", "");
+    	        Role r = roleRep.findByRole(cleanedroleName);		     
+    			user.getRoles().add(r);
+        	}   
+	             
+	        try {
+	            userService.saveUser(user);
+	            
+	            return ResponseEntity.ok(user);
+	        } catch (Exception e) {
+	            // Handle database or other errors
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
 	
 	
 	@PutMapping(path="/verif")

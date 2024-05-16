@@ -29,7 +29,7 @@ getAllReclamations(): Observable<Reclamation[]>{
 
    addReclamation(reclamation :Reclamation,id:number){
     const formData = new FormData();
-    formData.append('text', reclamation.text.toString());
+    formData.append('text', reclamation.message.toString());
     formData.append('object', reclamation.objet.toString());
     formData.append('userId', id.toString());
 

@@ -26,7 +26,8 @@ public class MedcontrollerApplication {
 	void init_users() {
 		//ajouter les rôles
 		userService.addRole(new Role(null,"ADMIN"));
-		userService.addRole(new Role(null,"USER"));}
+		userService.addRole(new Role(null,"USER"));
+		userService.addRole(new Role(null,"AGENT"));}
 	
 /*	*/
 	

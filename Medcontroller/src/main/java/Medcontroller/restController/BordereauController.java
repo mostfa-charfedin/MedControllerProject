@@ -106,14 +106,13 @@ public class BordereauController {
        
             Historique historique = new Historique();
             historique.setAction("demande de facturation");
-        
             historique.setTime(formattedDateTime);
             historique.setMedecin(medecin);
             historique.setFacture(facture);
             historiqueRepository.save(historique);
             
             String emailBody ="Bonjour "+ "<br>"+
-    		   		"Le médecin"+" " +medecin.getUsername()+" "+ " a passé une demande de facturation.";
+    		   		"Le médecin"+" " +medecin.getUsername()+" "+ " a passé une demande de facturation." +"<br>" + "Facture N° "+facture.getId();
     		    String subject ="Demande de facturation";
     		   		emailSender.sendEmail(SecParams.Email_Agentassurance, emailBody,subject);
             
@@ -153,8 +152,8 @@ public class BordereauController {
          historique.setFacture( bordereau.getFacture());
          historiqueRepository.save(historique);
          
-         String emailBody ="Bonjour "+ "<br>"+
- 		   		"Mr / mme "+" " +bordereau.getUser().getUsername()+" "+ " votre facture N° "+bordereau.getFacture().getId()+" payé";
+         String emailBody ="Bonjour "+
+ 		   		"Mr / mme "+" " +bordereau.getUser().getUsername()+"<br> "+ "Votre facture N° "+bordereau.getFacture().getId()+" est payé";
  		    String subject ="Facture payé";
  		   		emailSender.sendEmail(bordereau.getUser().getEmail(), emailBody,subject);
 	        

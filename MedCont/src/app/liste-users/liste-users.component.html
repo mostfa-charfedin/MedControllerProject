@@ -50,7 +50,9 @@
               </td>-->
 
               <td>
-                <button  class="btn btn-outline-success me-2">Plus</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal(user)">
+                  Launch demo modal
+                </button>
               </td>
             </tr>
           </tbody>
@@ -68,7 +70,42 @@
       <ng-template #noDocuments>
         <h3>Aucun utilisateur trouvé</h3>
       </ng-template>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Roles</h5>
+        <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <div class="container">
 
+
+  <div class="form-check">
+    <input class="form-check-input larger-checkbox" type="checkbox" id="userRole" value="USER" (change)="updateRoles($event)">
+    <label class="form-check-label" for="userRole">User</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input larger-checkbox" type="checkbox" id="adminRole" value="ADMIN" (change)="updateRoles($event)">
+    <label class="form-check-label" for="adminRole">Admin</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input larger-checkbox" type="checkbox" id="agentRole" value="AGENT" (change)="updateRoles($event)">
+    <label class="form-check-label" for="agentRole">Agent</label>
+  </div>
+</div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="UpdateRoleUser()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 
 

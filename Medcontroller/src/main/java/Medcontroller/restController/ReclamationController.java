@@ -61,7 +61,7 @@ public class ReclamationController {
 		Reclamation reclamation = new Reclamation();         
 		reclamation.setObjet(object);
 		reclamation.setStatut(false);
-		reclamation.setText(text);
+		reclamation.setMessage(text);
 		reclamation.setDateEnvoi(formattedDateTime);
 		reclamation.setUser(user);
 		reclamationService.saveReclamation(reclamation);

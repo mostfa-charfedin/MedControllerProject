@@ -25,8 +25,8 @@ endDate: Date | null = null;
 items: User[] = [];
 filteredItems: User[] = [];
 loading : boolean = false;
-
-
+selectedRoles: string[] = [];
+selectedUser: any;
 
 dataSource = new MatTableDataSource<User>();
 pageSize = 5; // Adjust the default page size as needed
@@ -72,7 +72,7 @@ pageIndex = 0;
     this.userService.deleteUser(user.id).subscribe(
       (response) => {
         this.toastr.success('Utilisateur supprimé.', 'Confirmation');
-     
+
 
 
       },
@@ -119,6 +119,23 @@ pageIndex = 0;
   }
 }
 
+UpdateRoleUser(){
+  const confirmValidation = window.confirm('Voulez-vous editer les roles ?');
+  if (confirmValidation){
+  this.userService.updateRole(this.selectedUser.id, this.selectedRoles).subscribe(
+    (response) => {
+      this.toastr.success('Role changé.', 'Confirmation');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    },
+    (error) => {
+      this.toastr.error('erreur.', 'Erreur');
+    }
+  );
+}
+}
+
   get filter() {
     if (!this.items) return [];
 
@@ -137,8 +154,28 @@ pageIndex = 0;
   }
 
 
+ openModal(user: any) {
+    this.selectedUser = user;console.log(this.selectedUser)
+  }
 
+  closeModal() {
+    this.selectedUser = null;console.log(this.selectedUser)
+  }
 
+  updateRoles(event: any) {
+    const role = event.target.value;
+    if (event.target.checked) {
+      // Add the role to the selectedRoles list if checked
+      this.selectedRoles.push(role);
+    } else {
+      // Remove the role from the selectedRoles list if unchecked
+      const index = this.selectedRoles.indexOf(role);
+      if (index !== -1) {
+        this.selectedRoles.splice(index, 1);
+      }
+    }
+    console.log('Selected Roles:', this.selectedRoles);
+  }
 
 
 }
