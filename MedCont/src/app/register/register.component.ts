@@ -18,14 +18,17 @@ public user = new User();
 confirmPassword?:string;
 
 myForm!: FormGroup;
-
+selectedSpecialite!: string;
 err="";
 loading : boolean = false;
 
 constructor(private formBuilder: FormBuilder,  private authService : AuthService,
-  private router:Router, private toastr: ToastrService) { }
+  private router:Router, private toastr: ToastrService) {
+
+   }
 
   ngOnInit(): void {
+
     this.myForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -36,13 +39,15 @@ constructor(private formBuilder: FormBuilder,  private authService : AuthService
       confirmPassword: ['', [Validators.required]],
       localisation: ['', [Validators.required]],
       matricule: ['', [Validators.required]],
-      tel: ['', [Validators.required, ]],
-      birthday: ['', [Validators.required,]],
-      cin: ['', [Validators.required,]],
+      tel: ['', [Validators.required]],
+      birthday: ['', [Validators.required]],
+      cin: ['', [Validators.required]],
     });
-
   }
-
+  onSpecialiteChange(event: any) {
+    const value = (event.target as HTMLSelectElement).value;
+    console.log("Spécialité sélectionnée : " + value);
+  }
   onRegister() {
     if (this.myForm.invalid) {
       return;
@@ -59,7 +64,7 @@ constructor(private formBuilder: FormBuilder,  private authService : AuthService
         this.toastr.success('Veillez confirmer votre email', 'Confirmation');
         this.router.navigate(['/verifEmail']);
       },
-      
+
       error: (err: any) => {
         if (err.error.errorCode === 'USER_EMAIL_ALREADY_EXISTS') {
           this.err = 'Email already used';

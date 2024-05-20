@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         error: (err: any) => {
           this.err = 1;
           if (err && err.error && err.error.errorCause === "disabled") {
-            this.message = "Le compte est désactivé !";
+            this.message = "Le compte est désactivé !  Veuillez contacter votre Administrateur";
           }
           console.log("userrrrr", this.user);
           console.log("err", err);

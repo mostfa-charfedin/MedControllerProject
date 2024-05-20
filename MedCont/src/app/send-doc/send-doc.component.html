@@ -1,54 +1,61 @@
-<div class="content w-full " style="padding: 20px;">
+<div class="content w-full" style="padding: 20px;">
 
-<div class="container cont">
+  <div class="container cont">
     <!-- Right side -->
-    <form #sendDoc="ngForm">
-      <div class="right">
-          <div class="col-md-12 mb-4">
-              <label for="validationDefault01">Matricule Assure</label>
-              <input type="text" class="form-control" name="matriculeAssure" ngModel  placeholder="Matricule Assure">
-          </div>
-          <div class="col-md-12 mb-4">
-              <label for="validationDefault01">Nom Assuré</label>
-              <input type="text" class="form-control" name="nomAssure" ngModel placeholder="Nom Assuré">
-          </div>
-          <div class="col-md-12 mb-4">
-              <label for="validationDefault01">Nom du Benificiaire</label>
-              <input type="text" class="form-control" name="nomBenificiaire" ngModel  placeholder="Nom du Benificiaire">
-          </div>
-          <div class="col-md-12 mb-4">
-              <label for="validationDefault01">Qualité du Benificiaire</label>
-              <input type="text" class="form-control" name="QualiteBinificiaire" ngModel  placeholder="Qualité du Benificiaire">
+    <form #sendDoc="ngForm" (ngSubmit)="uploadFiles(sendDoc)" class="row g-3">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="matriculeAssure" class="form-label">Matricule Assure</label>
+          <input type="text" class="form-control" name="matriculeAssure" ngModel required placeholder="Matricule Assure" >
+        </div>
+        <div class="mb-3">
+          <label for="nomAssure" class="form-label">Nom Assuré</label>
+          <input type="text" class="form-control" name="nomAssure" ngModel required placeholder="Nom Assuré" >
+        </div>
+        <div class="mb-3">
+          <label for="nomBenificiaire" class="form-label">Nom du Benificiaire</label>
+          <input type="text" class="form-control" name="nomBenificiaire" ngModel required placeholder="Nom du Benificiaire" >
+        </div>
+        <div class="mb-3">
+          <label for="QualiteBinificiaire" class="form-label">Qualité du Benificiaire</label>
+          <input type="text" class="form-control" name="QualiteBinificiaire" ngModel required placeholder="Qualité du Benificiaire" >
+        </div>
+      </div>
+     <!-- Left side -->
+     <div class="left">
+      <div class="col-md-12 mb-4">
+          <label for="validationDefault01">Bulletin de soins</label>
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileSelected($event, 1)">
+              <label class="custom-file-label" for="inputGroupFile01">{{ fileNames[0] }}</label>
           </div>
       </div>
-      <button class="btn btn-primary" type="button" (click)="uploadFiles(sendDoc)">Upload Files</button>
-  </form>
-    <!-- Left side -->
-    <div class="left">
-        <div class="col-md-12 mb-4">
-            <label for="validationDefault01">Bulletin de soins</label>
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileSelected($event, 1)">
-                <label class="custom-file-label" for="inputGroupFile01">{{ fileNames[0] }}</label>
-            </div>
-        </div>
-        <div class="col-md-12 mb-4">
-            <label for="validationDefault01">Ordonnance</label>
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="onFileSelected($event, 2)">
-                <label class="custom-file-label" for="inputGroupFile02">{{ fileNames[1] }}</label>
-            </div>
-        </div>
-        <div class="col-md-12 mb-4">
-            <label for="validationDefault01">Chercher un médecin</label>
-            <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" class="form-control"placeholder="Tapez le username." (input)="filterUsers()"><br>
+      <div class="col-md-12 mb-4">
+          <label for="validationDefault01">Ordonnance</label>
+          <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile02" (change)="onFileSelected($event, 2)">
+              <label class="custom-file-label" for="inputGroupFile02">{{ fileNames[1] }}</label>
+          </div>
+      </div>
+      <div class="col-md-12 mb-4">
+          <label for="validationDefault01">Chercher un médecin</label>
+          <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" class="form-control"placeholder="Tapez le username." (input)="filterUsers()"><br>
 
-            <mat-label for="validationDefault01">Veuillez sélectionner un médecin contrôleur.</mat-label>
-            <select class="form-control form-select" aria-label="Default select example" (change)="onSelect($event)">
-                <option selected disabled>Cliquer ici</option>
-                <option *ngFor="let user of filteredUsers" [value]="user.id">{{ user.specialite }} : {{ user.username }}</option>
-            </select>
-        </div>
-    </div>
-
+          <mat-label for="validationDefault01">Veuillez sélectionner un médecin contrôleur.</mat-label>
+          <select class="form-control form-select" aria-label="Default select example" (change)="onSelect($event)">
+              <option selected disabled>Cliquer ici</option>
+              <option *ngFor="let user of filteredUsers" [value]="user.id">{{ user.specialite }} : {{ user.username }}</option>
+          </select>
+      </div>
+  </div>
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+          </svg>
+          Envoyer
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

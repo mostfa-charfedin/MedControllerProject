@@ -6,6 +6,7 @@ import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { BordereauService } from '../services/bordereau.service';
 import { Bordereau } from '../models/bordereau';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
 
     private userService: UserService
     ,private formBuilder: FormBuilder,
+    public authService: AuthService,
      private toastr: ToastrService) {}
 
   ngOnInit() {

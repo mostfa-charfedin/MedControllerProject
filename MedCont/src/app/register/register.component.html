@@ -102,13 +102,18 @@ myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="te
         </span>
         </div>
 
-    <div class="col-md-4 mb-3">
-          <label for="validationDefaultUsername">Specialite</label>
-          <div class="input-group">
+        <div class="col-md-4 mb-3">
+          <label for="validationDefaultUsername">Spécialité</label>
+          <select class="form-control" formControlName="specialite" name="specialite" id="specialite" (change)="onSpecialiteChange($event)">
+            <option selected disabled>Selectinner une specialite</option>
+              <option value="agent">Agent</option>
+              <option value="opticien">Opticien</option>
+              <option value="dentiste">Dentiste</option>
+          </select>
+      </div>
 
-            <input type="text" class="form-control"  name="specialite" placeholder="Specialite"   formControlName="specialite" >
-          </div>
-    </div>
+
+
   </div>
 <!--------------------------------------------------------------------------------------------------------------------->
   <div class="form-row">

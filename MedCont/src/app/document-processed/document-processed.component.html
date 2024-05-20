@@ -13,7 +13,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Enter a date range</mat-label>
+      <mat-label>Entrer une plage de dates</mat-label>
       <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
         <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="startDate" >
         <input matEndDate formControlName="end" placeholder="End date" [(ngModel)]="endDate" >
@@ -35,7 +35,10 @@
 
     <div *ngIf="filter.length > 0;">
       <mat-card-actions>
-      <button mat-stroked-button color="primary"  (click)="goToBordereau()">Generer Bordereau</button>
+      <button class="btn btn-info"  (click)="goToBordereau()"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      </svg>
+      Generer Bordereau</button>
 
       </mat-card-actions>
 

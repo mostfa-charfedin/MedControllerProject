@@ -37,21 +37,31 @@
               <td>{{ user.firstName }}</td>
               <td>{{ user.lastName }}</td>
               <td>{{ user.email }}</td>
-              <td><p *ngIf="user.isActive ===true">Activé</p><p *ngIf="user.isActive ===false">Bloqué</p></td>
+              <td><p *ngIf="user.accountNonLocked ===true" [style.color]="!user.accountNonLocked ? 'inherit' : 'green'">Activé</p>
+                <p *ngIf="user.accountNonLocked ===false" [style.color]="user.accountNonLocked ? 'inherit' : 'red'">Bloqué</p></td>
               <td >
-                <button *ngIf="user.isActive===false" class="btn btn-outline-primary"(click)="validerUser(user)">Activer</button>
+                <button *ngIf="user.accountNonLocked===false" class="btn btn-success"(click)="validerUser(user)">
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                  </svg>
+                Activer</button>
+                <button *ngIf="user.accountNonLocked===true" class="btn btn-danger" (click)="bloquerUser(user)"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                Bloquer</button>
               </td>
 
-              <td>
-                <button *ngIf="user.isActive===true" class="btn btn-outline-warning me-2" (click)="bloquerUser(user)">Bloquer</button>
-              </td>
+
              <!-- <td>
                 <button  class="btn btn-outline-danger me-2" (click)="deleteUser(user)">Delete</button>
               </td>-->
 
               <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal(user)">
-                  Launch demo modal
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                  </svg>
+                 Role
                 </button>
               </td>
             </tr>
@@ -81,23 +91,21 @@
         </button>
       </div>
       <div class="modal-body">
-     <div class="container">
-
-
-  <div class="form-check">
-    <input class="form-check-input larger-checkbox" type="checkbox" id="userRole" value="USER" (change)="updateRoles($event)">
-    <label class="form-check-label" for="userRole">User</label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input larger-checkbox" type="checkbox" id="adminRole" value="ADMIN" (change)="updateRoles($event)">
-    <label class="form-check-label" for="adminRole">Admin</label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input larger-checkbox" type="checkbox" id="agentRole" value="AGENT" (change)="updateRoles($event)">
-    <label class="form-check-label" for="agentRole">Agent</label>
-  </div>
-</div>
-
+        <div class="container">
+          <div class="form-check">
+            <input class="form-check-input larger-checkbox" type="checkbox" id="userRole" value="USER" (change)="updateRoles($event)" [checked]="isRoleSelected('USER')">
+            <label class="form-check-label" for="userRole">User</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input larger-checkbox" type="checkbox" id="adminRole" value="ADMIN" (change)="updateRoles($event)" [checked]="isRoleSelected('ADMIN')">
+            <label class="form-check-label" for="adminRole">Admin</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input larger-checkbox" type="checkbox" id="agentRole" value="AGENT" (change)="updateRoles($event)" [checked]="isRoleSelected('AGENT')">
+            <label class="form-check-label" for="agentRole">Agent</label>
+          </div>
+        </div>
+      </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Close</button>
@@ -106,7 +114,4 @@
     </div>
   </div>
 </div>
-    </div>
-
-
-
+</div>

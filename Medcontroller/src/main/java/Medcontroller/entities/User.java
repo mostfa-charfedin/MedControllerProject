@@ -40,7 +40,7 @@ public class User {
     private String email ;
     private String localisation;
     private String specialite;
-    private Boolean isActive;
+    private Boolean accountNonLocked;
     private Boolean Statut;
     private Boolean demandeMod;
     private String birthday;

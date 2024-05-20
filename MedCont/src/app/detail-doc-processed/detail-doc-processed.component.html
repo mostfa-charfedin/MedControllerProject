@@ -1,22 +1,17 @@
 <div class="content w-full" style="padding: 20px;">
-
-
-
-  <h2>Details document traitée</h2>
-
 <div class="containerr">
   <div class="right-div">
-    <p>Rapport : </p>
+    <h4>Rapport</h4>
     <iframe [src]="rapport" width="100%" height="500px" frameborder="0"></iframe>
   </div>
 
   <div class="left-div">
-    <p>Ordenance : {{ document.nomOrdenance }}</p>
+    <h4>Ordonnance</h4>
     <iframe [src]="ordenance" width="100%" height="500px" frameborder="0"></iframe>
   </div>
 
   <div class="right-div">
-    <p>Bulletin : {{ document.nomBulletin }} : </p>
+    <h4>Bulletin</h4>
     <iframe [src]="bulletin" width="100%" height="500px" frameborder="0"></iframe>
   </div>
 

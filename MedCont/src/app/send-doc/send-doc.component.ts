@@ -19,10 +19,8 @@ export class SendDocComponent {
  doc: Doc = new Doc();
  file1: File | null = null;
  file2: File | null = null;
- agentId: number = 1; // Sample agent ID
- medecinId: number = 1; // Sample medecin ID
- myForm!: FormGroup;
-  formBuilder: any;
+ agentId!: number ;
+ medecinId!: number;
   constructor(
     private fileUploadService: DocumentService,
     private toastr: ToastrService,
@@ -81,11 +79,11 @@ export class SendDocComponent {
 
     if (!file1 || !file2) {
       console.error('Please select both files.');
+      this.toastr.warning('Sélectionner les deux fichiers.', 'Warning');
       return;
     }
 this.doc.agentId=  localStorage.getItem('id');
 this.doc.medecinId =  this.selectedUserId;
-
 this.doc.matriculeAssure = sendDoc.value['matriculeAssure'];
 this.doc.nomAssure = sendDoc.value['nomAssure'];
 this.doc.nomBenificiaire = sendDoc.value['nomBenificiaire'];
@@ -99,7 +97,7 @@ console.log(this.doc)
       },
       error: (err) => {
         console.error('Error uploading files:', err);
-        alert("erreur");
+        alert("Erreur");
         // Handle error
       }
     });

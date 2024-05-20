@@ -30,7 +30,7 @@ reclamation = new Reclamation();
   ngOnInit(): void {
     this.formReclamtion = this.formBuilder.group({
       objet: ['', [Validators.required]],
-      text: ['', [Validators.required]],
+      message: ['', [Validators.required]],
     })
   }
 

@@ -54,6 +54,7 @@ import { AddReclamationComponent } from './add-reclamation/add-reclamation.compo
 import { StatsticComponent } from './statstic/statstic.component';
 import { ChartModule } from 'primeng/chart';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 
@@ -92,6 +93,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
       ReclamationComponent,
       AddReclamationComponent,
       StatsticComponent,
+      ForbiddenComponent,
 
 
 

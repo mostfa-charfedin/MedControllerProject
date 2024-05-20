@@ -29,25 +29,25 @@ selectedRoles: string[] = [];
 selectedUser: any;
 
 dataSource = new MatTableDataSource<User>();
-pageSize = 5; // Adjust the default page size as needed
+pageSize = 5;
 pageSizeOptions = [5, 10, 25];
 pageIndex = 0;
-@ViewChild(MatPaginator) paginator!: MatPaginator; // Use `!` for non-null assertion
+@ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private userService: UserService, private toastr: ToastrService,public router: Router,) { }
 
   ngOnInit(): void {
     this.loadUsers();
     this.loading = true;
-    this.dataSource.paginator = this.paginator; // Connect data source to paginator
-    if (this.paginator) { // Check if paginator exists
-      this.paginator.pageSize = this.pageSize; // Set page size only if paginator is available
-    } // Set initial page size (optional)
+    this.dataSource.paginator = this.paginator;
+    if (this.paginator) {
+      this.paginator.pageSize = this.pageSize;
+    }
   }
   handlePageChange(event: any) {
-    this.pageIndex = event.pageIndex; // Update current page
+    this.pageIndex = event.pageIndex;
     if (event.pageSize !== this.pageSize) {
-      this.pageSize = event.pageSize; // Update internal page size
-      this.pageIndex = 0; // Reset to first page when size changes
+      this.pageSize = event.pageSize;
+      this.pageIndex = 0;
     }
   }
 
@@ -66,7 +66,7 @@ pageIndex = 0;
       }
     );
   }
-  deleteUser(user:User){
+  /*deleteUser(user:User){
     const confirmValidation = window.confirm('Voulez-vous supprimler le compte ?');
     if (confirmValidation){
     this.userService.deleteUser(user.id).subscribe(
@@ -82,7 +82,7 @@ pageIndex = 0;
       }
     );
   }
-}
+}*/
 
 
   bloquerUser(user:User){
@@ -110,7 +110,7 @@ pageIndex = 0;
         this.toastr.success('Compte activé.', 'Confirmation');
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 800);
       },
       (error) => {
         this.toastr.error('erreur.', 'Erreur');
@@ -152,30 +152,37 @@ UpdateRoleUser(){
   }
   return filteredItems;
   }
-
-
- openModal(user: any) {
-    this.selectedUser = user;console.log(this.selectedUser)
-  }
-
-  closeModal() {
-    this.selectedUser = null;console.log(this.selectedUser)
+  openModal(user: any) {
+    this.selectedUser = user || { roles: [] };
+    this.selectedRoles = [...this.selectedUser?.roles.map((roleObj: any) => roleObj.role)]; // Extract roles to an array
+    console.log(this.selectedUser?.roles);
   }
 
   updateRoles(event: any) {
     const role = event.target.value;
     if (event.target.checked) {
-      // Add the role to the selectedRoles list if checked
-      this.selectedRoles.push(role);
+      // Add the role to the selectedRoles list if it is not already present
+      if (!this.selectedRoles.includes(role)) {
+        this.selectedRoles.push(role);
+      }
     } else {
       // Remove the role from the selectedRoles list if unchecked
       const index = this.selectedRoles.indexOf(role);
       if (index !== -1) {
-        this.selectedRoles.splice(index, 1);
+        this.selectedRoles?.splice(index, 1);
       }
     }
     console.log('Selected Roles:', this.selectedRoles);
   }
+
+  isRoleSelected(role: string): boolean {
+    return this.selectedUser?.roles.some((r: any) => r.role === role);
+  }
+  closeModal() {
+    this.selectedUser = null;console.log(this.selectedUser)
+  }
+
+
 
 
 }

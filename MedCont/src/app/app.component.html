@@ -20,31 +20,26 @@
         <img src="assets/images/logo.png" >
         <hr style="background-color: aliceblue;">
         <ul>
-          <li>
-            <a [ngClass]="{ 'selected': isSelected('/home') }" class="d-flex align-items-center fs-14 c-white rad-6 p-10" routerLink="/home">
-              <i class="fa-solid fa-folder-tree"></i>
-              <span>Tous les dossiers à traiter</span>
-            </a>
-          </li>
+
           <li>
             <a [ngClass]="{ 'selected': isSelected('/profile') }" class=" d-flex align-center fs-14 c-white rad-6 p-10"  routerLink="/profile">
               <i class="fa-regular fa-user"></i>
               <span>Profile</span>
             </a>
           </li>
-          <li>
+          <li *ngIf="authService.isAdmin()">
             <a [ngClass]="{ 'selected': isSelected('/allUsers') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/allUsers">
               <i class="fa-solid fa-users"></i>
               <span>Liste des utilisateurs</span>
             </a>
           </li>
-          <li>
+          <li *ngIf="authService.isAdmin()">
             <a [ngClass]="{ 'selected': isSelected('/demupdate') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/demupdate">
               <i class="fa-solid fa-list-check"></i>
               <span>Liste des demandes</span>
             </a>
           </li>
-          <li>
+          <li *ngIf="authService.isAdmin() || authService.isAgent()">
             <a [ngClass]="{ 'selected': isSelected('/senddoc') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/senddoc">
               <i class="fa-solid fa-folder-plus"></i>
               <span>affecter un dossier</span>
@@ -53,54 +48,54 @@
 
 
 
-          <li>
+          <li *ngIf="authService.isAdmin() || authService.isUser()">
             <a [ngClass]="{ 'selected': isSelected('/mesDocs') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/mesDocs">
               <i class="fa-solid fa-folder-tree"></i>
               <span>dossiers à traiter</span>
             </a>
           </li>
 
-          <li>
+          <li *ngIf="authService.isAdmin() || authService.isUser()">
             <a [ngClass]="{ 'selected': isSelected('/processedDocs') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/processedDocs">
               <i class="fa-solid fa-clipboard-check"></i>
               <span>dossiers traités</span>
             </a>
           </li>
 
-          <li>
+          <li *ngIf="authService.isAdmin() || authService.isAgent()">
             <a [ngClass]="{ 'selected': isSelected('/etatDoc') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/etatDoc">
               <i class="fa-regular fa-folder-open"></i>
               <span>Suivi des dossiers</span>
             </a>
           </li>
-          <li >
+          <li *ngIf="authService.isAdmin() || authService.isAgent()">
             <a [ngClass]="{ 'selected': isSelected('/docsFact') }"class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/docsFact">
               <i class="fa-solid fa-file-invoice-dollar"></i>
               <span>Factures</span>
             </a>
           </li>
-          <li >
+          <li *ngIf="authService.isAdmin() || authService.isUser()" >
             <a [ngClass]="{ 'selected': isSelected('/listFact') }"class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/listFact">
               <i class="fa-solid fa-hand-holding-dollar"></i>
               <span>Mes factures</span>
             </a>
           </li>
-          <li >
+          <li *ngIf="authService.isAdmin()">
             <a [ngClass]="{ 'selected': isSelected('/historique') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/historique">
               <i class="fa-solid fa-clock-rotate-left"></i>
               <span>Historique</span>
             </a>
           </li>
-          <li>
+          <li *ngIf="authService.isAdmin() || authService.isAgent()">
             <a [ngClass]="{ 'selected': isSelected('/listReclamations') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/listReclamations">
               <i class="fa-solid fa-circle-exclamation"></i>
               <span>List des réclamations</span>
             </a>
           </li>
-          <li>
+          <li *ngIf="authService.isUser()">
             <a [ngClass]="{ 'selected': isSelected('/Reclamation') }" class="d-flex align-center fs-14 c-white rad-6 p-10" routerLink="/Reclamation">
               <i class="fa-solid fa-circle-exclamation"></i>
-              <span>Reclamation</span>
+              <span>Réclamer</span>
             </a>
           </li>
 
@@ -122,7 +117,7 @@
 
 
 
-          <div class="content w-full" style="padding: 20px;">
+          <div class="content w-full" style="padding: 10px;">
             <nav aria-label="breadcrumb" *ngIf="authService.loggedUser">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item" *ngFor="let route of routes">

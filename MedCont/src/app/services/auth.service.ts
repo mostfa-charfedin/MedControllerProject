@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../models/user';
+import { UserService } from './user.service';
 
 
 
@@ -20,13 +21,14 @@ apiURL: string = 'http://localhost:8080/user';
 token!:string;
 
 public loggedUser!:string;
-
 public roles!:string[];
-
 public regitredUser : User = new User();
+public isloggedIn: Boolean = false;
+
 
   constructor(private router : Router,
-              private http : HttpClient
+              private http : HttpClient,
+
 ) { }
 
 
@@ -62,18 +64,7 @@ return this.regitredUser;
     const decodedToken = this.helper.decodeToken(this.token);
     this.roles = decodedToken.roles;
     this.loggedUser = decodedToken.sub;
-  }
-
-
-
-
-
-
-  isAdmin():Boolean{
-    if (!this.roles) //this.roles== undefiened
-    return false;
-    return (this.roles.indexOf('ADMIN') >-1) ;
-    ;
+ 
   }
 
 
@@ -81,7 +72,7 @@ return this.regitredUser;
   this.loggedUser = undefined!;
   this.roles = undefined!;
   this.token= undefined!;
-
+  this.isloggedIn = false;
   localStorage.clear();
   this.router.navigate(['/login']);
   }
@@ -107,5 +98,23 @@ return this.regitredUser;
   validateEmail(code : string){
       return this.http.get<User>(this.apiURL+'/verifyEmail/'+code);
       }
+      isAdmin():Boolean{
+        if (!this.roles) //this.roles== undefiened
+        return false;
+        return (this.roles.indexOf('ADMIN') >-1) ;
+        ;
+      }
+      isAgent(): boolean {
+        if (!this.roles) // If roles are undefined
+          return false;
+        return this.roles.includes('AGENT');
+      }
+
+      isUser(): boolean {
+        if (!this.roles) // If roles are undefined
+          return false;
+        return this.roles.includes('USER');
+      }
+
 
 }

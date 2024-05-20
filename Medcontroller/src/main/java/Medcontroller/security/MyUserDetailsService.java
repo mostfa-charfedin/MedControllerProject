@@ -34,6 +34,6 @@ if (user==null)
 	 });
 	
 	return new org.springframework.security.core.
-			userdetails.User(user.getUsername(),user.getPassword(),user.getIsActive(),true,true,true,auths);
+			userdetails.User(user.getUsername(),user.getPassword(),user.getAccountNonLocked(),true,true,true,auths);
   }
 }

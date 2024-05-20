@@ -8,7 +8,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Enter a date range</mat-label>
+        <mat-label>Entrer une plage de dates</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
           <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="startDate" >
           <input matEndDate formControlName="end" placeholder="End date" [(ngModel)]="endDate" >
@@ -46,10 +46,17 @@
                 <td>{{ document.agent.username }}</td>
                 <td>{{ document.user?.username }}</td>
                 <td>{{ document.user?.tel }}</td>
-                <td><p *ngIf="document.etat ===true">Traité</p><p *ngIf="document.etat ===false">En cours</p></td>
+                <td><p *ngIf="document.etat === true" [style.color]="!document.etat ? 'inherit' : 'green'">
+                  Traité
+              </p>
+              <p *ngIf="document.etat ===false" [style.color]="document.etat ? 'inherit' : 'red'">En cours</p></td>
                 <td>{{ document.dateAffectation }}</td>
                 <td><p *ngIf="document.etat ===true">{{ document.dateTraitement }}</p></td>
-                <td > <button *ngIf="document.etat===true" mat-stroked-button color="primary" (click)="details(document.id)">Consulter</button></td>
+                <td > <button *ngIf="document.etat===true" class="btn btn-info" (click)="details(document.id)"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+  <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+</svg>
+Consulter</button></td>
               </tr>
             </tbody>
           </table>

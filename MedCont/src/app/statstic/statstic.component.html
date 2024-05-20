@@ -4,7 +4,7 @@
     <div class="col-md-8">
       <div class="card mt-4">
         <mat-form-field appearance="fill" class="year-input">
-          <mat-label>Select a year</mat-label>
+          <mat-label>Sélectionner une année</mat-label>
           <mat-select [(ngModel)]="selectedYear" placeholder="Year" (ngModelChange)="filter()">
             <mat-option *ngFor="let year of availableYears" [value]="year">{{ year }}</mat-option>
           </mat-select>
@@ -20,7 +20,7 @@
     <div class="col-lg-4">
       <div class="card mt-4">
         <mat-form-field appearance="fill" class="date-input">
-          <mat-label>Enter a date range</mat-label>
+          <mat-label>Entrer une plage de dates</mat-label>
           <mat-date-range-input [formGroup]="range" [rangePicker]="picker" >
             <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="startDate"     >
             <input matEndDate formControlName="end" placeholder="End date"  [(ngModel)]="endDate" (ngModelChange)="filterDocs()"  >

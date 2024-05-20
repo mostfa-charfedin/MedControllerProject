@@ -22,11 +22,7 @@ export class AppComponent implements OnInit {
                   }
                 });
 
-                this.router.events.subscribe((event) => {
-                  if (event instanceof NavigationEnd) {
-                    this.currentRoute = this.getCurrentRoute();
-                  }
-                });
+
                 this.router.events.subscribe((event) => {
                   if (event instanceof NavigationEnd) {
                     this.updateBreadcrumb();
@@ -41,6 +37,7 @@ export class AppComponent implements OnInit {
           this.authService.logout();
 
           }
+          
   }
 
   onLogout(){

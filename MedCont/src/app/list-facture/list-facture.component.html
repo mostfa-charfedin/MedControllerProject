@@ -7,7 +7,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Enter a date range</mat-label>
+        <mat-label>Entrer une plage de dates</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
           <input matStartDate formControlName="start" placeholder="Start date" [(ngModel)]="startDate" >
           <input matEndDate formControlName="end" placeholder="End date" [(ngModel)]="endDate" >
@@ -25,7 +25,7 @@
         <table class="table table-striped text-center">
           <thead>
             <tr>
-              <th scope="col">Numero facture</th>
+              <th scope="col">ID facture</th>
               <th scope="col">Etat facture</th>
               <th scope="col">date d'envoi</th>
               <th scope="col">date de facturation</th>
@@ -37,12 +37,20 @@
 
             <tr *ngFor="let bordereau of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
               <th>{{ bordereau.facture.id }}</th>
-              <td><p *ngIf="bordereau.paye ===false">Non payée</p> <p *ngIf="bordereau.paye ===true">payée</p></td>
+              <td><p *ngIf="bordereau.paye ===false" [style.color]="bordereau.paye ? 'inherit' : 'red'">Non payée</p> <p *ngIf="bordereau.paye ===true" [style.color]="!bordereau.paye ? 'inherit' : 'green'">payée</p></td>
               <td>{{ bordereau.dateTraitement }}</td>
               <td>{{ bordereau.dateFacturation }}</td>
               <td>{{ bordereau.facture.total }}</td>
-              <td > <button  mat-stroked-button color="primary" (click)="openFacture(bordereau.facture)">Facture</button></td>
-              <td > <button  mat-stroked-button color="primary" (click)="openBordereau(bordereau)">Bordereau</button></td>
+              <td > <button  class="btn btn-info" (click)="openFacture(bordereau.facture)"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              </svg>
+              Facture</button></td>
+              <td > <button  class="btn btn-info" (click)="openBordereau(bordereau)"><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              </svg>
+              Bordereau</button></td>
             </tr>
           </tbody>
         </table>

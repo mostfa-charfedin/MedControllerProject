@@ -11,7 +11,7 @@ export class User {
   public email: string | undefined;
   public localisation: string | undefined;
   public specialite: string | undefined;
-  public isActive: boolean | undefined;
+  public accountNonLocked: boolean | undefined;
   public demandeMod: boolean | undefined;
   public cin :number | undefined;
   public birthday: Date | undefined;

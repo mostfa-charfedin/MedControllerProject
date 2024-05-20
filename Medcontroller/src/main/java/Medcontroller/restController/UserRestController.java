@@ -121,7 +121,7 @@ public class UserRestController {
 	        existingUser.setEmail(updatedUser.getEmail());
 	        existingUser.setLocalisation(updatedUser.getLocalisation());
 	        existingUser.setSpecialite(updatedUser.getSpecialite());
-	        existingUser.setIsActive(updatedUser.getIsActive());
+
 	        existingUser.setDemandeMod(false);
 	        existingUser.setBirthday(updatedUser.getBirthday());
 	        existingUser.setCin(updatedUser.getCin());

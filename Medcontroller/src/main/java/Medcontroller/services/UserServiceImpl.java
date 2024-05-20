@@ -125,7 +125,7 @@ public class UserServiceImpl  implements UserService{
 		newUser.setUsername(request.getUsername());
 		newUser.setEmail(request.getEmail());
 		newUser.setPassword( bCryptPasswordEncoder.encode( request.getPassword() )  );
-		newUser.setIsActive(false);
+		newUser.setAccountNonLocked(false);
 		newUser.setFirstName(request.getFirstName());
 		newUser.setLastName(request.getLastName());
 		newUser.setLocalisation(request.getLocalisation());
@@ -137,11 +137,18 @@ public class UserServiceImpl  implements UserService{
 		
         newUser.setBirthday(request.getBirthday().toString());
 		newUser.setCin(request.getCin());
-		
-		Role r = roleRep.findByRole("USER");
-		List<Role> roles = new ArrayList<>();
-		roles.add(r);
-		newUser.setRoles(roles);
+		System.out.println(request.getSpecialite());
+		 if ("agent".equalsIgnoreCase(request.getSpecialite())) {
+		        Role agentRole = roleRep.findByRole("AGENT");
+		        List<Role> roles = new ArrayList<>();
+		        roles.add(agentRole);
+		        newUser.setRoles(roles);
+		    } else {
+		        Role userRole = roleRep.findByRole("USER");
+		        List<Role> roles = new ArrayList<>();
+		        roles.add(userRole);
+		        newUser.setRoles(roles);
+		    }
 		
 		//génerer code secret
 		 String code = this.generateCode();
@@ -229,7 +236,7 @@ public class UserServiceImpl  implements UserService{
 
 	    if (userOptional.isPresent()) {
 	    	User user = userOptional.get();
-	    	user.setIsActive(false);
+	    	user.setAccountNonLocked(false);
 	        System.out.println("User blocked");
 	    } else {
 	        System.out.println("User not found");
@@ -242,7 +249,7 @@ public class UserServiceImpl  implements UserService{
 
 	    if (userOptional.isPresent()) {
 	    	User user = userOptional.get();
-	    	user.setIsActive(true);
+	    	user.setAccountNonLocked(true);
 	        System.out.println("User activated");
 	    } else {
 	        System.out.println("User not found");
