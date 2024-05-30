@@ -42,6 +42,7 @@ export class StatsticComponent implements OnInit{
   doctraite!:number;
   docnontraite!:number
   totalAmountPerMonth = Array(12).fill(0);
+  totalimpayePerMonth = Array(12).fill(0);
   ngOnInit() {
     const today = new Date();
     this.startDate = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -80,11 +81,14 @@ this.filter()
           }
         );
   }
+
   filter() {
-    // Reset the total amount per month array
+    // Reset the total amount per month arrays
     this.totalAmountPerMonth = Array(12).fill(0);
+    this.totalimpayePerMonth = Array(12).fill(0);
 
     let filteredItems = this.items.filter(Bordereau => Bordereau.paye == true);
+    let facturenonpaye = this.items.filter(Bordereau => Bordereau.paye == false);
 
     filteredItems.forEach(item => {
         const itemDate = new Date(item.dateFacturation);
@@ -96,8 +100,21 @@ this.filter()
         }
     });
 
+    facturenonpaye.forEach(item => {
+        const itemDate = new Date(item.dateTraitement);
+        if (itemDate.getFullYear() === this.selectedYear) {
+            const month = itemDate.getMonth();
+
+            // Add the total amount of the invoice to the corresponding month's total
+            this.totalimpayePerMonth[month] += item.facture.total;
+        }
+    });
+
+    console.log(this.totalimpayePerMonth);
+
     this.initCharts();
 }
+
 
 
 
@@ -136,16 +153,24 @@ initCharts() {
         const primaryColor = '#007bff';
         const secondaryColor = '#6c757d';
         const successColor = '#28a745';
+        const dangerColor = '#f42929';
+
 
         this.barData = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
             datasets: [
                 {
-                    label: 'Total factures payés',
+                    label: 'Total des factures payées',
                     backgroundColor: primaryColor,
                     borderColor: primaryColor,
                     data: this.totalAmountPerMonth,
-                }
+                },
+                {
+                  label: 'Total des factures impayées',
+                  backgroundColor: dangerColor,
+                  borderColor: dangerColor,
+                  data: this.totalimpayePerMonth,
+              }
             ]
         };
 

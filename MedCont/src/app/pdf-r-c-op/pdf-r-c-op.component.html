@@ -49,22 +49,22 @@
 <table >
  <tbody>
                   <tr>
-                  <td><i>Mr / Mme / Mlle :</i> <i contenteditable='true'>...</i></td>
+                  <td><i>Mr / Mme / Mlle :</i> <i contenteditable='true'>{{document.nomAssure}}</i></td>
 
                   </tr>
 
                   <tr>
-                  <td><i>Bénéficiaire :</i> <i contenteditable='true'>...</i></td>
+                  <td><i>Bénéficiaire :</i> <i contenteditable='true'>{{document.nomBenificiaire}}</i></td>
 
                   </tr>
 
                   <tr>
-                  <td><i>Qualité de bénéficiaire (Lui-même, conjoint, Enfant) : </i> <i contenteditable='true'>...</i></td>
+                  <td><i>Qualité de bénéficiaire (Lui-même, conjoint, Enfant) : </i> <i contenteditable='true'>{{document.qualiteBinificiaire}}</i></td>
 
                   </tr>
 
                   <tr>
-                  <td><i>Numéro du dossier :</i> <i contenteditable='true'>...</i></td>
+                  <td><i>Numéro du dossier :</i> <i contenteditable='true'>{{document.id}}</i></td>
 
                   </tr>
 
@@ -129,7 +129,7 @@
       <td><i>Téléphone :  </i><i contenteditable='true'>...</i></td>
       </tr>
       <tr >
-        <th  style="text-align-last: right;">Opticien :<i contenteditable='true'>...</i></th>
+        <th  style="text-align-last: right;">Opticien :<i contenteditable='true'>{{document.user?.firstName}} {{document.user?.lastName}}</i></th>
       </tr>
 
 

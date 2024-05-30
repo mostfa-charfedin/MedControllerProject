@@ -52,12 +52,12 @@ public class SecurityConfig {
             }
         }))
 		.authorizeHttpRequests( requests -> requests
-				.requestMatchers("/login","/register","/verifyEmail/**","/supprimer/**","/verif","/updatePassword","/acceptDm","/demande").permitAll()
-				.requestMatchers(HttpMethod.GET, "/recuperer/**").permitAll()
-				.requestMatchers("/all","/delete/**","/factDoc","/bloquer/**","/validerCompte/**").permitAll()
-				.requestMatchers("/updateUser","/all","/allDocs","/doc/**","/findDocumentByUserId/**","/updateRole").permitAll()		
-				.requestMatchers("/uploadDoc","/updateDoc","/allHistorys","/saveBoredereau","/allFactures","/allBordereaux").permitAll()		
-				.requestMatchers("/allHistorys","/payerFacture","/findBordereauxByUserId/**","/allReclamations","/sendReclamation","/validerReclamation/**").permitAll()	
+				.requestMatchers("/supprimer/**","/acceptDm","/bloquer/**","/validerCompte/**","/all","/delete/**","/updateRole","/allHistorys").permitAll()
+				.requestMatchers( "/recuperer/**","/login","/register","/verifyEmail/**","/demande","/verif","/updatePassword").permitAll()
+				.requestMatchers("/factDoc","/allReclamations","/sendReclamation").permitAll()
+				.requestMatchers("/updateUser","/all","/allDocs","/doc/**","/findDocumentByUserId/**").permitAll()		
+				.requestMatchers("/uploadDoc","/updateDoc","/saveBoredereau","/allFactures","/allBordereaux").permitAll()		
+				.requestMatchers("/allHistorys","/payerFacture","/findBordereauxByUserId/**","/validerReclamation/**").permitAll()	
 				.anyRequest().authenticated() )
 		
 		.addFilterBefore(new JWTAuthenticationFilter(authMgr), 

@@ -64,7 +64,7 @@ return this.regitredUser;
     const decodedToken = this.helper.decodeToken(this.token);
     this.roles = decodedToken.roles;
     this.loggedUser = decodedToken.sub;
- 
+
   }
 
 

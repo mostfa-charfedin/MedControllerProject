@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
       let id =Number(localStorage.getItem('id'));
       this.userService.getUserById(id).subscribe({
       next:  (data: User) => {
-          this.user = data;
+          this.user = data; 
           if (this.user.photo) {
             this.profileImage ='data:image/jpeg;base64,'+this.user.photo;
           }

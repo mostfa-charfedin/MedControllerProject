@@ -127,6 +127,8 @@ openBordereau(bordereau: Bordereau) {
 
 
 payerFacture(bordereau: Bordereau) {
+  const confirmValidation = window.confirm("Voulez-vous payer la facture ?");
+  if (confirmValidation){
   let adminId = localStorage.getItem("id");
   this.bordereauService.PayeFacture(bordereau.id, Number(adminId)).subscribe(
     (response) => {
@@ -141,7 +143,7 @@ window.location.reload();
   );
 }
 
-
+}
 }
 
 

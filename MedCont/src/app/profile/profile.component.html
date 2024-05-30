@@ -82,8 +82,8 @@
             </div>
           </div>
         </div>
-        <button  style="margin: 10px;"  *ngIf="!user.demandeMod" class="btn btn-primary"  type="submit" (click)="demandemodification()">Demander une modification</button>
-        <button  style="margin: 10px;" *ngIf="user.demandeMod"class="btn btn-primary"  type="submit" (click)="switch()">Modifier <i class="fa-regular fa-pen-to-square"></i></button>
+        <button  style="margin: 10px;"  *ngIf="!user.demandeMod && !authService.isAdmin()" class="btn btn-primary"  type="submit" (click)="demandemodification()">Demander une modification</button>
+        <button  style="margin: 10px;" *ngIf="user.demandeMod || authService.isAdmin()"class="btn btn-primary"  type="submit" (click)="switch()">Modifier <i class="fa-regular fa-pen-to-square"></i></button>
         </ng-template>
 
         <ng-template [ngIf]="isSwitched">

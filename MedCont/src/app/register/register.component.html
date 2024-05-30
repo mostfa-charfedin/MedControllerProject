@@ -14,7 +14,7 @@
           <form [formGroup]="myForm" novalidate (ngSubmit)="onRegister()">
             <mat-stepper orientation="vertical">
   <mat-step>
-    <ng-template matStepLabel>Step 1</ng-template>
+    <ng-template matStepLabel>Étape 1</ng-template>
     <ng-template matStepContent>
 
       <div class="form-row mt-5">
@@ -79,11 +79,11 @@ myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="te
 </div>
     <!--------------------------------------------------------------------------------------------------------------------->
 
-      <button class="btn btn-primary" matStepperNext>Next</button>
+      <button class="btn btn-primary" matStepperNext>L'étape suivante</button>
     </ng-template>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Step 2</ng-template>
+    <ng-template matStepLabel>Étape 2</ng-template>
     <ng-template matStepContent>
       <div class="form-row mt-5">
 
@@ -105,7 +105,7 @@ myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="te
         <div class="col-md-4 mb-3">
           <label for="validationDefaultUsername">Spécialité</label>
           <select class="form-control" formControlName="specialite" name="specialite" id="specialite" (change)="onSpecialiteChange($event)">
-            <option selected disabled>Selectinner une specialite</option>
+            <option selected disabled>Sélectionner votre spécialité</option>
               <option value="agent">Agent</option>
               <option value="opticien">Opticien</option>
               <option value="dentiste">Dentiste</option>
@@ -138,12 +138,12 @@ myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="te
   </div>
 
 <!--------------------------------------------------------------------------------------------------------------------->
-<button class="btn btn-secondary" matStepperPrevious>Back</button>&nbsp;
-      <button class="btn btn-primary" matStepperNext>Next</button>
+<button class="btn btn-secondary" matStepperPrevious>Retour</button>&nbsp;
+      <button class="btn btn-primary" matStepperNext>L'étape suivante</button>
     </ng-template>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Step 3</ng-template>
+    <ng-template matStepLabel>Étape 3</ng-template>
  <!--------------------------------------------------------------------------------------------------------------------->
 
 
@@ -163,12 +163,12 @@ myForm.get('confirmPassword')?.value != myForm.get('password')?.value" class="te
 
   <div class="col-md-4 mb-3">
     <label for="validationDefault02">Date de naissance</label>
-    <input type="date" class="form-control"  name="birthday" placeholder="birthday"  formControlName="birthday" >
+    <input type="date" class="form-control"  name="birthday" placeholder="Date de naissance"  formControlName="birthday" >
   </div>
 
 </div>
 <div class="form-row">
-<button class="btn btn-secondary" matStepperPrevious>Back</button>&nbsp;
+<button class="btn btn-secondary" matStepperPrevious>Retour</button>&nbsp;
 
 <button type="button" [disabled]="myForm.invalid" class="btn btn-success"
 (click)="onRegister()">S'insrire</button>

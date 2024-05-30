@@ -18,6 +18,7 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
+              <th></th>
               <th scope="col">Username</th>
               <th scope="col">First name</th>
               <th scope="col">Last name</th>
@@ -28,6 +29,8 @@
           <tbody>
             <tr *ngFor="let user of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
               <th scope="row">{{ user.id }}</th>
+              <th><img [src]="user.photo ? 'data:image/jpeg;base64,' + user.photo : 'assets/images/logo.png'" width="35" height="35" class="rounded-circle"></th>
+
               <td>{{ user.username }}</td>
               <td>{{ user.firstName }}</td>
               <td>{{ user.lastName }}</td>

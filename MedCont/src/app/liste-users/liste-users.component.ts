@@ -66,6 +66,7 @@ pageIndex = 0;
       }
     );
   }
+
   /*deleteUser(user:User){
     const confirmValidation = window.confirm('Voulez-vous supprimler le compte ?');
     if (confirmValidation){
@@ -127,7 +128,7 @@ UpdateRoleUser(){
       this.toastr.success('Role changé.', 'Confirmation');
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 800);
     },
     (error) => {
       this.toastr.error('erreur.', 'Erreur');

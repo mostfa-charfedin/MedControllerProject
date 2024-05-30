@@ -37,7 +37,7 @@
 
             <tr *ngFor="let bordereau of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
               <th>{{ bordereau.facture.id }}</th>
-              <td><p *ngIf="bordereau.paye ===false" [style.color]="bordereau.paye ? 'inherit' : 'red'">Non payée</p> <p *ngIf="bordereau.paye ===true" [style.color]="!bordereau.paye ? 'inherit' : 'green'">payée</p></td>
+              <td><p *ngIf="bordereau.paye ===false" [style.color]="bordereau.paye ? 'inherit' : 'red'">Impayée</p> <p *ngIf="bordereau.paye ===true" [style.color]="!bordereau.paye ? 'inherit' : 'green'">payée</p></td>
               <td>{{ bordereau.dateTraitement }}</td>
               <td>{{ bordereau.dateFacturation }}</td>
               <td>{{ bordereau.facture.total }}</td>

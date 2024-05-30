@@ -19,7 +19,8 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">Username</th>
+              <th ></th>
+              <th scope="col" >Username</th>
               <th scope="col">First name</th>
               <th scope="col">Last name</th>
               <th scope="col">Email</th>
@@ -33,6 +34,7 @@
 
             <tr *ngFor="let user of filter.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
               <th scope="row">{{ user.id }}</th>
+              <th><img [src]="user.photo ? 'data:image/jpeg;base64,' + user.photo : 'assets/images/logo.png'" width="35" height="35" class="rounded-circle"></th>
               <td>{{ user.username }}</td>
               <td>{{ user.firstName }}</td>
               <td>{{ user.lastName }}</td>
@@ -52,9 +54,6 @@
               </td>
 
 
-             <!-- <td>
-                <button  class="btn btn-outline-danger me-2" (click)="deleteUser(user)">Delete</button>
-              </td>-->
 
               <td>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal(user)">
@@ -94,7 +93,7 @@
         <div class="container">
           <div class="form-check">
             <input class="form-check-input larger-checkbox" type="checkbox" id="userRole" value="USER" (change)="updateRoles($event)" [checked]="isRoleSelected('USER')">
-            <label class="form-check-label" for="userRole">User</label>
+            <label class="form-check-label" for="userRole">Médecin</label>
           </div>
           <div class="form-check">
             <input class="form-check-input larger-checkbox" type="checkbox" id="adminRole" value="ADMIN" (change)="updateRoles($event)" [checked]="isRoleSelected('ADMIN')">

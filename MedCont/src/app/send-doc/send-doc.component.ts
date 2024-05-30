@@ -3,7 +3,7 @@ import { DocumentService } from '../services/document.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
 import { Doc } from '../models/doc';
-import { FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 @Component({
   selector: 'app-send-doc',
   templateUrl: './send-doc.component.html',
@@ -21,30 +21,41 @@ export class SendDocComponent {
  file2: File | null = null;
  agentId!: number ;
  medecinId!: number;
+ selectedSpecialite: string | null = null;
+ sendDoc!: FormGroup;
   constructor(
     private fileUploadService: DocumentService,
     private toastr: ToastrService,
-    private userService: UserService
+    private userService: UserService ,private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
     this.fetchUsers();
-
-
-
+     // Initialize myForm2 with FormBuilder
+ this.sendDoc = this.formBuilder.group({
+  nomBenificiaire: ['', [Validators.required,]],
+  qualiteBinificiaire: ['', [Validators.required]],
+  nomAssure: ['', [Validators.required]],
+  matriculeAssure: ['', [Validators.required]],
+  medecin: ['', [Validators.required]],
+});
   }
 
   fetchUsers() {
     this.userService.getAllUsers().subscribe({
       next: (data) => {
-        this.users = data;
-        this.filteredUsers = data;
+        this.users = data.filter(user =>
+          user.specialite!.toLowerCase() === 'dentiste' ||  user.specialite!.toLowerCase() === 'opticien'
+     );
+        this.filteredUsers = this.users
+
       },
       error: (err: any) => {
         console.log('Error fetching users:', err);
       }
     });
   }
+
 
   onFileSelected(event: any, index: any): void {
     const file = event.target.files[0];
@@ -64,7 +75,7 @@ export class SendDocComponent {
 
 
 
-  uploadFiles(sendDoc: NgForm): void {
+  uploadFiles(): void {
     const file1Input = document.getElementById('inputGroupFile01') as HTMLInputElement;
     const file2Input = document.getElementById('inputGroupFile02') as HTMLInputElement;
 
@@ -84,10 +95,11 @@ export class SendDocComponent {
     }
 this.doc.agentId=  localStorage.getItem('id');
 this.doc.medecinId =  this.selectedUserId;
-this.doc.matriculeAssure = sendDoc.value['matriculeAssure'];
-this.doc.nomAssure = sendDoc.value['nomAssure'];
-this.doc.nomBenificiaire = sendDoc.value['nomBenificiaire'];
-this.doc.qualiteBinificiaire = sendDoc.value['QualiteBinificiaire'];
+this.doc.matriculeAssure = this.sendDoc.value['matriculeAssure'];
+this.doc.nomAssure = this.sendDoc.value['nomAssure'];
+this.doc.nomBenificiaire = this.sendDoc.value['nomBenificiaire'];
+this.doc.qualiteBinificiaire = this.sendDoc.value['qualiteBinificiaire'];
+
 console.log(this.doc)
     this.fileUploadService.uploadFiles(this.doc, file1, file2).subscribe({
       next: (res) => {
@@ -114,19 +126,20 @@ console.log(this.doc)
 
 
 
-  filterUsers() {
-    if (this.searchText.trim() === '') {
-      this.filteredUsers = this.users;
-    } else {
-      this.filteredUsers = this.users.filter(user =>
-        user.username.toLowerCase().includes(this.searchText.toLowerCase())
-      );
+  updateSpecialite(event: any) {
+    this.selectedSpecialite = event.target.value;
+    this.filterUsers();
+  }
 
-      // Stop filtering if only one user matches the search
-      if (this.filteredUsers.length === 1) {
-        return;
-      }
-    }
+  filterUsers() {
+    this.filteredUsers = this.users.filter(user => {
+      const matchesSearchText = this.searchText.trim() === '' || user.username.toLowerCase().includes(this.searchText.toLowerCase());
+      const matchesSpecialite = !this.selectedSpecialite || user.specialite.toLowerCase() === this.selectedSpecialite.toLowerCase();
+      return matchesSearchText && matchesSpecialite;
+    });
   }
 }
+
+
+
 
